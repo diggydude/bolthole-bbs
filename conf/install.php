@@ -26,7 +26,7 @@
   $config->db       = (object) array(
                         'dsn'      => 'mysql:dbname=bolthole;host=127.0.0.1',
                         'username' => 'apache',
-                        'password' => 'eK23s5il'
+                        'password' => 'mysql_password'
                       );
 
   $config->files    = (object) array(
