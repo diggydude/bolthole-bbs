@@ -1,0 +1,16 @@
+<div id="forum-post-masthead">
+  <div>
+	<div id="forum-post-avatar">
+	  <img src="<%=Config.avatarFolder %>/<%=avatar %>_medium.png" alt="<%=author %>" />
+	</div>
+    <div>
+      <div id="forum-post-topic"><%=topic %></div>
+      <div id="forum-post-byline">
+        Posted by <a href="#" class="profile-link" data-userId="<%=postedBy %>"><%=author %></a>
+        at <%=postedAt.toLocalTime() %>
+	  </div>
+    </div>
+  </div>
+</div>
+<div id="forum-post-body"><%=rendered %></div>
+<div id="forum-post-signature"><%=signature %></div>

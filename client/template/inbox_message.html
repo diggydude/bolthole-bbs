@@ -1,0 +1,18 @@
+<div style="margin: 5px; padding: 10px 20px 0px 20px; border: 1px dotted #ffffff;">
+  <div id="forum-post-masthead">
+    <div>
+  	<div id="forum-post-avatar">
+  	  <img src="<%=Config.avatarFolder %>/<%=senderAvatar %>_medium.png" alt="<%=sender %>" />
+  	</div>
+      <div>
+        <div id="forum-post-topic"><%=subject %></div>
+        <div id="forum-post-byline">
+          Sent by <a href="#" id="profile-link" data-userId="<%=from %>"><%=sender %></a> at <%=postedAt.toLocalTime() %>
+  	  </div>
+      </div>
+    </div>
+  </div>
+  <div id="forum-post-body" style="min-height: 200px;"><%=body %></div>
+  <div id="forum-post-signature"><%=senderSignature %></div>
+</div>
+<div style="text-align: center; padding: 5px;"><button id="delete-mail-button" data-messageId="<%=messageId %>">Delete</button></div>

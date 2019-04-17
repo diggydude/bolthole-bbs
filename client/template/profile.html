@@ -1,0 +1,88 @@
+<div id="profile-masthead">
+  <div id="profile-masthead-info">
+    <div id="profile-masthead-left">
+      <div id="profile-username"><%=username %></div>
+      <div id="profile-title"><%=title %></div>
+	</div>
+	<div id="profile-masthead-right">
+	  <input type="hidden" id="follow-userId" value="<%=userId %>" />
+	  <input type="hidden" id="follow-username" value="<%=username %>" />
+	  <button id="unfollow-button">Unfollow</button>
+      <button id="follow-button">Follow</button>
+	</div>
+  </div>
+  <div id="profile-tab-bar">  
+    <div class="tab-bar">
+      <div class="tab-clear-left"></div>
+      <div class="tab" onclick="openPage('about', this);" id="defaultTab">About</div>
+  	<div class="tab-spacer"></div>
+      <div class="tab" onclick="openPage('blog',  this);">Blog</div>
+  	<div class="tab-spacer"></div>
+      <div class="tab" onclick="openPage('files', this);">Files</div>
+  	<div class="tab-spacer"></div>
+    </div>
+  </div>
+  <div id="profile-avatar"><img src="<%=Config.avatarFolder %>/<%=avatar %>_large.png" alt="<%=username %>" /></div>
+</div>
+<!-- About tab -->
+<div id="about" class="tab-content">
+  <h2>About <%=username %></h2>
+  <div id="profile-joined"><span style="font-weight: bold;">Joined:</span> <%=joined.toLocalTime() %></div>
+  <div id="profile-website"><span style="font-weight: bold;">Website:</span> <a href="<%=website %>" target="_blank"><%=website %></a></div>
+  <div id="profile-about"><%=rendered %></div>
+  <div id="profile-signature"><%=signature %></div>
+  <div id="profile-comment-bar">
+    <input type="hidden" id="profile-comment-id" value="<%=userId %>" />
+    <input type="text" id="profile-comment-entry" value="" />
+    <button id="profile-comment-button">Leave a Comment</button>
+  </div>
+  <% for (i = 0; i < comments.length; i++) { %>
+    <div class="comment">
+      <div class="comment-avatar"><img src="<%=Config.avatarFolder %>/<%=comments[i].avatar %>_small.png" alt="<%=comments[i].author %>" /></div>
+      <div class="comment-text">
+        <div class="comment-byline">
+          <span class="comment-author"><a href="#" class="profile-link" data-userId="<%=comments[i].postedBy %>"><%=comments[i].author %></a></span>
+          <span class="comment-postedAt"><%=comments[i].postedAt.toLocalTime() %></span>
+        </div>
+        <div class="comment-body"><%=comments[i].body %></div>
+      </div>
+    </div>
+  <% } %>
+</div>
+<!-- Blog tab -->
+<div id="blog" class="tab-content">
+  <h2><%=username %>'s Blog</h2>
+  <% for (i = 0; i < blogPosts.length; i++) { %>
+    <div>
+      <h3><%=blogPosts[i].title %></h3>
+      <div class="profile-blog-byline">Posted <%=blogPosts[i].postedAt.toLocalTime() %></div>
+      <div class="profile-blog-summary"><%=blogPosts[i].summary %></div>
+      <div class="profile-blog-more"><a href="#" class="blog-post-link" data-postId="<%=blogPosts[i].postId %>">Read More...</a></div>
+    </div>
+  <% } %>
+</div>
+<!-- Files tab -->
+<div id="files" class="tab-content">
+  <h2><%=username %>'s Files</h2>
+  <table width="100%">
+    <thead>
+      <th>Name</th>
+      <th>Type</th>
+      <!-- th>Size</th -->
+      <th>Uploaded</th>
+      <th class="numeric">Downloads</th>
+    </thead>
+    <tbody>
+      <% for (i = 0; i < files.length; i++) { %>
+        <tr>
+          <!-- td nowrap><a href="#" class="profile-file-details-link" data-fileId="<%=files[i].id %>"><%=files[i].filename %></a></td -->
+          <td nowrap><a href="#" class="file-details-link" data-fileId="<%=files[i].id %>"><%=files[i].filename %></a></td>
+          <td nowrap><%=files[i].mimeType %></td>
+          <!-- td class="numeric" nowrap><%=files[i].size %></td -->
+          <td nowrap><%=files[i].uploadedAt.toLocalTime() %></td>
+          <td class="numeric" nowrap><%=files[i].downloads %></td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>

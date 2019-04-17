@@ -1,0 +1,21 @@
+<div id="profile-list-container">
+  <h2>Member Profiles</h2>
+  <table id="profile-list">
+    <thead>
+      <th>User</th>
+	  <th></th>
+      <th>Title</th>
+      <th>Joined</th>
+    </thead>
+    <tbody>
+    <% for (i = 0; i < profiles.length; i++) { %>
+      <tr>
+	    <td><img class="profile-list-avatar" src="<%=Config.avatarFolder %>/<%=profiles[i].avatar %>_small.png" alt="<%=profiles[i].username %>" /></td>
+        <td><a href="#" class="profile-link" data-userId="<%=profiles[i].userId %>"><%=profiles[i].username %></a></td>
+        <td><%=profiles[i].title %></td>
+        <td><%=profiles[i].joined.toLocalTime() %></td>
+      </tr>
+    <% } %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,36 @@
+.comment {
+  display: table-row;
+  margin-top: 5px;
+}
+
+.comment-avatar {
+  display: table-cell;
+  width: 50px;
+  height: 50px;
+  padding: 0px 0px 10px 0px;
+}
+
+.comment-avatar > img {
+  border: 0px;
+  border-radius: 50%;
+}
+
+.comment-text {
+  display: table-cell;
+  vertical-align: top;
+  padding: 0px 0px 10px 5px;
+}
+
+.comment-author {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.comment-postedAt {
+  font-size: 12px;
+  padding-left: 5px;
+}
+
+.comment-body {
+  font-size: 12px;
+}

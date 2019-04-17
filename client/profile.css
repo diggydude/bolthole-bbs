@@ -1,0 +1,141 @@
+.profile-blog-byline {
+  font-size: 12px;
+  padding-bottom: 5px;
+}
+
+.profile-blog-more {
+  font-size: 12px;
+  padding-top: 5px;
+}
+
+#profile-masthead {
+  position: relative;
+  left: 0px;
+  top: 15px;
+  width: 100%;
+}
+
+#profile-masthead-info {
+  display: flex;
+  width: 100%;
+}
+
+#profile-masthead-left {
+  width: 90%;	
+}
+
+#profile-username {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 20px 0px 0px 200px;
+}
+
+#profile-title {
+  font-size: 14px;
+  padding: 0px 0px 10px 200px;
+}
+
+#profile-masthead-right {
+  width: 10%;
+  text-align: right;
+  margin: auto 25px;
+}
+
+#profile-avatar {
+  position: absolute;
+  left: 25px;
+  top: -10px;
+  width: 125px;
+  height: 125px;
+  border: 3px solid;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+#profile-avatar > img {
+  border-radius: 50%;
+}
+
+#profile-joined,
+#profile-website,
+#profile-signature {
+  font-size: 14px;
+}
+
+#profile-about {
+  min-height: 100px;
+  padding: 10px 0px 10px 0px;
+  border: dotted #dddddd;
+  border-width: 1px 0px 0px 0px;
+  margin-top: 10px;
+}
+
+#profile-signature {
+  padding: 5px 0px 5px 0px;
+  border: 1px dotted #dddddd;
+  border-width: 1px 0px 1px 0px;
+  margin-bottom: 10px;
+}
+
+#profile-comment-bar {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+#profile-comment-entry {
+  width: 400px;
+}
+
+#profile-tab-bar {
+  display: table;
+  width: 100%;
+}
+
+.tab-bar {	
+  display: table-row;
+  width: 100%;
+  height: 30px;
+}
+
+.tab-clear-left {
+  display: table-cell;
+  min-width: calc(100% - 306px);
+}
+
+.tab-spacer {
+  display: table-cell;
+  width: 2px;
+}
+
+.tab {
+  display: table-cell;
+  border-width: 0px;
+  border-radius: 7px 7px 0px 0px;
+  outline: none;
+  cursor: pointer;
+  padding: 5px 16px;
+  font-size: 14px;
+  text-align: center;
+  width: 100px;
+}
+
+.tab-content {
+  display: none;
+  padding: 25px 20px 50px 20px;
+}
+
+#profile-list-container {
+  padding: 10px;
+}
+
+#profile-list {
+  width: 100%;
+}
+
+#profile-list > tbody > tr > td {
+  padding: 3px 5px 3px 5px;
+}
+
+.profile-list-avatar {
+  border-radius: 50%;
+}  

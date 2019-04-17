@@ -1,0 +1,34 @@
+<div id="blog-post-container">
+  <div id="blog-post-masthead">
+    <div>
+  	  <div id="blog-post-author">
+  	    <div id="blog-post-avatar"><img src="<%=Config.avatarFolder %>/<%=avatar %>_medium.png" alt="<%=author %>" /></div>
+	    <div id="blog-post-author-name"><a href="#" class="profile-link" data-userId="<%=postedBy %>"><%=author %></a></div>
+	    <div id="blog-post-author-title"><%=authorTitle %></div>
+  	  </div>
+      <div id="blog-post-headline">
+        <div id="blog-post-title"><%=title %></div>
+        <div id="blog-post-byline">Posted at <%=postedAt.toLocalTime() %></div>
+      </div>
+    </div>
+  </div>
+  <div id="blog-post-body"><%=rendered %></div>
+  <div id="blog-post-signature"><%=signature %></div>
+  <div id="blog-post-comment-bar">
+    <input type="hidden" id="blog-post-comment-id" value="<%=postId %>" />
+    <input type="text" id="blog-post-comment-entry" value="" />
+    <button id="blog-post-comment-button">Leave a Comment</button>
+  </div>
+  <% for (i = 0; i < comments.length; i++) { %>
+    <div class="comment">
+      <div class="comment-avatar"><img src="<%=Config.avatarFolder %>/<%=comments[i].avatar %>_small.png" alt="<%=comments[i].author %>" /></div>
+      <div class="comment-text">
+        <div class="comment-byline">
+          <span class="comment-author"><a href="#" class="profile-link" data-userId="<%=comments[i].postedBy %>"><%=comments[i].author %></a></span>
+          <span class="comment-postedAt"><%=comments[i].postedAt.toLocalTime() %></span>
+        </div>
+        <div class="comment-body"><%=comments[i].body %></div>
+      </div>
+    </div>
+  <% } %>
+</div>

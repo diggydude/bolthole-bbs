@@ -1,0 +1,20 @@
+<div style="display: table; width: 100%;">
+  <div style="display: table-row;">
+    <div style="display: table-cell; width: 50%; font-weight: bold;  border-bottom: 1px #ffffff dotted; padding-bottom: 5px;">Subject:</div>
+	<div style="display: table-cell; width: 20%; font-weight: bold;  border-bottom: 1px #ffffff dotted; padding-bottom: 5px;">From:</div>
+	<div style="display: table-cell; width: 30%; font-weight: bold;  border-bottom: 1px #ffffff dotted; padding-bottom: 5px;">Sent:</div>
+  </div>
+  <% for (i = 0; i < messages.length; i++) { %>
+  <div style="display: table-row;">
+    <div style="display: table-cell; width: 50%;">
+      <a href="#" class="mail-message-link" data-messageId="<%=messages[i].messageId %>"><%=messages[i].subject %></a>
+    </div>
+	<div style="display: table-cell; width: 20%;">
+      <a href="#" class="profile-link" data-userId="<%=messages[i].from %>"><%=messages[i].sender %></a>
+    </div>
+    <div style="display: table-cell; width: 30%;">
+      <%=messages[i].postedAt.toLocalTime() %>
+    </div>
+  </div>
+  <% } %>
+</div>

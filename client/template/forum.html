@@ -1,0 +1,27 @@
+<div id="forum-display">
+  <div id="forum-left">
+    <div id="forum-thread-list">
+	  <% for (i = 0; i < threads.length; i++) { %>
+        <div class="forum-thread-list-item">
+		  <img src="/client/icons/forum_thread_icon.png" alt="<%=threads[i].topic %>" />
+		  <a href="#" class="forum-thread-link" data-threadId="<%=threads[i].threadId %>"><%=threads[i].topic %></a>
+		  by <a href="#" class="profile-link" data-userId="<%=threads[i].startedBy %>"><%=threads[i].starter %></a>
+		</div>
+	  <% } %>
+    </div>
+    <div id="forum-thread-controls">
+	  <button id="forum-post-topic-button">Start New Topic</button>
+	</div>
+  </div>
+  <div id="forum-right">
+	<div id="forum-post-view"></div>
+	<div id="forum-post-view-controls"><button id="forum-post-reply-button">Reply to Post</button></div>
+    <div id="forum-post-tree"></div>
+	<div id="forum-post-tree-controls">
+	  <span>Filter Post Tree:</span>
+	  <button id="forum-branch-button">Branch</button>
+	  <button id="forum-limb-button">Limb</button>
+	  <button id="forum-stem-button">Stem</button>
+	</div>
+  </div>
+</div>
