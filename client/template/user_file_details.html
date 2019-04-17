@@ -1,0 +1,62 @@
+<div id="user-file-container">
+  <div id="user-file-masthead">
+    <div>
+      <div id="user-file-uploader">
+        <div id="user-file-avatar"><img src="<%=Config.avatarFolder %>/<%=avatar %>_medium.png" alt="<%=uploader %>" /></div>
+        <div id="user-file-uploader-name"><a href="#" class="profile-link" data-userId="<%=uploadedBy %>"><%=uploader %></a></div>
+        <div id="user-file-uploader-title"><%=title %></div>
+      </div>
+      <div id="user-file-headline">
+        <div id="user-file-filename"><%=filename %></div>
+        <div id="user-file-uploaded">Uploaded at <%=uploadedAt.toLocalTime() %></div>
+      </div>
+    </div>
+  </div>
+  <div class="tbl" id="file-details-table">
+    <div class="tr">
+      <div class="cell">Filename:</div>
+      <div class="cell"><%=filename %></div>
+    </div>
+    <div class="tr">
+      <div class="cell">Size:</div>
+      <div class="cell"><%=size %> bytes</div>
+    </div>
+    <div class="tr">
+      <div class="cell">MIME Type:</div>
+      <div class="cell"><%=mimeType %></div>
+    </div>
+    <div class="tr">
+      <div class="cell">MD5 Hash:</div>
+      <div class="cell"><%=hash %></div>
+    </div>
+    <div class="tr">
+      <div class="cell">Downloads:</div>
+      <div class="cell"><%=downloads %></div>
+    </div>
+    <div class="tr">
+      <div class="cell">Description:</div>
+      <div class="cell"><%=description %></div>
+    </div>
+  </div>
+  <div id="download-button-bar">
+    <button id="download-button" data-fileId="<%=id %>">Download</button>
+  </div>
+  <div id="user-file-signature"><%=signature %></div>
+  <div id="user-file-comment-bar">
+    <input type="hidden" id="user-file-comment-id" value="<%=id %>" />
+    <input type="text" id="user-file-comment-entry" value="" />
+    <button id="user-file-comment-button">Leave a Comment</button>
+  </div>
+  <% for (i = 0; i < comments.length; i++) { %>
+    <div class="comment">
+      <div class="comment-avatar"><img src="<%=Config.avatarFolder %>/<%=comments[i].avatar %>_small.png" alt="<%=comments[i].author %>" /></div>
+      <div class="comment-text">
+        <div class="comment-byline">
+          <span class="comment-author"><a href="#" class="profile-link" data-userId="<%=comments[i].postedBy %>"><%=comments[i].author %></a></span>
+          <span class="comment-postedAt"><%=comments[i].postedAt.toLocalTime() %></span>
+        </div>
+        <div class="comment-body"><%=comments[i].body %></div>
+      </div>
+    </div>
+  <% } %>
+</div>
