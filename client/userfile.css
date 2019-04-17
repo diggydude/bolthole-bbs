@@ -1,0 +1,87 @@
+#user-file-container {
+  padding: 5px 10px 20px 10px;
+}
+
+#user-file-masthead {
+  display: table;
+  width: 100%;
+  border-bottom: 1px dotted #ffffff;
+}
+
+#user-file-masthead > div {
+  display: table-row;
+}
+
+#user-file-uploader {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  width: 25%;
+  height: 75px;
+  padding-bottom: 5px;
+}
+
+#user-file-avatar {
+}
+
+#user-file-avatar > img {
+  border-radius: 50%;
+}
+
+#user-file-uploader-name {
+  font-weight: bold;
+}
+
+#user-file-uploader-title {
+  font-size: 12px;
+  width: 100%;
+}
+
+#user-file-headline {
+  display: table-cell;
+  width: 75%;
+  vertical-align: middle;
+}
+
+#user-file-filename {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#user-file-uploaded {
+  font-size: 14px;
+  vertical-align: middle;
+  padding-top: 7px;
+}
+
+#file-details-table,
+#file-details-table * {
+  border: 0px;
+}
+
+#file-details-table > .tr > .cell {
+  padding: 5px 10px 5px 10px;
+  border-bottom: 1px dotted #ffffff;
+}
+
+#download-button-bar {
+  text-align: center;
+  padding: 20px;
+}
+
+#user-file-signature {
+  font-size: 14px;
+  padding: 5px 0px 5px 0px;
+  border: 1px dotted #dddddd;
+  border-width: 1px 0px 1px 0px;
+  margin-bottom: 10px;
+}
+
+#user-file-comment-bar {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+#user-file-comment-entry {
+  width: 400px;
+}
