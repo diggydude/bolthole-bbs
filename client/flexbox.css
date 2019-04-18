@@ -451,3 +451,8 @@ td.numeric {
   text-align: center;
   padding: 5px;
 }
+.ansi-art-frame {
+  width: 100%;
+  height: 600px;
+  border: 0px;
+}
