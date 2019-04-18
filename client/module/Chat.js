@@ -13,40 +13,28 @@ var Chat = {
                          append('username', Session.username);
                        }
                        with (this.request) {
-                         open('POST', uri, false);
+                         open('POST', uri, true);
                          onload = function()
                                   {
                                     var response = JSON.parse(this.responseText);
                                     if (response.success) {
                                       Chat.lastMsgRcvd = parseInt(response.results.lastMessageId);
+                                      Chat.handle = Client.taskList.add(
+                                        function() {
+                                          Chat.poll();
+                                        }, 'fast'
+                                      );
                                       return;
                                     }
                                     Client.showError(response.message);
                                   };
                          send(formData);
                        }
-                       this.handle = Client.taskList.add(
-                         function() {
-                           Chat.poll();
-                         }, 'fast'
-                       );
                      }, // init
 
   "update"         : function(data)
                      {
-                       var links;
                        $('whosOnline').innerHTML = Client.render('whos_online', {"online" : data.online});
-                       links = document.querySelectorAll('.whos-online-link');
-                       for (i = 0; i < links.length; i++) {
-                         links[i].addEventListener('click',
-                           function()
-                           {
-                             var userId  = parseInt(this.getAttribute('data-userId'));
-                             var profile = new Profile();
-                             profile.fetch(userId);
-                           }
-                         );
-                       }
                        for (i = 0; i < data.chats.length; i++) {
                          if ((data.chats[i].body.indexOf("/action") == 0) || (data.chats[i].body.indexOf("/me") == 0)) {
                            data.chats[i].body = data.chats[i].body.substring(data.chats[i].body.indexOf(' '));
@@ -122,20 +110,20 @@ var Chat = {
                          append('username', Config.username);
                        }
                        with (this.request) {
-                         open('POST', uri, false);
+                         open('POST', uri, true);
                          onload = function()
                                   {
                                     var response = JSON.parse(this.responseText);
+                                    Client.taskList.remove(this.handle);
+                                    $('whosOnline').innerHTML = "";
+                                    $('chatWindow').innerHTML = "";
+                                    $('chatSend').setAttribute('disabled', true);
                                     if (!response.success) {
                                       Client.showError(response.message);
                                     }
                                   };
                          send(formData);
                        }
-                       Client.taskList.remove(this.handle);
-                       $('whosOnline').innerHTML = "";
-                       $('chatWindow').innerHTML = "";
-                       $('chatSend').setAttribute('disabled', true);
                      } // quit
 
 }; // Chat
