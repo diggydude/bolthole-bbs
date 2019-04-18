@@ -105,16 +105,16 @@ var Chat = {
                      {
                        var uri  = "/chat.php";
                        var formData = new FormData();
+                       Client.taskList.remove(this.handle);
                        with (formData) {
                          append('command',  'quit');
-                         append('username', Config.username);
+                         append('username', Session.username);
                        }
                        with (this.request) {
                          open('POST', uri, true);
                          onload = function()
                                   {
                                     var response = JSON.parse(this.responseText);
-                                    Client.taskList.remove(this.handle);
                                     $('whosOnline').innerHTML = "";
                                     $('chatWindow').innerHTML = "";
                                     $('chatSend').setAttribute('disabled', true);
