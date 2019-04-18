@@ -42,8 +42,9 @@
       $pdo       = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $to        = intval($params->to);
       $from      = intval($params->from);
-      $subject   = $pdo->quote($params->subject, PDO::PARAM_STR);
-      $body      = $pdo->quote($params->body,    PDO::PARAM_STR);
+	  $postedAt  = $pdo->quote(gmdate('Y-m-d H:i:s'), PDO::PARAM_STR);
+      $subject   = $pdo->quote($params->subject,      PDO::PARAM_STR);
+      $body      = $pdo->quote($params->body,         PDO::PARAM_STR);
       $emotes    = Emoticons::instance();
       $options   = array(
                     'userList'          => User::listUsers(),
@@ -53,8 +54,8 @@
       $mentioned = array();
       $rendered  = MessageParser::parse($params->body, $mentioned, $options);
       $rendered  = $pdo->quote($rendered, PDO::PARAM_STR);
-      $sql       = "INSERT INTO `Mail` (`to`,`from`, `subject`, `body`, `rendered`)
-                    VALUES ($to, $from, $subject, $body, $rendered)";
+      $sql       = "INSERT INTO `Mail` (`to`,`from`, `postedAt`, `subject`, `body`, `rendered`)
+                    VALUES ($to, $from, $postedAt, $subject, $body, $rendered)";
       $pdo->query($sql);
       return $pdo->lastInsertId();
     } // send
