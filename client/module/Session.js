@@ -40,7 +40,7 @@ var Session = {
                        with (Client.request) {
                          open('POST', uri, true);
                          onload  = function()
-                                   {console.log(this.responseText);
+                                   {
                                      var response = JSON.parse(this.responseText);
                                      if (response.success) {
                                        Session.load(response.results);
@@ -65,7 +65,7 @@ var Session = {
                        with (Client.request) {
                          open('POST', uri, true);
                          onload  = function()
-                                   {console.log(this.responseText);
+                                   {
                                      var response = JSON.parse(this.responseText);
                                      if (response.success) {
                                        Session.quit();
@@ -191,21 +191,21 @@ var Session = {
 
   "load"           : function(params)
                      {
-					   this.userId   = params.userId;
-					   this.username = params.username;
+                       this.userId   = params.userId;
+                       this.username = params.username;
                        this.profile  = new Profile();
                        this.profile.load(params);
                        $('welcome').innerHTML = Client.render('welcome', {"username" : this.username});
-					   $('welcome-audio').play();
+                       $('welcome-audio').play();
                        Client.clearModal();
                        Mailbox.init();
                        Chat.init();
-					   Blog.init(this.profile.blogId);
+                       Blog.init(this.profile.blogId);
                      }, // load
 
   "quit"           : function()
                      {
-					   $('goodbye-audio').play();
+                       $('goodbye-audio').play();
                        Mailbox.quit();
                        Chat.quit();
                        Session.profile.clearForm();
@@ -213,9 +213,9 @@ var Session = {
                        Session.username = "";
                        Session.profile  = null;
                        Session.showForm('sign-in');
-					   Cookies.remove('session_id');
+                       Cookies.remove('session_id');
                        $('welcome').innerHTML = "Please sign in or register.";
-					   $('main').innerHTML = "";
+                       $('main').innerHTML = "";
                      } // quit
 
 }; // Session
