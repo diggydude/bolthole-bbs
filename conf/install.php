@@ -26,7 +26,7 @@
   $config->db       = (object) array(
                         'dsn'      => 'mysql:dbname=bolthole;host=127.0.0.1',
                         'username' => 'apache',
-                        'password' => 'mysql_password'
+                        'password' => ''
                       );
 
   $config->files    = (object) array(
@@ -37,6 +37,7 @@
                                           'allowedTypes' => array(
                                                               'application/gnutar',
                                                               'application/msword',
+                                                              'application/octet-stream',
                                                               'application/pdf',
                                                               'application/x-7z-compressed',
                                                               'application/x-compressed',
@@ -101,6 +102,12 @@
                         'defaultSignature' => '"No matter where you go, there you are." - Buckaroo Banzai',
                         'defaultWebsite'   => $config->site->baseUri,
                         'defaultAbout'     => 'Are you gonna fill this in or what?'
+                      );
+
+  $config->programs = (object) array(
+                        'ansifilter' => (object) array(
+                                          'path' => 'C:/ansifilter/ansifilter.exe'
+                                        )
                       );
 
   $config->save();
