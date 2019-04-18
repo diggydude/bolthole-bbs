@@ -3,18 +3,14 @@
   require_once(__DIR__ . '/conf/init_http.php');
   require_once(__DIR__ . '/lib/class/User/User.php');
 
-  $users    = User::listUsers();
-  $userId   = (isset($_SESSION['userId'])) ? $_SESSION['userId'] : 0;
-  $username = ($userId > 0) ? $users[$userId]->username : "";
-  $conf = json_encode(
-            (object) array(
-              'maxUploadSize' => $config->files->uploads->maxSize,
-              'maxAvatarSize' => $config->files->avatars->maxSize,
-              'avatarFolder'  => $config->files->avatars->baseUri,
-              'userId'        => $userId,
-              'username'      => $username
-            )
-          );
+  $users = User::listUsers();
+  $conf  = json_encode(
+             (object) array(
+               'maxUploadSize' => $config->files->uploads->maxSize,
+               'maxAvatarSize' => $config->files->avatars->maxSize,
+               'avatarFolder'  => $config->files->avatars->baseUri
+             )
+           );
 
 ?>
 <!DOCTYPE html>
@@ -161,7 +157,7 @@
                     <div class="label">Cursor Trail:</div>
                     <div class="control">
                       <select id="settings_cursor">
-					    <option value="none">None</option>
+                        <option value="none">None</option>
                         <option value="bats">Bats</option>
                         <option value="bubble">Bubbles</option>
                         <option value="fairy_dust">Fairy Dust</option>
@@ -232,9 +228,9 @@
         </aside>
       </div>
       <footer class="footer" id="footer">
-	    Copyright &copy; <?=$config->site->copyright; ?>
-		Powered by <a href="https://github.com/diggydude/bolthole-bbs" target="_blank">Bolthole BBS</a>
-	  </footer>
+        Copyright &copy; <?=$config->site->copyright; ?>
+        Powered by <a href="https://github.com/diggydude/bolthole-bbs" target="_blank">Bolthole BBS</a>
+      </footer>
     </div>
     <div class="modal" id="forum-post-editor"></div>
     <div class="modal" id="blog-post-editor"></div>
@@ -259,15 +255,23 @@
     <audio id="chime-audio"   src="./client/sound/chime.wav"   type="audio/wav"></audio>
     <script type="text/javascript" src="./client/cursor/cursor.js"></script>
     <script type="text/javascript">
-      window.onload = function()
-                      {
-                        Preferences.init();
-                        Client.init();
-                        Following.init();
-                        Forum.init();
-                        Session.showForm('sign-in');
-                        EventHandlers.apply();
-                     };
+      window.addEventListener('load',
+        function()
+        {
+          Preferences.init();
+          Client.init();
+          Following.init();
+          Forum.init();
+          Session.showForm('sign-in');
+          EventHandlers.apply();
+        }
+      );
+      window.addEventListener('beforeunload',
+        function()
+        {
+          Session.logout();
+        }
+      );
     </script>
   </body>
 </html>
