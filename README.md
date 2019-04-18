@@ -5,7 +5,7 @@ Documentation coming soon.
 
 **CAUTION: This is a preview release and not recommended for use in production.**
 
-Installation:
+**Installation:**
 
 (1) Upload the files to your document root (`htdocs`, `public_html`, `www`, or whatever).
 
@@ -15,9 +15,9 @@ Installation:
 
 The installer will create a configuration file, `conf/config.conf`. Delete `conf/install.php` or move it outside of your document root after you run it. As `conf/config.conf` will contain your database login credentials, it's highly recommended that you move it outside of your document root also, and edit `conf/init_http.php` to reflect its new location.
 
-Features:
+**Features:**
 
-* AJAX chat, instant messaging, instant notifications, blogging, and file sharing
+* Instant messaging, instant notifications, blogging, and file sharing
 
 * User-friendly flexbox layout keeps all features and controls one click away
 
@@ -34,3 +34,29 @@ Features:
 * Unique threaded discussion system with multiple tree view filters
 
 * User settings and private messages stored in localStorage for maximum privacy
+
+* All features are powered by Comet (XMLHttpRequest + JSON) for bandwidth efficiency, and rendered on the client side with JavaScript templates.
+
+**Acknowledgements:**
+
+Many thanks to Mister Obvious for inspiring this project, providing numerous ideas and suggestions, and reminding me what made the 1990s Web so damned much fun!
+
+http://sectual.com
+
+Thanks to Mark Turansky for the Better JavaScript Templates rendering engine that powers this platform.
+
+http://blog.markturansky.com/BetterJavascriptTemplates.html
+
+Thanks to Roy Whittle, Doctor Thaddeus Ozone, and Tim Holman for the 1990s cursor trail effects, as recently featured on Stack Overflow.
+
+http://www.ozones.com/
+
+https://github.com/tholman/cursor-effects
+
+**To Do:**
+
+* Implement proper PHP password security
+
+* Minify JavaScript and CSS files
+
+* Make `#hashtag` links actually do something
