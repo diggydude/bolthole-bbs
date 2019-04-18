@@ -169,6 +169,15 @@
                       </select>
                     </div>
                   </div>
+                  <div class="tr">
+                    <div class="label">Sound Effects:</div>
+                    <div class="control">
+                      <select id="settings_sounds">
+                        <option value="0">Off</option>
+                        <option value="1">On</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <div class="groupLabel">Alert me when these events occur:</div>
