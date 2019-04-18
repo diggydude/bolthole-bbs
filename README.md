@@ -23,7 +23,7 @@ Features:
 
 * User-selectable old school cursor trails 
 
-* All of the old school HTML tags (and some new ones) emulated in bbCode: [blink], [marquee], [rainbow], [gradient], [spoiler], and [youtube]
+* All of the old school HTML tags (and some new ones) emulated in bbCode, e.g., [blink], [marquee], [rainbow], [gradient], [spoiler], and [youtube]
 
 * AOL sound effects
 
