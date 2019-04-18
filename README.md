@@ -1,7 +1,7 @@
 # bolthole-bbs
 Everything fun about the Internet packed into a tiny website platform!
 
-Documentation coming soon. There should be an empty folder named `assets/user_files` in there, but Github won't let me upload an empty folder, so you'll need to create it.
+Documentation coming soon.
 
 **CAUTION: This is a preview release and not recommended for use in production.**
 
@@ -14,3 +14,17 @@ Installation:
 (3) Edit `conf/install.php` and run it. Be sure to change the parameters for the System and Sysop accounts at the bottom of the file. These accounts don't have any special privileges yet, but that's subject to change in the near future.
 
 The installer will create a configuration file, `conf/config.conf`. Delete `conf/install.php` or move it outside of your document root after you run it. As `conf/config.conf` will contain your database login credentials, it's highly recommended that you move it outside of your document root also, and edit `conf/init_http.php` to reflect its new location.
+
+Features:
+
+* AJAX chat, instant messaging, instant notifications, blogging, and file sharing
+
+* Instant user-selectable theme changes
+
+* User-selectable old school cursor trails 
+
+* All of the old school HTML tags (and some new ones) emulated in bbCode: [blink], [marquee], [rainbow], [gradient], [spoiler], and [youtube]
+
+* AOL sound effects
+
+* Modern social media features like #hashtags, @mentions, and comments
