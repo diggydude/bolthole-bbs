@@ -29,7 +29,7 @@ Features:
 
 * AOL sound effects
 
-* Modern social media features like `#hashtags`, `@mentions`, and comments
+* Modern social media features like `#hashtags`, `@mentions`, follows, and comments
 
 * Unique threaded discussion system with multiple tree view filters
 
