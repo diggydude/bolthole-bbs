@@ -39,7 +39,7 @@
       $comment->moduleTypeId = (isset($params['moduleTypeId'])) ? $params['moduleTypeId'] : 0;
       $comment->moduleId     = (isset($params['moduleId']))     ? $params['moduleId']     : 0;
       $comment->postedBy     = (isset($params['postedBy']))     ? $params['postedBy']     : 0;
-      $comment->postedAt     = (isset($params['postedAt']))     ? $params['postedAt']     : gmdate('y-m-d H:i:s');
+      $comment->postedAt     = (isset($params['postedAt']))     ? $params['postedAt']     : gmdate('Y-m-d H:i:s');
       $comment->body         = (isset($params['body']))         ? $params['body']         : "";
       $comment->save();
       return $comment;
@@ -107,8 +107,8 @@
         $pdo->query($sql);
       }
       else {
-        $sql = "INSERT INTO `Comment`(`moduleTypeId`, `moduleId`, `postedBy`, `body`, `rendered`)
-                VALUES ($moduleTypeId, $moduleId, $postedBy, $body, $rendered)";
+        $sql = "INSERT INTO `Comment`(`moduleTypeId`, `moduleId`, `postedBy`, `postedAt`, `body`, `rendered`)
+                VALUES ($moduleTypeId, $moduleId, $postedBy, $postedAt, $body, $rendered)";
         $pdo->query($sql);
         $this->id = $pdo->lastInsertId();
       }
