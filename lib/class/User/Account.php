@@ -22,15 +22,16 @@
         self::$lastError = "Invalid username or password.";
         return false;
       }
-	  $_SESSION['userId'] = $user->id;
-	  session_write_close();
+      $_SESSION['userId']   = $user->id;
+      $_SESSION['username'] = $user->username;
+      session_write_close();
       WhosOnline::userArrived($user->id, session_id());
       return $user;
     } // signIn
 
     public static function signOut($userId)
     {
-	  session_destroy();
+      session_destroy();
       WhosOnline::userDeparted($userId);
     } // signOut
 
@@ -48,14 +49,18 @@
                   'answer'   => $answer
                 )
               );
-	  if ($user === false) {
-		self::$lastError = "That username is already taken.";
-		return false;
-	  }
-	  $userId = $user->id;
+      if ($user === false) {
+        self::$lastError = "That username is already taken.";
+        return false;
+      }
+      $userId   = $user->id;
+      $username = $user->username;
+      $_SESSION['userId']   = $id;
+      $_SESSION['username'] = $username;
+      session_write_close();
       Alerts::enqueue(
         (object) array(
-		  'typeId'  => 13,
+          'typeId'  => 13,
           'private' => false,
           'data'    => "New member <a href=\"#\" class=\"profile-link\" data-userId=\"$userId\">$username</a> has registered."
         )
@@ -94,9 +99,9 @@
       }
       $user = new User($userId);
       $user->update(
-	    (object) array(
-		  'password' => $password
-		)
+        (object) array(
+          'password' => $password
+        )
       );
       return $user;
     } // changePassword
