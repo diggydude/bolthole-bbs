@@ -1,7 +1,9 @@
 # bolthole-bbs
 Everything fun about the Internet packed into a tiny website platform!
 
-Documentation coming soon. There should be an empty folder named assets/user_files in there, but Github won't let me upload an empty folder, so you'll need to create it.
+Documentation coming soon. There should be an empty folder named `assets/user_files` in there, but Github won't let me upload an empty folder, so you'll need to create it.
+
+**CAUTION: This is a preview release and not recommended for use in production.**
 
 Installation:
 
