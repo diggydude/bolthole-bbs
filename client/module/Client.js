@@ -8,6 +8,7 @@ var Client = {
 						$('welcome-audio').volume = 0.25;
 						$('gotmail-audio').volume = 0.25;
 						$('goodbye-audio').volume = 0.25;
+						$('chime-audio').volume   = 0.25;
                         this.taskList.run();
                       }, // init
 
