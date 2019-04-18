@@ -29,6 +29,8 @@ The installer will create a configuration file, `conf/config.conf`. Delete `conf
 
 * AOL sound effects
 
+* IRC-style `/me` and `/action` commands -- more commands coming!
+
 * Modern social media features like `#hashtags`, `@mentions`, follows, and comments
 
 * Unique threaded discussion system with multiple tree view filters
@@ -60,6 +62,10 @@ https://github.com/tholman/cursor-effects
 * Minify JavaScript and CSS files
 
 * Make `#hashtag` links actually do something
+
+* IRC `/kick` and `/ban` commands
+
+* HTML frontend for installer
 
 * ANSI art viewer
 
