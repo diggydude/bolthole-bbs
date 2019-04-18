@@ -35,7 +35,7 @@ The installer will create a configuration file, `conf/config.conf`. Delete `conf
 
 * User settings and private messages stored in localStorage for maximum privacy
 
-* All features are powered by Comet (XMLHttpRequest + JSON) for bandwidth efficiency, and rendered on the client side with JavaScript templates.
+* All features powered by Comet (XMLHttpRequest + JSON) for bandwidth efficiency, and rendered on the client side with JavaScript templates
 
 **Acknowledgements:**
 
