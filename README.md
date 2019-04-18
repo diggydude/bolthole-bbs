@@ -55,6 +55,14 @@ http://www.ozones.com/
 
 https://github.com/tholman/cursor-effects
 
+Thanks to Klaus Hartl and Fagner Brack for JavaScript Cookie.
+
+https://github.com/js-cookie/js-cookie
+
+Thanks to Nigel McNie, Benny Baumann, and Milian Wolff for GeSHi syntax highlighter.
+
+http://qbnz.com/highlighter/
+
 **To Do:**
 
 * Implement proper PHP password security
