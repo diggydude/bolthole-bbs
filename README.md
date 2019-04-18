@@ -5,7 +5,7 @@ Documentation coming soon. There should be an empty folder named assets/user_fil
 
 Installation:
 
-(1) Upload the files to your document root (htdocs, public_html, www, or whatever).
+(1) Upload the files to your document root (`htdocs`, `public_html`, `www`, or whatever).
 
 (2) Import `conf/schema.sql` using phpMyAdmin, MySQL Query Browser, or the MySQL command line.
 
