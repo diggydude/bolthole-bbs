@@ -19,15 +19,17 @@ Features:
 
 * AJAX chat, instant messaging, instant notifications, blogging, and file sharing
 
+* User-friendly flexbox layout keeps all features and controls one click away
+
 * Instant user-selectable theme changes
 
 * User-selectable old school cursor trails 
 
-* All of the old school HTML tags (and some new ones) emulated in bbCode, e.g., [blink], [marquee], [rainbow], [gradient], [spoiler], and [youtube]
+* All of the old school HTML tags (and some new ones) emulated in bbCode, e.g., `[blink]`, `[marquee]`, `[rainbow]`, `[gradient]`, `[spoiler]`, and `[youtube]`
 
 * AOL sound effects
 
-* Modern social media features like #hashtags, @mentions, and comments
+* Modern social media features like `#hashtags`, `@mentions`, and comments
 
 * Unique threaded discussion system with multiple tree view filters
 
