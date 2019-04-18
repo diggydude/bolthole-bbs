@@ -460,7 +460,6 @@ var EventHandlers = {
                                $('theme').setAttribute('href', './client/theme/' + this.options[this.selectedIndex].value + '.css');
                              }
                   },
-                  
                   {"event" : "change",
                    "id"    : "settings_cursor",
                    "class" : null,
@@ -469,7 +468,14 @@ var EventHandlers = {
                                Client.showError('You must save your preferences and reload the page for this setting to take effect.');
                              }
                   },
-                  
+                  {"event" : "change",
+                   "id"    : "settings_sounds",
+                   "class" : null,
+                   "func"  : function()
+                             {
+                               Preferences.sounds = (parseInt(this.options[this.selectedIndex].value) == 1);
+                             }
+                  },
                   {"event" : "click",
                    "id"    : "generic-modal-close-button",
                    "class" : null,

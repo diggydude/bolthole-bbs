@@ -5,10 +5,10 @@ var Client = {
 
   "init"            : function()
                       {
-						$('welcome-audio').volume = 0.25;
-						$('gotmail-audio').volume = 0.25;
-						$('goodbye-audio').volume = 0.25;
-						$('chime-audio').volume   = 0.25;
+                        $('welcome-audio').volume = 0.25;
+                        $('gotmail-audio').volume = 0.25;
+                        $('goodbye-audio').volume = 0.25;
+                        $('chime-audio').volume   = 0.25;
                         this.taskList.run();
                       }, // init
 
@@ -30,7 +30,7 @@ var Client = {
                         $('generic-modal-viewport').innerHTML = this.render(template, data);
                         $('generic-modal-close-button').style.display = (allowClose) ? "block" : "none";
                         $('generic-modal').style.display = "block";
-						EventHandlers.apply();
+                        EventHandlers.apply();
                       }, // showModal
 
   "clearModal"      : function()

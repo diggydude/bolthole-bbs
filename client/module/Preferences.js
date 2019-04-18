@@ -2,6 +2,7 @@ var Preferences = {
 
   "theme"              : 0,
   "cursor"             : 0,
+  "sounds"             : 1,
   "notifyReply"        : true,
   "notifyVisit"        : true,
   "notifyMention"      : true,
@@ -42,6 +43,7 @@ var Preferences = {
                          {
                            this.theme               = $('settings_theme').selectedIndex;
                            this.cursor              = $('settings_cursor').selectedIndex;
+                           this.sounds              = $('settings_sounds').selectedIndex;
                            this.notifyReply         = $('settings_notifyReply').checked;
                            this.notifyVisit         = $('settings_notifyVisit').checked;
                            this.notifyMention       = $('settings_notifyMention').checked;
@@ -63,6 +65,7 @@ var Preferences = {
                          {
                            $('settings_theme').selectedIndex  = this.theme;
                            $('settings_cursor').selectedIndex = this.cursor;
+                           $('settings_sounds').selectedIndex = (this.sounds) ? 1 : 0;
                            for (var p in this) {
                              if (p.indexOf('notify') > -1) {
                                $('settings_' + p).checked = this[p];

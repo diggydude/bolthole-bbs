@@ -196,7 +196,9 @@ var Session = {
                        this.profile  = new Profile();
                        this.profile.load(params);
                        $('welcome').innerHTML = Client.render('welcome', {"username" : this.username});
-                       $('welcome-audio').play();
+                       if (Preferences.sounds) {
+                         $('welcome-audio').play();
+                       }
                        Client.clearModal();
                        Mailbox.init();
                        Chat.init();
@@ -205,7 +207,9 @@ var Session = {
 
   "quit"           : function()
                      {
-                       $('goodbye-audio').play();
+                       if (Preferences.sounds) {
+                         $('goodbye-audio').play();
+                       }
                        Mailbox.quit();
                        Chat.quit();
                        Session.profile.clearForm();

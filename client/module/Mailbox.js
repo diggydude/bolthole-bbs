@@ -34,7 +34,9 @@ var Mailbox = {
                         this.inbox.push(response.inbox[i]);
                       }
                       window.localStorage.setItem('inbox', JSON.stringify(this.inbox));
-                      $('gotmail-audio').play();
+                      if (Preferences.sounds) {
+                        $('gotmail-audio').play();
+                      }
                       refresh = true;
                     }
                     if (response.outbox.length > 0) {
@@ -52,7 +54,9 @@ var Mailbox = {
                         if (this.filterAlert(response.alerts[i].data) == true) {
                           $('alerts').innerHTML += "<div>" + response.alerts[i].data + "</div>";
                           $('alerts').scrollTop = $('alerts').scrollHeight;
-                          $('chime-audio').play();
+                          if (Preferences.sounds) {
+                            $('chime-audio').play();
+                          }
                         }
                       }
                     }
