@@ -134,7 +134,7 @@ var Mailbox = {
                     with (Client.request) {
                       open('POST', uri, true);
                       onload  = function()
-                                {console.log(this.responseText);
+                                {
                                   var response = JSON.parse(this.responseText);
                                   if (response.success) {
                                     Mailbox.update(response.results);
@@ -207,7 +207,7 @@ var Mailbox = {
                     with (this.request) {
                       open('POST', uri, true);
                       onload  = function()
-                                {console.log(this.responseText);
+                                {
                                   var response = JSON.parse(this.responseText);
                                   if (response.success) {
                                     Mailbox.update(response.results);
