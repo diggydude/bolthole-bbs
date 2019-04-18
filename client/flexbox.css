@@ -20,6 +20,8 @@ body,
 body {
   font-family: sans-serif;
   margin: 0;
+  clip-path: padding-box;
+  overflow: hidden;
 }
 a {
   text-decoration: none;
