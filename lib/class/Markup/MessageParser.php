@@ -21,7 +21,7 @@
       if (empty($allowedTags) || in_array('code', $allowedTags)) {
         $text = self::stashCodeBlocks($text);
       }
-      strip_tags($text);
+      $text = strip_tags($text);
       $text = self::parseEmoticons($text, $emoticonList);
       $text = self::parseMentions($text, $mentioned, $userList);
       $text = self::parseMarkup($text, $allowedTags, $openLinksInNewTab);
