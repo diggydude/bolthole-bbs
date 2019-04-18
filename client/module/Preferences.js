@@ -1,7 +1,7 @@
 var Preferences = {
 
   "theme"              : 0,
-  // "cursor"             : 0, 
+  "cursor"             : 0,
   "notifyReply"        : true,
   "notifyVisit"        : true,
   "notifyMention"      : true,
@@ -23,7 +23,7 @@ var Preferences = {
                            else {
                              this.load();
                            }
-						   EventHandlers.apply();
+                           EventHandlers.apply();
                          }, // init
 
   "load"               : function()
@@ -32,13 +32,16 @@ var Preferences = {
                            for (var p in prefs) {
                              this[p] = prefs[p];
                            }
+                           if (this.cursor > 0) {
+                             this.setCursorEffect();
+                           }
                            this.apply();
                          }, // load
 
   "save"               : function()
                          {
                            this.theme               = $('settings_theme').selectedIndex;
-						   // this.cursor              = $('settings_cursor').selectedIndex;
+                           this.cursor              = $('settings_cursor').selectedIndex;
                            this.notifyReply         = $('settings_notifyReply').checked;
                            this.notifyVisit         = $('settings_notifyVisit').checked;
                            this.notifyMention       = $('settings_notifyMention').checked;
@@ -52,21 +55,27 @@ var Preferences = {
                            this.notifyAnyUpload     = $('settings_notifyAnyUpload').checked;
                            this.notifyUserSignup    = $('settings_notifyUserSignup').checked;
                            window.localStorage.setItem('preferences', JSON.stringify(this));
-						   Client.showSuccess('Your preferences have been saved.');
+                           Client.showSuccess('Your preferences have been saved.');
                            this.apply();
                          }, // save
 
   "apply"              : function()
                          {
                            $('settings_theme').selectedIndex  = this.theme;
-						   // $('settings_cursor').selectedIndex = this.cursor;
+                           $('settings_cursor').selectedIndex = this.cursor;
                            for (var p in this) {
                              if (p.indexOf('notify') > -1) {
                                $('settings_' + p).checked = this[p];
                              }
                            }
                            $('theme').setAttribute('href', './client/theme/' + $('settings_theme').options[this.theme].value + '.css');
-                           // $('cursor').setAttribute('src', './client/cursor/' + $('settings_cursor').options[this.cursor].value + '.js');
-                         } // apply
+                         }, // apply
+
+  "setCursorEffect"    : function()
+                         {
+                           var script = document.createElement('SCRIPT');
+                           document.getElementsByTagName('HEAD')[0].appendChild(script);
+                           script.setAttribute('src', './client/cursor/' + $('settings_cursor').options[this.cursor].value + '.js');
+                         } // setCursorEffect
 
 }; // Preferences

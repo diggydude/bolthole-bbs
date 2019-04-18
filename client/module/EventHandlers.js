@@ -460,16 +460,16 @@ var EventHandlers = {
                                $('theme').setAttribute('href', './client/theme/' + this.options[this.selectedIndex].value + '.css');
                              }
                   },
-                  /*
+                  
                   {"event" : "change",
                    "id"    : "settings_cursor",
                    "class" : null,
                    "func"  : function()
                              {
-                               $('cursor').setAttribute('src', './client/cursor/' + this.options[this.selectedIndex].value + '.js');
+                               Client.showError('You must save your preferences and reload the page for this setting to take effect.');
                              }
                   },
-                  */
+                  
                   {"event" : "click",
                    "id"    : "generic-modal-close-button",
                    "class" : null,
