@@ -21,6 +21,9 @@
       if (empty($allowedTags) || in_array('code', $allowedTags)) {
         $text = self::stashCodeBlocks($text);
       }
+      if (empty($allowedTags) || in_array('ansi', $allowedTags)) {
+        $text = self::stashAnsiArt($text);
+      }
       $text = strip_tags($text);
       $text = self::parseEmoticons($text, $emoticonList);
       $text = self::parseMentions($text, $mentioned, $userList);
@@ -28,9 +31,7 @@
       $text = self::parseHashTags($text);
       $text = self::parseRawLinks($text, $openLinksInNewTab);
       $text = nl2br($text);
-      if (empty($allowedTags) || in_array('code', $allowedTags)) {
-        $text = self::restoreCodeBlocks($text);
-      }
+      $text = self::restoreCodeBlocks($text);
       return $text;
     } // parse
 
@@ -198,6 +199,28 @@
       return $text;
     } // restoreCodeBlocks
 
+	public static function stashAnsiArt($text)
+	{
+	  $config  = Config::instance();
+	  $matches = array();
+      $search  = "/\[ansi\]((?!\[\/ansi\]).*?)\[\/ansi\]/ms";
+      $count   = preg_match_all($search, $text, $matches);
+      if ($count) {
+        for ($i = 0; $i < $count; $i++) {
+          $id   = randomString(32);
+	      $src  = $config->files->uploads->baseUri . "/" . $matches[1][$i];
+		  $dest = $src . ".html";
+		  $cmd  = $config->programs->ansifilter->path;
+		  if (!file_exists($dest)) {
+		    exec("$cmd -H --art-cp437 -i $src -o $dest -F \"Courier New\"", $out, $ret);
+		  }
+		  self::$codeBlocks[$id] = "<iframe class=\"ansi-art-frame\" src=\"$dest\"></iframe>";
+          $text = str_replace($matches[0][$i], '[[' . $id . ']]', $text);
+		}
+	  }
+	  return $text;
+	} // stashAnsiArt
+	
     private static function __rainbow($matches)
     {
       return TextEffects::rainbow($matches[1]);
