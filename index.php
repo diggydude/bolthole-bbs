@@ -231,7 +231,10 @@
           </div>
         </aside>
       </div>
-      <footer class="footer" id="footer">Copyright &copy; <?=$config->site->copyright; ?></footer>
+      <footer class="footer" id="footer">
+	    Copyright &copy; <?=$config->site->copyright; ?>
+		Powered by <a href="https://github.com/diggydude/bolthole-bbs" target="_blank">Bolthole BBS</a>
+	  </footer>
     </div>
     <div class="modal" id="forum-post-editor"></div>
     <div class="modal" id="blog-post-editor"></div>
