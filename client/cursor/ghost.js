@@ -46,6 +46,13 @@
         cursor.x = e.clientX;
         cursor.y = e.clientY;
 
+    if (cursor.x >= (window.innerWidth - 50)) {
+      return;
+    }
+    if (cursor.y >= (window.innerHeight - 125)) {
+      return;
+    }
+
         addParticle(cursor.x, cursor.y);
     }
 
@@ -99,7 +106,8 @@
             this.element.className = "particle-cursors";
             this.update();
 
-            document.body.appendChild(this.element);
+            //document.body.appendChild(this.element);
+            $('cursor-container').appendChild(this.element);
         };
 
         this.update = function() {
