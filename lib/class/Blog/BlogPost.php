@@ -185,7 +185,7 @@
       $stm    = $pdo->query($sql);
       $posts  = $stm->fetchAll(PDO::FETCH_OBJ);
       foreach ($posts as &$post) {
-        $summary = preg_replace('/\[\/?(?:img|color|size|code|blink|marquee|rainbow|gradient|youtube|)*?.*?\]/', '', $post->body);
+        $summary = preg_replace('/\[\/?(?:i|b|u|url|img|color|size|code|blink|marquee|rainbow|gradient|youtube|ansi)*?.*?\]/', '', $post->body);
         $summary = substr($summary, 0, 255);
         $summary = substr($summary, 0, strripos($summary, " ")) . "...";
         $post->summary = $summary;
