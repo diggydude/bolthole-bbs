@@ -6,6 +6,7 @@
   $users = User::listUsers();
   $conf  = json_encode(
              (object) array(
+               'siteName'      => $config->site->name,
                'maxUploadSize' => $config->files->uploads->maxSize,
                'maxAvatarSize' => $config->files->avatars->maxSize,
                'avatarFolder'  => $config->files->avatars->baseUri
@@ -53,7 +54,7 @@
   </head>
   <body>
     <div class="full-screen">
-      <span class="container"></span>
+      <span id="cursor-container"></span>
       <header class="header">
         <div class="logo" id="logo"><?=$config->site->name; ?></div>
         <div id="site-search">
@@ -153,19 +154,21 @@
                       </select>
                     </div>
                   </div>
-                  <!-- div class="tr">
+                  <div class="tr">
                     <div class="label">Cursor Trail:</div>
                     <div class="control">
                       <select id="settings_cursor">
                         <option value="none">None</option>
-                        <option value="bats">Bats</option>
                         <option value="bubble">Bubbles</option>
                         <option value="fairy_dust">Fairy Dust</option>
-                        <option value="ghost">Ghosts</option>
+                        <option value="ghost">Ghost</option>
                         <option value="snowflake">Snowflakes</option>
+                        <option value="circle">Circling Text</option>
+                        <option value="spring">Springy Text</option>
+                        <option value="squidie">Space Ant</option>
                       </select>
                     </div>
-                  </div -->
+                  </div>
                 </div>
                 <div>
                   <div class="groupLabel">Alert me when these events occur:</div>
@@ -253,7 +256,6 @@
     <audio id="gotmail-audio" src="./client/sound/gotmail.wav" type="audio/wav"></audio>
     <audio id="goodbye-audio" src="./client/sound/goodbye.wav" type="audio/wav"></audio>
     <audio id="chime-audio"   src="./client/sound/chime.wav"   type="audio/wav"></audio>
-    <script type="text/javascript" src="./client/cursor/cursor.js"></script>
     <script type="text/javascript">
       window.addEventListener('load',
         function()
