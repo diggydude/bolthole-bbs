@@ -28,3 +28,5 @@ Features:
 * AOL sound effects
 
 * Modern social media features like #hashtags, @mentions, and comments
+
+* Unique threaded discussion system with multiple tree view filters
