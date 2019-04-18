@@ -40,12 +40,12 @@
     cursor.x = e.clientX;
     cursor.y = e.clientY;
 
-    if (cursor.x >= (window.innerWidth - 50)) {
-      return;
-    }
-    if (cursor.y >= (window.innerHeight - 125)) {
-      return;
-    }
+    //if (cursor.x >= (window.innerWidth - 50)) {
+    //  return;
+    //}
+    //if (cursor.y >= (window.innerHeight - 125)) {
+    //  return;
+    //}
 
     addParticle( cursor.x, cursor.y);
   }
