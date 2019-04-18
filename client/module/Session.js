@@ -40,7 +40,7 @@ var Session = {
                        with (Client.request) {
                          open('POST', uri, true);
                          onload  = function()
-                                   {
+                                   {console.log(this.responseText);
                                      var response = JSON.parse(this.responseText);
                                      if (response.success) {
                                        Session.load(response.results);
@@ -65,7 +65,7 @@ var Session = {
                        with (Client.request) {
                          open('POST', uri, true);
                          onload  = function()
-                                   {
+                                   {console.log(this.responseText);
                                      var response = JSON.parse(this.responseText);
                                      if (response.success) {
                                        Session.quit();
@@ -213,6 +213,7 @@ var Session = {
                        Session.username = "";
                        Session.profile  = null;
                        Session.showForm('sign-in');
+					   Cookies.remove('session_id');
                        $('welcome').innerHTML = "Please sign in or register.";
 					   $('main').innerHTML = "";
                      } // quit
