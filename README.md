@@ -60,3 +60,7 @@ https://github.com/tholman/cursor-effects
 * Minify JavaScript and CSS files
 
 * Make `#hashtag` links actually do something
+
+* ANSI art viewer
+
+* Spoiler decoder
