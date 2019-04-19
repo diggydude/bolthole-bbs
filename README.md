@@ -15,6 +15,12 @@ Documentation coming soon.
 
 The installer will create a configuration file, `conf/config.conf`. Delete `conf/install.php` or move it outside of your document root after you run it. As `conf/config.conf` will contain your database login credentials, it's highly recommended that you move it outside of your document root also, and edit `conf/init_http.php` to reflect its new location.
 
+If you're running a Windows server and want to enable inline ANSI art in profiles and blog posts, you'll need to download ansifilter and set its path in the installer.
+
+http://www.andre-simon.de/doku/ansifilter/en/ansifilter.php
+
+This feature isn't available for Linux yet.
+
 **Features:**
 
 * Instant messaging, instant notifications, blogging, and file sharing
@@ -75,6 +81,6 @@ http://qbnz.com/highlighter/
 
 * HTML frontend for installer
 
-* ANSI art viewer
+* ANSI art viewer for Linux hosts
 
 * Spoiler decoder
