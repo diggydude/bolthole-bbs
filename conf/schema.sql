@@ -9,7 +9,7 @@ USE `bolthole`;
 CREATE TABLE `User` (
   `id`          INT(11)      AUTO_INCREMENT,
   `username`    VARCHAR(32)  NOT NULL,
-  `password`    VARCHAR(32)  NOT NULL,
+  `password`    VARCHAR(255) NOT NULL,
   `question`    VARCHAR(255) NOT NULL,
   `answer`      VARCHAR(255) NOT NULL,
   `joined`      TIMESTAMP    NOT NULL DEFAULT NOW(),
