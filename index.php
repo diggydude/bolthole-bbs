@@ -269,10 +269,7 @@
       window.addEventListener('load',
         function()
         {
-          Preferences.init();
           Client.init();
-          Following.init();
-          Forum.init();
           Session.showForm('sign-in');
           EventHandlers.apply();
         }
