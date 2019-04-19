@@ -45,7 +45,7 @@ This feature isn't available for Linux yet.
 
 * All features powered by Comet (XMLHttpRequest + JSON) for bandwidth efficiency, and rendered on the client side with JavaScript templates
 
-A more comprehensive description and explanation of features, along with their design rationale, will appear at the end of this file.
+A more comprehensive description and explanation of features, along with their design rationale, appears at the end of this file.
 
 **Acknowledgements:**
 
