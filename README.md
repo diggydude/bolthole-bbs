@@ -47,7 +47,7 @@ A more comprehensive description and explanation of features, along with their d
 
 **Acknowledgements:**
 
-Many thanks to Mister Obvious for inspiring this project, providing numerous ideas and suggestions, and reminding me what made the 1990s Web so damned much fun!
+Many thanks to Mister Obvious for inspiring this project, providing numerous ideas and suggestions, and for reminding me what made the 1990s Web so damned much fun!
 
 http://sectual.com
 
@@ -119,7 +119,7 @@ The forum is a modern take on the threaded mailing lists of the early Web. The 1
 
 * `Stem` shows replies (and their descendants) to the post currently being viewed.
 
-Filter selection is "sticky," i.e., the selected filter will remain in effect until you select another one, except when initiating a search. Then the filter will revert to the Branch filter so you can see all of the search results. You can change the filter again in search mode, and it will be sticky until one of the above described events is repeated.
+Filter selection is "sticky," i.e., the selected filter will remain in effect until you select another one, except when initiating a search. Then the filter will revert to the Branch filter so you can see all of the search results. You can change the filter again in search mode, and it will be sticky until you change it again or do another search.
 
 When a forum search is performed, the search results will be cached locally so you can browse them. Click "Clear Search" to return to normal operation.
 
