@@ -51,7 +51,7 @@ var Blog = {
                                      };
                             send(formData);
                           }
-						}, // showPost
+                        }, // showPost
 
   "savePost"          : function()
                         {

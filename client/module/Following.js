@@ -4,10 +4,10 @@ var Following = {
 
   "init"     : function()
                {
-                 if (window.localStorage.getItem('following') == null) {
-                   window.localStorage.setItem('following', JSON.stringify([]));
+                 if (Client.getStorage('following') == null) {
+                   Client.putStorage('following', []);
                  }
-                 this.followed = JSON.parse(window.localStorage.getItem('following'));
+                 this.followed = Client.getStorage('following');
                  this.show();
                }, // init
 
@@ -15,7 +15,7 @@ var Following = {
                {
                  userId = parseInt(userId);
                  this.followed[userId] = username;
-                 window.localStorage.setItem('following', JSON.stringify(this.followed));
+                 Client.putStorage('following', this.followed);
                  $('follow-button').style.display   = "none";
                  $('unfollow-button').style.display = "block";
                  this.show();
@@ -26,7 +26,7 @@ var Following = {
                  userId = parseInt(userId);
                  if (userId in this.followed) {
                    this.followed.splice(userId, 1);
-                   window.localStorage.setItem('following', JSON.stringify(this.followed));
+                   Client.putStorage('following', this.followed);
                    $('unfollow-button').style.display = "none";
                    $('follow-button').style.display   = "block";
                    this.show();
@@ -52,10 +52,3 @@ var Following = {
                } // show
 
 }; // Following
-
-window.addEventListener('load',
-  function()
-  {
-    Following.init();
-  }
-);

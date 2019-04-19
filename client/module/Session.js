@@ -195,13 +195,16 @@ var Session = {
                        this.username = params.username;
                        this.profile  = new Profile();
                        this.profile.load(params);
+                       Preferences.init();
+                       Following.init();
+                       Mailbox.init();
                        $('welcome').innerHTML = Client.render('welcome', {"username" : this.username});
                        if (Preferences.sounds) {
                          $('welcome-audio').play();
                        }
                        Client.clearModal();
-                       Mailbox.init();
                        Chat.init();
+                       Forum.init();
                        Blog.init(this.profile.blogId);
                      }, // load
 

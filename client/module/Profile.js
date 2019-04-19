@@ -112,19 +112,17 @@ function Profile()
 
   this.show      = function()
                    {
-                      var links, i;
-					  $('main').innerHTML = "Rendering...";
-                      $('main').innerHTML = Client.render('profile', this);
-                      $("defaultTab").click();
-                      if (Following.follows(this.userId)) {
-                        $('follow-button').style.display   = "none";
-                        $('unfollow-button').style.display = "block";
-                      }
-                      else {
-                        $('unfollow-button').style.display = "none";
-                        $('follow-button').style.display   = "block";
-                      }
-					  EventHandlers.apply();
+                     $('main').innerHTML = Client.render('profile', this);
+                     $("defaultTab").click();
+                     if (Following.follows(this.userId)) {
+                       $('follow-button').style.display   = "none";
+                       $('unfollow-button').style.display = "block";
+                     }
+                     else {
+                       $('unfollow-button').style.display = "none";
+                       $('follow-button').style.display   = "block";
+                     }
+					 EventHandlers.apply();
                    }; // show
 
 } // Profile

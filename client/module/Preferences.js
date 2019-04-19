@@ -18,7 +18,7 @@ var Preferences = {
 
   "init"               : function()
                          {
-                           if (window.localStorage.getItem('preferences') == null) {
+                           if (Client.getStorage('preferences') == null) {
                              this.save();
                            }
                            else {
@@ -29,7 +29,7 @@ var Preferences = {
 
   "load"               : function()
                          {
-                           var prefs = JSON.parse(window.localStorage.getItem('preferences'));
+                           var prefs = Client.getStorage('preferences');
                            for (var p in prefs) {
                              this[p] = prefs[p];
                            }
@@ -56,7 +56,7 @@ var Preferences = {
                            this.notifyAnyBlogPost   = $('settings_notifyAnyBlogPost').checked;
                            this.notifyAnyUpload     = $('settings_notifyAnyUpload').checked;
                            this.notifyUserSignup    = $('settings_notifyUserSignup').checked;
-                           window.localStorage.setItem('preferences', JSON.stringify(this));
+                           Client.putStorage('preferences', this);
                            Client.showSuccess('Your preferences have been saved.');
                            this.apply();
                          }, // save
