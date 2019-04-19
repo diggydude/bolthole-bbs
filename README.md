@@ -127,4 +127,4 @@ ANSI art embedding works by converting the ANSI file to HTML and displaying it i
 
 The ANSI art converter currently assumes Code Page 437. In future releases, users will be required to put ANSI files in a zip archive along with a FILE_ID.DIZ file indicating the character encoding before uploading it. PHP's magic database identifies ANSI files as `application/octet-stream`. Obviously, allowing users to upload `application/octet-stream` files isn't such a hot idea.
 
-The GeSHi synatx highlighter supports over 200 programming languages. I've included only a few language files to avoid adding 2 MB to the package size. You can download GeSHi at the link above and add additional language files to `lib/vnd/geshi/lang`.
+The GeSHi syntax highlighter supports over 200 programming languages. I've included only a few language files to avoid adding 2 MB to the package size. You can download GeSHi at the link above and add additional language files to `lib/vnd/geshi/lang`.
