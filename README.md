@@ -71,6 +71,10 @@ Thanks to Nigel McNie, Benny Baumann, and Milian Wolff for GeSHi syntax highligh
 
 http://qbnz.com/highlighter/
 
+**Disclaimer**
+
+To the best of my knowledge, all third-party content herein is freely distributable under some open source license or another. Such licenses can be found in the code comments. Since this package incorporates so many third-party contributions released under diverse and sundry licenses that I can't be bothered to sort the legalities, any portion not specifically attributed in comments to other authors is hereby placed in the public domain and offered Scot free with no warranty or guarantee of any kind.
+
 **To Do:**
 
 * Implement proper PHP password security
