@@ -101,6 +101,16 @@ Similarly, alert filtering is done on the client side. No one can see what kinds
 
 In general, the platform is specifically designed not to encourage narcissism and fame-whoring. Pursuant to that end, there is no "like" button or any other kind of voting or scoring mechanism. The expectation is that user-generated content will stand on its own merits, and that users who don't fit into the community will leave in short order. There are no "algorithms" to manipulate your endorphine levels and what-not. Users will enjoy the platform because it's quirky and just plain fun.
 
-The platform is intended to support closed communities, and isn't particularly well-suited to reaching a vast audience or promoting content. Since all displayed content is rendered in JavaScript templates and activated by event listeners (all hyperlinks have "#" as their href), there is no way for search engines to crawl the site, nor for users to bookmark or link to specific content from outside the website. For that matter, no one can even see any content unless they're logged in.
+The platform is intended to support closed communities, and isn't well-suited to reaching a vast audience or promoting content. Since all displayed content is rendered in JavaScript templates and activated by event listeners (all hyperlinks have "#" as their href), there is no way for search engines to crawl the site, nor for users to bookmark or link to specific content from outside of the website. For that matter, no one can even see any content unless they're logged in.
 
 Some features are deliberately less automated than they could be. Mister Obvious wanted to encourage users to learn how things work at a somewhat lower level, rather than have everything done for them. For example, YouTube URLs are not automatically converted to embedded video players. The user will have to paste the video ID into `[youtube]` tags to accomplish that. Not all tags are allowed in all areas. Users can post whatever they want on their profiles and blogs, but many tags are disallowed in the forum and chat to keep the noise level down. Likewise, embedding ANSI art isn't very straightforward, as will be explained later.
+
+The forum is a modern take on the threaded mailing lists of the early Web. The 100 most recently active threads are shown in the left pane. Older threads can be accessed via the site search. Posts in the selected thread are shown as a tree in the bottom pane. The tree filters work as follows:
+
+* `Branch` shows all posts in the selected topic.
+
+* `Limb` shows only replies in the path from the "OP," or first post in the topic, to the post currently being viewed.
+
+* `Stem` shows all replies (and their descendants) to the post currently being viewed.
+
+In a like manner, only the user's last 100 blog posts and uploads are shown on their profile. Older content can be reached via the site search.
