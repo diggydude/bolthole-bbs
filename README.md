@@ -145,7 +145,7 @@ There are two styles of `[code]` tag usage:
 
 * `[code]...[/code]` simply renders the code in the current theme's font color.
 
-Most of the other bbCode tags should be self-explanatory, except for `[gradient]`. This creates color gradient text by specifying a start color and end color. The alogrithm isn't all that great on short text, but hey, it's a freebie.
+Most of the other bbCode tags should be self-explanatory, except for `[gradient]`. This creates color gradient text by specifying a start color and end color. The algorithm isn't all that great on short text, but hey, it's a freebie.
 
 `[gradient start=#00ff00 end=#0000ff]This is some gradient text.[/gradient]`
 
