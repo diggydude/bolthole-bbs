@@ -1,8 +1,6 @@
 # bolthole-bbs
 Everything fun about the Internet packed into a tiny website platform!
 
-Documentation coming soon.
-
 **CAUTION: This is a preview release and not recommended for use in production.**
 
 **Installation:**
