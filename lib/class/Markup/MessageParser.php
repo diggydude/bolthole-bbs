@@ -199,28 +199,31 @@
       return $text;
     } // restoreCodeBlocks
 
-	public static function stashAnsiArt($text)
-	{
-	  $config  = Config::instance();
-	  $matches = array();
+    public static function stashAnsiArt($text)
+    {
+      $config  = Config::instance();
+      $matches = array();
       $search  = "/\[ansi\]((?!\[\/ansi\]).*?)\[\/ansi\]/ms";
       $count   = preg_match_all($search, $text, $matches);
       if ($count) {
         for ($i = 0; $i < $count; $i++) {
           $id   = randomString(32);
-	      $src  = $config->files->uploads->baseUri . "/" . $matches[1][$i];
-		  $dest = $src . ".html";
-		  $cmd  = $config->programs->ansifilter->path;
-		  if (!file_exists($dest)) {
-		    exec("$cmd -H --art-cp437 -i $src -o $dest -F \"Courier New\"", $out, $ret);
-		  }
-		  self::$codeBlocks[$id] = "<iframe class=\"ansi-art-frame\" src=\"$dest\"></iframe>";
+          $src  = $config->files->uploads->baseUri . "/" . $matches[1][$i];
+          $dest = $src . ".html";
+          $cmd  = $config->programs->ansifilter->path;
+          if (!file_exists($dest)) {
+            exec("$cmd -H --art-cp437 -i $src -o $dest -F \"Courier New\"", $out, $ret);
+            if (intval($ret) != 0) {
+              continue;
+            }
+          }
+          self::$codeBlocks[$id] = "<iframe class=\"ansi-art-frame\" src=\"$dest\"></iframe>";
           $text = str_replace($matches[0][$i], '[[' . $id . ']]', $text);
-		}
-	  }
-	  return $text;
-	} // stashAnsiArt
-	
+        }
+      }
+      return $text;
+    } // stashAnsiArt
+
     private static function __rainbow($matches)
     {
       return TextEffects::rainbow($matches[1]);
