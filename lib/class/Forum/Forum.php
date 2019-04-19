@@ -5,6 +5,7 @@
   require_once(__DIR__ . '/../Messaging/Emoticons.php');
   require_once(__DIR__ . '/../Messaging/Alerts.php');
   require_once(__DIR__ . '/../Markup/MessageParser.php');
+  require_once(__DIR__ . '/../Tree/Tree.php');
 
   class Forum
   {
@@ -156,22 +157,25 @@
       $pdo = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,  false);
       $pdo->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, false);
-      $terms = $pdo->quote('%' . $terms . '%', PDO::PARAM_STR);
-      $sql   = "SELECT `thr`.`id`        AS `threadId`,
-                       `thr`.`topic`     AS `topic`,
-                       `thr`.`startedBy` AS `startedBy`,
-                       `sus`.`username`  AS `starter`
-                     FROM `ForumPost`         AS `pst`
-                LEFT JOIN `ForumPostInThread` AS `pit` ON `pit`.`postId` = `pst`.`id`
-                LEFT JOIN `ForumThread`       AS `thr` ON `thr`.`id`     = `pit`.`threadId`
-                LEFT JOIN `User`              AS `sus` ON `sus`.`id`     = `thr`.`startedBy`
-                WHERE `pst`.`body` LIKE $terms OR `pst`.`topic` LIKE $terms";
-      $stm   = $pdo->query($sql);
+      $_terms = $pdo->quote('%' . $terms . '%', PDO::PARAM_STR);
+      $sql    = "SELECT `thr`.`id`        AS `threadId`,
+                        `thr`.`topic`     AS `topic`,
+                        `thr`.`startedBy` AS `startedBy`,
+                        `sus`.`username`  AS `starter`
+                      FROM `ForumPost`         AS `pst`
+                 LEFT JOIN `ForumPostInThread` AS `pit` ON `pit`.`postId` = `pst`.`id`
+                 LEFT JOIN `ForumThread`       AS `thr` ON `thr`.`id`     = `pit`.`threadId`
+                 LEFT JOIN `User`              AS `sus` ON `sus`.`id`     = `thr`.`startedBy`
+                 WHERE `pst`.`body` LIKE $_terms OR `pst`.`topic` LIKE $_terms";
+      $stm    = $pdo->query($sql);
       $threadIds = array();
       $threads   = array();
       while (($row = $stm->fetchObject()) !== false) {
-        $threadIds[] = intval($row->threadId);
-        $threads[]   = $row;
+		$threadId = intval($row->threadId);
+		if (!in_array($threadId, $threadIds)) {
+          $threadIds[] = $threadId;
+          $threads[]   = $row;
+		}
       }
       if (empty($threadIds)) {
         return (object) array(
@@ -197,9 +201,19 @@
                 WHERE `pit`.`threadId` IN (" . implode(",", $threadIds) . ") ORDER BY `pst`.`id`";
       $stm   = $pdo->query($sql);
       $posts = $stm->fetchAll(PDO::FETCH_OBJ);
+	  $tree  = new Tree();
+	  $tree->importStore('postId', 'inReplyTo', $posts);
+	  $topics  = $tree->find('topic',    Tree::OP_CONTAINS_SUBSTR, $terms);
+	  $nodes   = $tree->find('rendered', Tree::OP_CONTAINS_SUBSTR, $terms);
+	  $nodes   = array_merge($topics, $nodes);
+	  $results = array();
+	  foreach ($nodes as $node) {
+		$limb = $node->getLimb();
+        $results = array_merge($results, $limb->toArray());		
+	  }
       return (object) array(
                'threads' => $threads,
-               'posts'   => $posts
+               'posts'   => $results
              );
     } // search
 
