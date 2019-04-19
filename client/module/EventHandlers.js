@@ -396,6 +396,15 @@ var EventHandlers = {
                              }
                   },
                   {"event" : "click",
+                   "id"    : "forum-clear-search-button",
+                   "class" : null,
+                   "func"  : function()
+                             {
+                               Forum.searchResults = null;
+                               Forum.init();
+                             }
+                  },
+                  {"event" : "click",
                    "id"    : "forum-post-reply-button",
                    "class" : null,
                    "func"  : function()

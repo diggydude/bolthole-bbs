@@ -5,6 +5,7 @@ var Forum = {
   "currentPostId"     : 0,
   "destination"       : 0,
   "treeView"          : "branch",
+  "searchResults"     : null,
 
   "init"              : function()
                         {
@@ -14,13 +15,32 @@ var Forum = {
 
   "show"              : function()
                         {
+                          if (this.searchResults != null) {
+                            this.threads = this.searchResults.threads;
+                            this.posts   = this.searchResults.posts;
+                            if (this.threads.length > 0) {
+                              if (this.destination > 0) {
+                                this.showTopic(this.getPostById(this.destination).inThread);
+                                this.currentPostId = this.destination;
+                                this.destination   = 0;
+                                $('forum-clear-search-button').style.display = "inline";
+                                this.showPost(this.currentPostId);
+                                return;
+                              }
+                              $('forum-clear-search-button').style.display = "inline";
+                              this.showTopic(this.threads[0].threadId);
+                              return;
+                            }
+                            EventHandlers.apply();
+                            return;
+                          }
                           var uri = "/forum.php";
                           var formData = new FormData();
                           formData.append('command', 'getRecent');
                           with (Client.request) {
                             open('POST', uri, true);
                             onload = function()
-                                     {
+                                     {console.log(this.responseText);
                                        var response = JSON.parse(this.responseText);
                                        if (response.success) {
                                          Forum.threads = response.results.threads;
@@ -31,9 +51,11 @@ var Forum = {
                                              Forum.showTopic(Forum.getPostById(Forum.destination).inThread);
                                              Forum.currentPostId = Forum.destination;
                                              Forum.destination   = 0;
+                                             $('forum-clear-search-button').style.display = "none";
                                              Forum.showPost(Forum.currentPostId);
                                              return;
                                            }
+                                           $('forum-clear-search-button').style.display = "none";
                                            Forum.showTopic(Forum.threads[0].threadId);
                                            return;
                                          }
@@ -170,7 +192,7 @@ var Forum = {
                           with (Client.request) {
                             open('POST', uri, true);
                             onload = function()
-                                     {
+                                     {console.log(this.responseText);
                                        var response = JSON.parse(this.responseText);
                                        if (response.success) {
                                          Client.showSuccess(response.message);
@@ -207,15 +229,19 @@ var Forum = {
                           var uri = "/forum.php";
                           var formData = new FormData();
                           with (formData) {
-							append('command', 'search');
-							append('terms',   terms);
-						  }
+                            append('command', 'search');
+                            append('terms',   terms);
+                          }
                           with (Client.request) {
                             open('POST', uri, true);
                             onload = function()
-                                     {
+                                     {console.log(this.responseText);
                                        var response = JSON.parse(this.responseText);
                                        if (response.success) {
+                                         Forum.searchResults = {
+                                                                 "threads" : response.results.threads,
+                                                                 "posts"   : response.results.posts
+                                                               };
                                          Forum.threads = response.results.threads;
                                          Forum.posts   = response.results.posts;
                                          $('main').innerHTML = Client.render('forum', Forum);

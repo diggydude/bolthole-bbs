@@ -21,17 +21,12 @@ var Client = {
                       {
                         var bolthole = JSON.parse(window.localStorage.getItem('bolthole'));
                         var userId   = parseInt(Session.userId);
-                        console.log('Get: User ID is ' + userId);
                         if (!(userId in bolthole)) {
-                          console.log('Get: User ID ' + userId + ' not found in storage.');
                           return null;
                         }
                         if (!(key in bolthole[userId])) {
-                          console.log('Get: Key ' + key + ' not found in storage.');
                           return null;
                         }
-                        console.log('Get: Found key ' + key);
-                        console.log(bolthole[userId][key]);
                         return bolthole[userId][key];
                       }, // getStorage
 
@@ -40,14 +35,10 @@ var Client = {
                         var bolthole = JSON.parse(window.localStorage.getItem('bolthole'));
                         var userId   = parseInt(Session.userId);
                         if (!(userId in bolthole)) {
-                          console.log('Put: User ID ' + userId + ' not found in storage.');
                           bolthole[userId] = {};
                         }
                         bolthole[userId][key] = value;
                         window.localStorage.setItem('bolthole', JSON.stringify(bolthole));
-                        console.log('Put: Bolthole is a ' + typeof(bolthole));
-                        console.log('Put: Contents of ' + userId);
-                        console.log(bolthole[userId]);
                       }, // putStorage
 
   "render"          : function(template, data)
