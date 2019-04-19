@@ -242,8 +242,9 @@ var Forum = {
                                                                  "threads" : response.results.threads,
                                                                  "posts"   : response.results.posts
                                                                };
-                                         Forum.threads = response.results.threads;
-                                         Forum.posts   = response.results.posts;
+                                         Forum.treeView = "branch";
+                                         Forum.threads  = response.results.threads;
+                                         Forum.posts    = response.results.posts;
                                          $('main').innerHTML = Client.render('forum', Forum);
                                          if (Forum.threads.length > 0) {
                                            Forum.showTopic(Forum.threads[0].threadId);
