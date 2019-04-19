@@ -91,7 +91,7 @@ http://qbnz.com/highlighter/
 
 * Automatic dark mode scheduling
 
-**Rationale**
+**Further Explanation and Rationale of Key Features**
 
 All timestamps are stored as Greenwich Mean Time and automatically converted to the user's local timezone when displayed. (This is broken in a couple of places but will be fixed soon.) See `client/misc.js` for the conversion function.
 
