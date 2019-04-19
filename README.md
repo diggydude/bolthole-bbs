@@ -113,4 +113,6 @@ The forum is a modern take on the threaded mailing lists of the early Web. The 1
 
 * `Stem` shows all replies (and their descendants) to the post currently being viewed.
 
+Filter selection is "sticky," i.e., the selected filter will remain in effect until you select another one.
+
 In a like manner, only the user's last 100 blog posts and uploads are shown on their profile. Older content can be reached via the site search.
