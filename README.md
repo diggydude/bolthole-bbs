@@ -119,9 +119,13 @@ The forum is a modern take on the threaded mailing lists of the early Web. The 1
 
 * `Stem` shows replies (and their descendants) to the post currently being viewed.
 
-Filter selection is "sticky," i.e., the selected filter will remain in effect until you select another one.
+Filter selection is "sticky," i.e., the selected filter will remain in effect until you select another one, except when initiating a search. Then the filter will revert to the Branch filter so you can see all of the search results. You can change the filter again in search mode, and it will be sticky until one of the above described events is repeated.
 
-In a like manner, only the user's last 100 blog posts and uploads are shown on their profile. Older content can be reached via the site search.
+When a forum search is performed, the search results will be cached locally so you can browse them. Click "Clear Search" to return to normal operation.
+
+In search mode, the bottom pane shows a tree composed of the limbs containing posts that matched the search phrase. The most relevant posts will usually be the lowest nodes in the tree.
+
+In a manner similar to the forum, only the user's last 100 blog posts and uploads are shown on their profile. Older content can be reached via the site search.
 
 ANSI art embedding works by converting the ANSI file to HTML and displaying it in an iframe. To embed ANSI art in your profile or blog post:
 
