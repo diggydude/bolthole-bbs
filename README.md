@@ -135,4 +135,4 @@ There are two styles of `[code]` tag usage:
 
 * `[code=php]...[/code]` highlights the code per the indicated language, e.g., PHP.
 
-* `[code]...[/code]` simply renders the code per the current them's font color.
+* `[code]...[/code]` simply renders the code in the current them's font color.
