@@ -125,7 +125,7 @@ In a like manner, only the user's last 100 blog posts and uploads are shown on t
 
 ANSI art embedding works by converting the ANSI file to HTML and displaying it in an iframe. To embed ANSI art in your profile or blog post:
 
-* Upload the ANSI art file. The uploader is located under your profile in the left sidebar accordion.
+* Upload the ANSI art file. The uploader is located in the profile control panel in the left sidebar.
 
 * Copy its MD5 file hash from the file details page.
 
