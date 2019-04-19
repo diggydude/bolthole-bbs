@@ -116,3 +116,15 @@ The forum is a modern take on the threaded mailing lists of the early Web. The 1
 Filter selection is "sticky," i.e., the selected filter will remain in effect until you select another one.
 
 In a like manner, only the user's last 100 blog posts and uploads are shown on their profile. Older content can be reached via the site search.
+
+ANSI art embedding works by converting the ANSI file to HTML and displaying it in an iframe. To embed ANSI art in your profile or blog post:
+
+* Upload the ANSI art file. The uploader is located under your profile in the left sidebar accordion.
+
+* Copy its MD5 file hash from the file details page.
+
+* Paste the hash between `[ansi]` tags in your profile "about" field or blog post.
+
+The ANSI art converter currently assumes Code Page 437. In future releases, users will be required to put ANSI files in a zip archive along with a FILE_ID.DIZ file indicating the character encoding before uploading it. PHP's magic database identifies ANSI files as `application/octet-stream`. Obviously, allowing users to upload `application/octet-stream` files isn't such a hot idea.
+
+The GeSHi synatx highlighter supports over 200 programming languages. I've included only a few language files to avoid adding 2 MB to the package size. You can download GeSHi at the link above and add additional language files to `lib/vnd/geshi/lang`.
