@@ -107,13 +107,13 @@ The platform is intended to support closed communities, and isn't well-suited to
 
 Some features are deliberately less automated than they could be. Mister Obvious wanted to encourage users to learn how things work at a somewhat lower level, rather than have everything done for them. For example, YouTube URLs are not automatically converted to embedded video players. The user will have to paste the video ID into `[youtube]` tags to accomplish that. Not all tags are allowed in all areas. Users can post whatever they want on their profiles and blogs, but many tags are disallowed in the forum and chat to keep the noise level down. Likewise, embedding ANSI art isn't very straightforward, as will be explained later.
 
-The forum is a modern take on the threaded mailing lists of the early Web. The 100 most recently active threads are shown in the left pane. Older threads can be accessed via the site search. Posts in the selected thread are shown as a tree in the bottom pane. The tree filters work as follows:
+The forum is a modern take on the threaded mailing lists of the early Web. The 100 most recently active topics are shown in the left pane. Older topics can be accessed via the site search. Posts in the selected topic are shown as a tree in the bottom pane. The tree filters work as follows:
 
 * `Branch` shows all posts in the selected topic.
 
-* `Limb` shows only replies in the path from the "OP," or first post in the topic, to the post currently being viewed.
+* `Limb` shows replies in the direct path from the "OP," or first post in the topic, to the post currently being viewed.
 
-* `Stem` shows all replies (and their descendants) to the post currently being viewed.
+* `Stem` shows replies (and their descendants) to the post currently being viewed.
 
 Filter selection is "sticky," i.e., the selected filter will remain in effect until you select another one.
 
@@ -127,7 +127,7 @@ ANSI art embedding works by converting the ANSI file to HTML and displaying it i
 
 * Paste the hash between `[ansi]` tags in your profile "about" field or blog post.
 
-The ANSI art converter currently assumes Code Page 437. In future releases, users will be required to put ANSI files in a zip archive along with a FILE_ID.DIZ file indicating the character encoding before uploading it. PHP's magic database identifies ANSI files as `application/octet-stream`. Obviously, allowing users to upload `application/octet-stream` files isn't such a hot idea.
+The ANSI art converter currently assumes Code Page 437. In future releases, users will be required to put ANSI files in a zip archive along with a FILE_ID.DIZ file indicating the character encoding before uploading. PHP's magic database identifies ANSI files as `application/octet-stream`. Obviously, allowing users to upload `application/octet-stream` files isn't such a hot idea.
 
 The GeSHi syntax highlighter supports over 200 programming languages. I've included only a few language files to avoid adding 2 MB to the package size. You can download GeSHi at the link above and add additional language files to `lib/vnd/geshi/lang`.
 
