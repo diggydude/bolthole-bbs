@@ -59,6 +59,7 @@ var Forum = {
                                            Forum.showTopic(Forum.threads[0].threadId);
                                            return;
                                          }
+						                 $('forum-clear-search-button').style.display = "none";
                                          EventHandlers.apply();
                                          return;
                                        }
