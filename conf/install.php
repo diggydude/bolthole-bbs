@@ -3,6 +3,7 @@
   ini_set('display_errors', 1);
   require_once(__DIR__ . '/../lib/class/System/Config.php');
   require_once(__DIR__ . '/../lib/class/User/User.php');
+  require_once(__DIR__ . '/../lib/func/getOptimumHashCost.php');
   $config = Config::instance(__DIR__ . '/config.conf');
 
   $config->site     = (object) array(
@@ -26,7 +27,7 @@
   $config->db       = (object) array(
                         'dsn'      => 'mysql:dbname=bolthole;host=127.0.0.1',
                         'username' => 'apache',
-                        'password' => ''
+                        'password' => 'eK23s5il'
                       );
 
   $config->files    = (object) array(
@@ -109,6 +110,11 @@
                                           'path' => 'C:/ansifilter/ansifilter.exe'
                                         )
                       );
+					  
+  $config->security = (object) array(
+                        'algorithm'       => PASSWORD_BCRYPT,
+                        'optimumHashCost' => getOptimumHashCost()
+					  );
 
   $config->save();
 
@@ -118,7 +124,7 @@
   User::create(
     (object) array(
       'username'    => 'System',
-      'password'    => 'ch@n93m3',
+      'password'    => password_hash('ch@n93m3', PASSWORD_BCRYPT),
       'question'    => 'What is your username?',
       'answer'      => 'System',
       'accessLevel' => 4
@@ -128,7 +134,7 @@
   User::create(
     (object) array(
       'username'    => 'Sysop',
-      'password'    => 'ch@n93m3',
+      'password'    => password_hash('ch@n93m3', PASSWORD_BCRYPT),
       'question'    => 'What is your username?',
       'answer'      => 'Sysop',
       'accessLevel' => 4
