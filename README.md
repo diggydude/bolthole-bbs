@@ -75,8 +75,6 @@ To the best of my knowledge, all third-party content herein is freely distributa
 
 **To Do:**
 
-* Implement proper PHP password security
-
 * Minify JavaScript and CSS files
 
 * Make `#hashtag` links actually do something
