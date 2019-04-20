@@ -18,7 +18,7 @@
         self::$lastError = "Invalid username or password.";
         return false;
       }
-      if ($password !== $user->password) {
+      if (!password_verify($password, $user->password)) {
         self::$lastError = "Invalid username or password.";
         return false;
       }
@@ -41,14 +41,16 @@
         self::$lastError = "The two passwords do not match.";
         return false;
       }
-      $user = User::create(
-                (object) array(
-                  'username' => $username,
-                  'password' => $password,
-                  'question' => $question,
-                  'answer'   => $answer
-                )
-              );
+	  $cnf    = Config::instance();
+	  $hashed = password_hash($password, $config->security->algorithm);
+      $user   = User::create(
+                  (object) array(
+                    'username' => $username,
+                    'password' => $hashed,
+                    'question' => $question,
+                    'answer'   => $answer
+                  )
+                );
       if ($user === false) {
         self::$lastError = "That username is already taken.";
         return false;
@@ -97,10 +99,11 @@
         self::$lastError = "The two passwords do not match.";
         return false;
       }
+	  $cnf  = Config::instance();
       $user = new User($userId);
       $user->update(
         (object) array(
-          'password' => $password
+          'password' => password_hash($password, $cnf->security->algorithm)
         )
       );
       return $user;
