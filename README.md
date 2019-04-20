@@ -93,7 +93,7 @@ To the best of my knowledge, all third-party content herein is freely distributa
 
 **Further Explanation and Rationale of Key Features**
 
-All timestamps are stored as Greenwich Mean Time and automatically converted to the user's local timezone when displayed. (This is broken in a couple of places but will be fixed soon.) See `client/misc.js` for the conversion function.
+All timestamps are stored as Greenwich Mean Time and automatically converted to the user's local timezone when displayed. See `client/misc.js` for the conversion function.
 
 The Preferences and Following modules operate completely on the client side. No data is sent to the server. As a consequence, no one will be able to see who you're following, or know you're following them. Mister Obvious envisioned this feature as a way to bookmark profiles of interest rather than as a means of collecting followers and fishing for follow-backs, as seen on Twitter. I only labeled the list "Following" because that's a concept most users will be familiar with.
 
