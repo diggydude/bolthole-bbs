@@ -1,8 +1,6 @@
 # bolthole-bbs
 Everything fun about the Internet packed into a tiny website platform!
 
-**CAUTION: This is a preview release and not recommended for use in production.**
-
 **Installation:**
 
 (1) Upload the files to your document root (`htdocs`, `public_html`, `www`, or whatever).
