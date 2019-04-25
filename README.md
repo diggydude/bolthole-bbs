@@ -1,6 +1,12 @@
 # bolthole-bbs
 Everything fun about the Internet packed into a tiny website platform!
 
+A demo site is online here:
+
+http://pamsconfessional.x10host.com/
+
+It's a free hosting account, so you can't upload avatars or other files there. Rest assured everything works when hosted on a real server.
+
 **Installation:**
 
 (1) Upload the files to your document root (`htdocs`, `public_html`, `www`, or whatever).
@@ -11,11 +17,9 @@ Everything fun about the Internet packed into a tiny website platform!
 
 The installer will create a configuration file, `conf/config.conf`. Delete `conf/install.php` or move it outside of your document root after you run it. As `conf/config.conf` will contain your database login credentials, it's highly recommended that you move it outside of your document root also, and edit `conf/init_http.php` to reflect its new location.
 
-If you're running a Windows server and want to enable inline ANSI art in profiles and blog posts, you'll need to download ansifilter and set its path in the installer.
+If you want to enable inline ANSI art in profiles and blog posts, you'll need to download ANSIFilter and set its path in the installer. A Windows binary and packages for select Linux distros are available. No Debian package yet, but I'll tackle that once I gain access to a Debian box.
 
 http://www.andre-simon.de/doku/ansifilter/en/ansifilter.php
-
-This feature isn't available for Linux yet.
 
 **Features:**
 
@@ -81,7 +85,7 @@ To the best of my knowledge, all third-party content herein is freely distributa
 
 * HTML frontend for installer
 
-* ANSI art viewer for Linux hosts
+* Port ANSIFilter to Debian
 
 * Spoiler decoder
 
