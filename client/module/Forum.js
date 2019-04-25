@@ -40,7 +40,7 @@ var Forum = {
                           with (Client.request) {
                             open('POST', uri, true);
                             onload = function()
-                                     {console.log(this.responseText);
+                                     {
                                        var response = JSON.parse(this.responseText);
                                        if (response.success) {
                                          Forum.threads = response.results.threads;
@@ -59,7 +59,7 @@ var Forum = {
                                            Forum.showTopic(Forum.threads[0].threadId);
                                            return;
                                          }
-						                 $('forum-clear-search-button').style.display = "none";
+                                         $('forum-clear-search-button').style.display = "none";
                                          EventHandlers.apply();
                                          return;
                                        }
@@ -193,7 +193,7 @@ var Forum = {
                           with (Client.request) {
                             open('POST', uri, true);
                             onload = function()
-                                     {console.log(this.responseText);
+                                     {
                                        var response = JSON.parse(this.responseText);
                                        if (response.success) {
                                          Client.showSuccess(response.message);
@@ -236,7 +236,7 @@ var Forum = {
                           with (Client.request) {
                             open('POST', uri, true);
                             onload = function()
-                                     {console.log(this.responseText);
+                                     {
                                        var response = JSON.parse(this.responseText);
                                        if (response.success) {
                                          Forum.searchResults = {
