@@ -17,7 +17,7 @@ It's a free hosting account, so you can't upload avatars or other files there. R
 
 The installer will create a configuration file, `conf/config.conf`. Delete `conf/install.php` or move it outside of your document root after you run it. As `conf/config.conf` will contain your database login credentials, it's highly recommended that you move it outside of your document root also, and edit `conf/init_http.php` to reflect its new location.
 
-If you want to enable inline ANSI art in profiles and blog posts, you'll need to download ANSIFilter and set its path in the installer. A Windows binary and packages for select Linux distros are available. No Debian package yet, but the author assures me it builds easily on Raspbian.
+If you want to enable inline ANSI art in profiles and blog posts, you'll need to install ANSIFilter and set its path in the Bolthole installer script. A Windows binary and packages for select Linux distros are available. No Debian package yet, but the author assures me it builds easily on Raspbian using g++ and make.
 
 http://www.andre-simon.de/doku/ansifilter/en/ansifilter.php
 
