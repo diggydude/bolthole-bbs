@@ -17,7 +17,7 @@ It's a free hosting account, so you can't upload avatars or other files there. R
 
 The installer will create a configuration file, `conf/config.conf`. Delete `conf/install.php` or move it outside of your document root after you run it. As `conf/config.conf` will contain your database login credentials, it's highly recommended that you move it outside of your document root also, and edit `conf/init_http.php` to reflect its new location.
 
-If you want to enable inline ANSI art in profiles and blog posts, you'll need to download ANSIFilter and set its path in the installer. A Windows binary and packages for select Linux distros are available. No Debian package yet, but I'll tackle that once I gain access to a Debian box.
+If you want to enable inline ANSI art in profiles and blog posts, you'll need to download ANSIFilter and set its path in the installer. A Windows binary and packages for select Linux distros are available. No Debian package yet, but the author assures me it builds easily on Raspbian.
 
 http://www.andre-simon.de/doku/ansifilter/en/ansifilter.php
 
@@ -84,8 +84,6 @@ To the best of my knowledge, all third-party content herein is freely distributa
 * IRC `/kick` and `/ban` commands
 
 * HTML frontend for installer
-
-* Port ANSIFilter to Debian
 
 * Spoiler decoder
 
