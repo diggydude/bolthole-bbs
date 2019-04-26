@@ -78,6 +78,7 @@ var Preferences = {
                          {
                            var script = document.createElement('SCRIPT');
                            document.getElementsByTagName('HEAD')[0].appendChild(script);
+                           script.setAttribute('id', 'cursor-effect');
                            script.setAttribute('src', './client/cursor/' + $('settings_cursor').options[this.cursor].value + '.js');
                          } // setCursorEffect
 

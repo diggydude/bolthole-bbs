@@ -221,6 +221,7 @@ var Session = {
                        Session.profile  = null;
                        Session.showForm('sign-in');
                        Cookies.remove('session_id');
+                       document.getElementsByTagName('HEAD')[0].removeChild($('cursor-effect'));
                        $('welcome').innerHTML = "Please sign in or register.";
                        $('main').innerHTML = "";
                      } // quit
