@@ -116,7 +116,7 @@
 
     public function update($params)
     {
-	  $cnf = Config::instance();
+      $cnf = Config::instance();
       if (property_exists($params, 'password')) {
         $this->password = $params->password;
       }

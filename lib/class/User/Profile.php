@@ -170,7 +170,7 @@
       return Comment::listComments($this->userId, 1);
     } // listComments
 
-    public static function search($terms)
+    public static function search($terms, $userIds = array())
     {
       $cnf     = Config::instance();
       $pdo     = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
@@ -178,10 +178,13 @@
       $sql     = "SELECT GROUP_CONCAT(DISTINCT `usr`.`id`) AS `userIds`
                   FROM `User`         AS `usr`
                   LEFT JOIN `Profile` AS `pfl` ON `pfl`.`userId` = `usr`.`id`
-                  WHERE `usr`.`username` LIKE $terms
-                  OR `pfl`.`title`       LIKE $terms
-                  OR `pfl`.`signature`   LIKE $terms
-                  OR `pfl`.`about`       LIKE $terms";
+                  WHERE (`usr`.`username`  LIKE $terms
+                      OR `pfl`.`title`     LIKE $terms
+                      OR `pfl`.`signature` LIKE $terms
+                      OR `pfl`.`about`     LIKE $terms)";
+      if (!empty($userIds)) {
+        $sql .= " AND `pfl`.`userId` IN (" . implode(",", array_map('intval', $userIds)) . ")";
+      }
       $stm     = $pdo->query($sql);
       $userIds = $stm->fetchColumn();
       $sql     = "SELECT `usr`.`id`       AS `userId`,
@@ -195,7 +198,7 @@
                   LEFT JOIN `Profile` AS `pfl` ON `pfl`.`userId`  = `usr`.`id`
                   LEFT JOIN `Blog`    AS `blg` ON `blg`.`ownerId` = `usr`.`id`
                   LEFT JOIN `Library` AS `lib` ON `lib`.`ownerId` = `usr`.`id`
-				  WHERE `usr`.`id` IN ($userIds) ORDER BY `usr`.`username`";
+                  WHERE `usr`.`id` IN ($userIds) ORDER BY `usr`.`username`";
       $stm     = $pdo->query($sql);
       $rows    =  $stm->fetchAll(PDO::FETCH_OBJ);
       $users   = array();
@@ -204,7 +207,7 @@
       }
       return $users;
     } // search
-    
+
     public function __get($prop)
     {
       return (property_exists($this, $prop)) ? $this->$prop : null;
