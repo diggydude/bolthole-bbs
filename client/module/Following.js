@@ -49,6 +49,18 @@ var Following = {
                      $('following').innerHTML += link;
                    }
                  }
-               } // show
+               }, // show
+
+  "search"   : function()
+               {
+                 var terms   = $('following_search_terms').value;
+                 var userIds = "";
+                 var ids     = [];
+                 for (var id in this.followed) {
+                   ids.push(id);
+                 }
+                 userIds = ids.join(",");
+                 Profile.search(terms, userIds);
+               } // search
 
 }; // Following

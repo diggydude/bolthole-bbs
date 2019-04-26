@@ -26,14 +26,14 @@ function Profile()
                                   var response = JSON.parse(this.responseText);
                                   if (response.success) {
                                     profile.load(response.results);
-									return;
+                                    return;
                                   }
                                   Client.showError(response.message);
                                 };
                        send();
                      }
                    }; // fetch
-  
+
   this.load      = function(params)
                    {
                      this.userId    = parseInt(params.userId);
@@ -122,7 +122,7 @@ function Profile()
                        $('unfollow-button').style.display = "none";
                        $('follow-button').style.display   = "block";
                      }
-					 EventHandlers.apply();
+                     EventHandlers.apply();
                    }; // show
 
 } // Profile
@@ -173,7 +173,7 @@ Profile.listProfiles = function()
                                        var response = JSON.parse(this.responseText);
                                        if (response.success) {
                                          $('main').innerHTML = Client.render('profile_list', response.results);
-										 EventHandlers.apply();
+                                         EventHandlers.apply();
                                          return;
                                        }
                                        Client.showError(response.message);
@@ -185,15 +185,18 @@ Profile.listProfiles = function()
                            send(formData);
                          }
                        }; // Profile.listProfiles
-					   
+
 Profile.search       = function(terms)
                        {
                          var uri      = "profile.php";
                          var formData = new FormData();
                          with (formData) {
-						   append('command', 'search');
-						   append('terms',   terms);
-						 }
+                           append('command', 'search');
+                           append('terms',   terms);
+                         }
+                         if (arguments.length > 1) {
+                           formData.append('userIds', arguments[1]);
+                         }
                          with (Client.request) {
                            open('POST', uri, true);
                            onload  = function()
@@ -201,7 +204,7 @@ Profile.search       = function(terms)
                                        var response = JSON.parse(this.responseText);
                                        if (response.success) {
                                          $('main').innerHTML = Client.render('profile_list', response.results);
-										 EventHandlers.apply();
+                                         EventHandlers.apply();
                                          return;
                                        }
                                        Client.showError(response.message);
@@ -212,4 +215,4 @@ Profile.search       = function(terms)
                                      };
                            send(formData);
                          }
-					   }; // Profile.search
+                       }; // Profile.search

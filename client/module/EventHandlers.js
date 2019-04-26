@@ -188,6 +188,14 @@ var EventHandlers = {
                              }
                   },
                   {"event" : "click",
+                   "id"    : "following_search",
+                   "class" : null,
+                   "func"  : function()
+                             {
+                               Following.search();
+                             }
+                  },
+                  {"event" : "click",
                    "id"    : "profile-comment-button",
                    "class" : null,
                    "func"  : function()
