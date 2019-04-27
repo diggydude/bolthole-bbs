@@ -76,11 +76,7 @@
       $emotes    = Emoticons::instance();
       $userList  = User::listUsers();
       $options   = array(
-                    'allowedTags'       => array(
-                                             'b', 'i', 'u', 'color', 'size', 'url',
-                                             'code', 'marquee', 'blink', 'rainbow',
-                                             'gradient', 'spoiler'
-                                           ),
+                    'allowedTags'       => $cnf->forum->allowedTags,
                     'userList'          => $userList,
                     'emoticonList'      => $emotes->listIcons(),
                     'openLinksInNewTab' => true
@@ -171,11 +167,11 @@
       $threadIds = array();
       $threads   = array();
       while (($row = $stm->fetchObject()) !== false) {
-		$threadId = intval($row->threadId);
-		if (!in_array($threadId, $threadIds)) {
+        $threadId = intval($row->threadId);
+        if (!in_array($threadId, $threadIds)) {
           $threadIds[] = $threadId;
           $threads[]   = $row;
-		}
+        }
       }
       if (empty($threadIds)) {
         return (object) array(
@@ -201,16 +197,16 @@
                 WHERE `pit`.`threadId` IN (" . implode(",", $threadIds) . ") ORDER BY `pst`.`id`";
       $stm   = $pdo->query($sql);
       $posts = $stm->fetchAll(PDO::FETCH_OBJ);
-	  $tree  = new Tree();
-	  $tree->importStore('postId', 'inReplyTo', $posts);
-	  $topics  = $tree->find('topic',    Tree::OP_CONTAINS_SUBSTR, $terms);
-	  $nodes   = $tree->find('rendered', Tree::OP_CONTAINS_SUBSTR, $terms);
-	  $nodes   = array_merge($topics, $nodes);
-	  $results = array();
-	  foreach ($nodes as $node) {
-		$limb = $node->getLimb();
-        $results = array_merge($results, $limb->toArray());		
-	  }
+      $tree  = new Tree();
+      $tree->importStore('postId', 'inReplyTo', $posts);
+      $topics  = $tree->find('topic',    Tree::OP_CONTAINS_SUBSTR, $terms);
+      $nodes   = $tree->find('rendered', Tree::OP_CONTAINS_SUBSTR, $terms);
+      $nodes   = array_merge($topics, $nodes);
+      $results = array();
+      foreach ($nodes as $node) {
+        $limb = $node->getLimb();
+        $results = array_merge($results, $limb->toArray());
+      }
       return (object) array(
                'threads' => $threads,
                'posts'   => $results
