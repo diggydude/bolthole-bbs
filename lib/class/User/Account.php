@@ -22,6 +22,10 @@
         self::$lastError = "Invalid username or password.";
         return false;
       }
+      if (User::userIsBanned($user->id)) {
+        self::$lastError = "You've been banned.";
+        return false;
+      }
       $_SESSION['userId']   = $user->id;
       $_SESSION['username'] = $user->username;
       session_write_close();
@@ -41,8 +45,8 @@
         self::$lastError = "The two passwords do not match.";
         return false;
       }
-	  $cnf    = Config::instance();
-	  $hashed = password_hash($password, $config->security->algorithm);
+      $cnf    = Config::instance();
+      $hashed = password_hash($password, $config->security->algorithm);
       $user   = User::create(
                   (object) array(
                     'username' => $username,
@@ -99,7 +103,7 @@
         self::$lastError = "The two passwords do not match.";
         return false;
       }
-	  $cnf  = Config::instance();
+      $cnf  = Config::instance();
       $user = new User($userId);
       $user->update(
         (object) array(

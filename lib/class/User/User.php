@@ -168,6 +168,28 @@
       return new User($id);
     } // getUserByName
 
+    public static function banUser($userId)
+    {
+      $cnf    = Config::instance();
+      $pdo    = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
+      $userId = intval($userId);
+      $sql    = "INSERT INTO `Ban` (`userId`, `bannedBy`, `reason`) VALUES ($userId, 2, 'No reason.')";
+      $stm    = $pdo->query($sql);
+    } // banUser
+
+    public static function userIsBanned($userId)
+    {
+      $cnf = Config::instance();
+      $pdo = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
+      $sql = "SELECT `bannedAt` FROM `Ban` WHERE `userId` = " . intval($userId);
+      $stm = $pdo->query($sql);
+      $col  = $stm->fetchColumn();
+      if (!$col) {
+        return false;
+      }
+      return true;
+    } // userIsBanned
+
     public static function listUsers()
     {
       $cnf   = Config::instance();
