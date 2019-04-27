@@ -35,7 +35,7 @@ http://www.andre-simon.de/doku/ansifilter/en/ansifilter.php
 
 * AOL sound effects
 
-* IRC-style `/me` and `/action` commands -- more commands coming!
+* IRC-style `/me`, `/action`, `/kick`, and `/ban` commands
 
 * Modern social media features like `#hashtags`, `@mentions`, follows, and comments
 
@@ -80,8 +80,6 @@ To the best of my knowledge, all third-party content herein is freely distributa
 * Minify JavaScript and CSS files
 
 * Make `#hashtag` links actually do something
-
-* IRC `/kick` and `/ban` commands
 
 * HTML frontend for installer
 
