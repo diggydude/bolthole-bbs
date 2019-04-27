@@ -193,6 +193,7 @@
                   <div><label><input type="checkbox" id="settings_notifyAnyProfile"   /> Anyone's profile is updated</label></div>
                   <div><label><input type="checkbox" id="settings_notifyAnyBlogPost"  /> Anyone makes a blog post</label></div>
                   <div><label><input type="checkbox" id="settings_notifyAnyUpload"    /> Anyone uploads a file</label></div>
+                  <div><label><input type="checkbox" id="settings_notifyUserBanned"   /> A member is banned</label></div>
                 </div>
                 <div class="save"><button id="settings_save">Save</button></div>
               </div>
@@ -240,7 +241,7 @@
         </aside>
       </div>
       <footer class="footer" id="footer">
-        Copyright &copy; <?=$config->site->copyright; ?>
+        Copyright &copy; <?=$config->site->copyright; ?> &middot;
         Powered by <a href="https://github.com/diggydude/bolthole-bbs" target="_blank">Bolthole BBS</a>
       </footer>
     </div>
@@ -265,6 +266,7 @@
     <audio id="gotmail-audio" src="./client/sound/gotmail.wav" type="audio/wav"></audio>
     <audio id="goodbye-audio" src="./client/sound/goodbye.wav" type="audio/wav"></audio>
     <audio id="chime-audio"   src="./client/sound/chime.wav"   type="audio/wav"></audio>
+    <audio id="gong-audio"    src="./client/sound/gong.wav"    type="audio/wav"></audio>
     <script type="text/javascript">
       window.addEventListener('load',
         function()
@@ -275,6 +277,12 @@
         }
       );
       window.addEventListener('beforeunload',
+        function()
+        {
+          Session.logout();
+        }
+      );
+      window.addEventListener('unload',
         function()
         {
           Session.logout();
