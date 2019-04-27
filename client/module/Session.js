@@ -85,8 +85,13 @@ var Session = {
                      {
                        var uri      = "/account.php";
                        var formData = new FormData();
+                       var username = $('sign-up-username').value;
+                       if (/^[\w|\-]{4,24}$/.test(username) == false) {
+                         Client.showError('Username may contain only letters, numerals, underscores, and hyphens, and must be between 4 and 24 characters long.');
+                         return;
+                       }
                        formData.append('command',  'signUp');
-                       formData.append('username', $('sign-up-username').value);
+                       formData.append('username', username);
                        formData.append('password', $('sign-up-password').value);
                        formData.append('again',    $('sign-up-password-again').value);
                        formData.append('question', $('sign-up-question').value);

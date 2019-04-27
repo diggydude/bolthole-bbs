@@ -22,8 +22,8 @@ var Client = {
                       {
                         var bolthole = JSON.parse(window.localStorage.getItem('bolthole'));
                         var userId   = parseInt(Session.userId);
-                        if (!(userId in bolthole)) {
-                          return null;
+                        if ((!(userId in bolthole)) || (bolthole[userId] == null)) {
+                          bolthole[userId] = {};
                         }
                         if (!(key in bolthole[userId])) {
                           return null;
@@ -35,7 +35,7 @@ var Client = {
                       {
                         var bolthole = JSON.parse(window.localStorage.getItem('bolthole'));
                         var userId   = parseInt(Session.userId);
-                        if (!(userId in bolthole)) {
+                        if ((!(userId in bolthole)) || (bolthole[userId] == null)) {
                           bolthole[userId] = {};
                         }
                         bolthole[userId][key] = value;
