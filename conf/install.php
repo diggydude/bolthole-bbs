@@ -26,8 +26,8 @@
 
   $config->db       = (object) array(
                         'dsn'      => 'mysql:dbname=pamsconf_bolthole;host=127.0.0.1',
-                        'username' => 'pamsconf',
-                        'password' => 'd00hickey'
+                        'username' => 'mysql_username',
+                        'password' => 'mysql_password'
                       );
 
   $config->files    = (object) array(
