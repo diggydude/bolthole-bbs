@@ -44,11 +44,7 @@
       $userList  = User::listUsers();
       $emotes    = Emoticons::instance();
       $options   = array(
-                      'allowedTags'       => array(
-                                               'b', 'i', 'u', 'color', 'size', 'url',
-                                               'code', 'marquee', 'blink', 'rainbow',
-                                               'gradient', 'spoiler'
-                                             ),
+                      'allowedTags'       => $cnf->chat->allowedTags,
                       'userList'          => $userList,
                       'emoticonList'      => $emotes->listIcons(),
                       'openLinksInNewTab' => true
