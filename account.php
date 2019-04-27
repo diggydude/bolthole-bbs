@@ -20,20 +20,21 @@
     $profile = new Profile($user->id);
     $response->success = true;
     $response->results = (object) array(
-                           'userId'    => $user->id,
-                           'username'  => $user->username,
-                           'joined'    => $user->joined,
-                           'title'     => $profile->title,
-                           'avatar'    => $profile->avatar,
-                           'signature' => $profile->signature,
-                           'website'   => $profile->website,
-                           'about'     => $profile->about,
-                           'rendered'  => $profile->rendered,
-                           'blogId'    => $profile->blogId,
-                           'blogPosts' => $profile->listBlogPosts(),
-                           'libraryId' => $profile->libraryId,
-                           'files'     => $profile->listFiles(),
-                           'comments'  => $profile->listComments()
+                           'userId'      => $user->id,
+                           'username'    => $user->username,
+                           'joined'      => $user->joined,
+                           'displayName' => $profile->displayName,
+                           'title'       => $profile->title,
+                           'avatar'      => $profile->avatar,
+                           'signature'   => $profile->signature,
+                           'website'     => $profile->website,
+                           'about'       => $profile->about,
+                           'rendered'    => $profile->rendered,
+                           'blogId'      => $profile->blogId,
+                           'blogPosts'   => $profile->listBlogPosts(),
+                           'libraryId'   => $profile->libraryId,
+                           'files'       => $profile->listFiles(),
+                           'comments'    => $profile->listComments()
                          );
         break;
       case "signUp":
@@ -45,20 +46,21 @@
         $profile = new Profile($user->id);
         $response->success = true;
         $response->results = (object) array(
-                               'userId'    => $user->id,
-                               'username'  => $user->username,
-                               'joined'    => $user->joined,
-                               'title'     => $profile->title,
-                               'avatar'    => $profile->avatar,
-                               'signature' => $profile->signature,
-                               'website'   => $profile->website,
-                               'about'     => $profile->about,
-                               'rendered'  => $profile->rendered,
-                               'blogId'    => $profile->blogId,
-                               'blogPosts' => $profile->listBlogPosts(),
-                               'libraryId' => $profile->libraryId,
-                               'files'     => $profile->listFiles(),
-                               'comments'  => $profile->listComments()
+                               'userId'      => $user->id,
+                               'username'    => $user->username,
+                               'joined'      => $user->joined,
+                               'displayName' => $profile->displayName,
+                               'title'       => $profile->title,
+                               'avatar'      => $profile->avatar,
+                               'signature'   => $profile->signature,
+                               'website'     => $profile->website,
+                               'about'       => $profile->about,
+                               'rendered'    => $profile->rendered,
+                               'blogId'      => $profile->blogId,
+                               'blogPosts'   => $profile->listBlogPosts(),
+                               'libraryId'   => $profile->libraryId,
+                               'files'       => $profile->listFiles(),
+                               'comments'    => $profile->listComments()
                              );
         break;
       case "lostPassword":
@@ -80,20 +82,21 @@
         $profile = new Profile($user->id);
         $response->success = true;
         $response->results = (object) array(
-                               'userId'    => $user->id,
-                               'username'  => $user->username,
-                               'joined'    => $user->joined,
-                               'title'     => $profile->title,
-                               'avatar'    => $profile->avatar,
-                               'signature' => $profile->signature,
-                               'website'   => $profile->website,
-                               'about'     => $profile->about,
-                               'rendered'  => $profile->rendered,
-                               'blogId'    => $profile->blogId,
-                               'blogPosts' => $profile->listBlogPosts(),
-                               'libraryId' => $profile->libraryId,
-                               'files'     => $profile->listFiles(),
-                               'comments'  => $profile->listComments()
+                               'userId'      => $user->id,
+                               'username'    => $user->username,
+                               'joined'      => $user->joined,
+                               'displayName' => $profile->displayName,
+                               'title'       => $profile->title,
+                               'avatar'      => $profile->avatar,
+                               'signature'   => $profile->signature,
+                               'website'     => $profile->website,
+                               'about'       => $profile->about,
+                               'rendered'    => $profile->rendered,
+                               'blogId'      => $profile->blogId,
+                               'blogPosts'   => $profile->listBlogPosts(),
+                               'libraryId'   => $profile->libraryId,
+                               'files'       => $profile->listFiles(),
+                               'comments'    => $profile->listComments()
                              );
         break;
       case "changePassword":
@@ -104,20 +107,21 @@
         $profile = new Profile($user->id);
         $response->success = true;
         $response->results = (object) array(
-                               'userId'    => $user->id,
-                               'username'  => $user->username,
-                               'joined'    => $user->joined,
-                               'title'     => $profile->title,
-                               'avatar'    => $profile->avatar,
-                               'signature' => $profile->signature,
-                               'website'   => $profile->website,
-                               'about'     => $profile->about,
-                               'rendered'  => $profile->rendered,
-                               'blogId'    => $profile->blogId,
-                               'blogPosts' => $profile->listBlogPosts(),
-                               'libraryId' => $profile->libraryId,
-                               'files'     => $profile->listFiles(),
-                               'comments'  => $profile->listComments()
+                               'userId'      => $user->id,
+                               'username'    => $user->username,
+                               'joined'      => $user->joined,
+                               'displayName' => $profile->displayName,
+                               'title'       => $profile->title,
+                               'avatar'      => $profile->avatar,
+                               'signature'   => $profile->signature,
+                               'website'     => $profile->website,
+                               'about'       => $profile->about,
+                               'rendered'    => $profile->rendered,
+                               'blogId'      => $profile->blogId,
+                               'blogPosts'   => $profile->listBlogPosts(),
+                               'libraryId'   => $profile->libraryId,
+                               'files'       => $profile->listFiles(),
+                               'comments'    => $profile->listComments()
                              );
         break;
       case "signOut":
