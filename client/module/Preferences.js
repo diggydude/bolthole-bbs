@@ -15,6 +15,7 @@ var Preferences = {
   "notifyAnyBlogPost"  : false,
   "notifyAnyUpload"    : false,
   "notifyUserSignup"   : true,
+  "notifyUserBanned"   : true,
 
   "init"               : function()
                          {
@@ -56,6 +57,7 @@ var Preferences = {
                            this.notifyAnyBlogPost   = $('settings_notifyAnyBlogPost').checked;
                            this.notifyAnyUpload     = $('settings_notifyAnyUpload').checked;
                            this.notifyUserSignup    = $('settings_notifyUserSignup').checked;
+                           this.notifyUserBanned    = $('settings_notifyUserBanned').checked;
                            Client.putStorage('preferences', this);
                            Client.showSuccess('Your preferences have been saved.');
                            this.apply();

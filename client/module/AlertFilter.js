@@ -29,9 +29,12 @@ var AlertFilter = {
                   "notifyUpload"     : [
                                          /^(.*) uploaded .*\.$/
                                        ],
-				  "notifyUserSignup" : [
-				                         /^New member (.*) has registered\.$/
-				                       ]
+                  "notifyUserSignup" : [
+                                         /^New member (.*) has registered\.$/
+                                       ],
+                  "notifyUserBanned" : [
+                                         /^(.*) has been banned\.$/
+                                       ]
                 }, // pattern
 
   "filter"    : function(html)
@@ -86,6 +89,8 @@ var AlertFilter = {
                           return (Following.followed.indexOf(username) > -1);
                         case "notifyUserSignup":
                           return Preferences.notifyUserSignup;
+                        case "notifyUserBanned":
+                          return Preferences.notifyUserBanned;
                         default:
                           return false;
                       }

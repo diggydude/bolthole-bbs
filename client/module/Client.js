@@ -13,7 +13,8 @@ var Client = {
                         $('gotmail-audio').volume = 0.25;
                         $('goodbye-audio').volume = 0.25;
                         $('chime-audio').volume   = 0.25;
-                        $('welcome').innerHTML = "Please sign in or register.";
+                        $('gong-audio').volume    = 0.25;
+                        $('welcome').innerHTML    = "Please sign in or register.";
                         this.taskList.run();
                       }, // init
 
