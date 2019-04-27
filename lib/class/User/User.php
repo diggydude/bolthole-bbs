@@ -103,8 +103,9 @@
         $signature = $pdo->quote($cnf->profiles->defaultSignature, PDO::PARAM_STR);
         $website   = $pdo->quote($cnf->profiles->defaultWebsite,   PDO::PARAM_STR);
         $about     = $pdo->quote($cnf->profiles->defaultAbout,     PDO::PARAM_STR);
-        $sql       = "INSERT INTO `Profile` (`userId`, `title`, `avatar`, `signature`, `website`, `about`)
-                      VALUES (" . $this->id . ", $title, $avatar, $signature, $website, $about)";
+        $rendered  = $pdo->quote($cnf->profiles->defaultAbout,     PDO::PARAM_STR);
+        $sql       = "INSERT INTO `Profile` (`userId`, `title`, `avatar`, `signature`, `website`, `about`, `rendered`)
+                      VALUES (" . $this->id . ", $title, $avatar, $signature, $website, $about, $rendered)";
         $pdo->query($sql);
         $sql = "INSERT INTO `Blog` (`ownerId`) VALUES (" .$this->id . ")";
         $pdo->query($sql);
