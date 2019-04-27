@@ -23,7 +23,7 @@
               AND (`evt`.`occurredAt` > (SELECT `joined` FROM `User` WHERE `id` = $forWhom))
               AND (SELECT `eventId` FROM `EventDispatch` WHERE `eventId` = `evt`.`id` AND `recipientId` = $forWhom) IS NULL
               ORDER BY `evt`.`occurredAt`";
-      $stm = $pdo->query($sql);//var_dump($pdo->errorInfo());
+      $stm = $pdo->query($sql);
       return $stm->fetchAll(PDO::FETCH_OBJ);
     } // fetchQueue
 

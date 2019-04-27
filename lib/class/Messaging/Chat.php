@@ -50,10 +50,26 @@
                       'openLinksInNewTab' => true
                     );
       $mentioned = array();
-      $body      = MessageParser::parse($params->body, $mentioned, $options);
-      $body      = $pdo->quote($body, PDO::PARAM_STR);
-      $sql       = "INSERT INTO `Chat` (`postedBy`, `postedAt`, `body`)
-                    VALUES ($postedBy, $postedAt, $body)";
+      if ((stripos($params->body, '/ban ') === 0) && ($postedBy < 3) && (($user = User::getUserByName(substr($params->body, 5))) !== false)) {
+        User::banUser($user->id);
+        $postedBy = 1;
+        $body     = "@" . $user->username . " has been banned.";
+        Alerts::enqueue(
+          (object) array(
+            'typeId'    => 14,
+            'recipient' => 1,
+            'private'   => false,
+            'data'      => "<a href=\"#\" class=\"profile-link\" data-userId=\"" . $user->id . "\">" . $user->username . "</a> has been banned."
+          )
+        );
+      }
+      else {
+        $body = $params->body;
+      }
+      $body = MessageParser::parse($body, $mentioned, $options);
+      $body = $pdo->quote($body, PDO::PARAM_STR);
+      $sql  = "INSERT INTO `Chat` (`postedBy`, `postedAt`, `body`)
+               VALUES ($postedBy, $postedAt, $body)";
       $pdo->query($sql);
       if (($postedBy == 1) && ((stripos($body, 'has arrived.') !== false) || (stripos($body, 'has departed.') !== false))) {
         return;
