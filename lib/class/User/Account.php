@@ -46,7 +46,7 @@
         return false;
       }
       $cnf    = Config::instance();
-      $hashed = password_hash($password, $config->security->algorithm);
+      $hashed = password_hash($password, $cnf->security->algorithm);
       $user   = User::create(
                   (object) array(
                     'username' => $username,

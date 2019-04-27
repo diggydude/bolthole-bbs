@@ -13,6 +13,7 @@
     protected
 
       $userId,
+      $displayName,
       $title,
       $avatar,
       $signature,
@@ -24,15 +25,16 @@
 
     public function __construct($userId = 0)
     {
-      $this->userId    = 0;
-      $this->title     = "";
-      $this->avatar    = "";
-      $this->signature = "";
-      $this->website   = "";
-      $this->about     = "";
-      $this->rendered  = "";
-      $this->blogId    = 0;
-      $this->libraryId = 0;
+      $this->userId      = 0;
+      $this->displayName = "";
+      $this->title       = "";
+      $this->avatar      = "";
+      $this->signature   = "";
+      $this->website     = "";
+      $this->about       = "";
+      $this->rendered    = "";
+      $this->blogId      = 0;
+      $this->libraryId   = 0;
       if ($userId > 0) {
         $this->load($userId);
       }
@@ -42,15 +44,16 @@
     {
       $cnf = Config::instance();
       $pdo = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
-      $sql = "SELECT `pfl`.`userId`    AS `userId`,
-                     `pfl`.`title`     AS `title`,
-                     `pfl`.`avatar`    AS `avatar`,
-                     `pfl`.`signature` AS `signature`,
-                     `pfl`.`website`   AS `website`,
-                     `pfl`.`about`     AS `about`,
-                     `pfl`.`rendered`  AS `rendered`,
-                     `blg`.`id`        AS `blogId`,
-                     `lib`.`id`        AS `libraryId`
+      $sql = "SELECT `pfl`.`userId`      AS `userId`,
+                     `pfl`.`displayName` AS `displayName`,
+                     `pfl`.`title`       AS `title`,
+                     `pfl`.`avatar`      AS `avatar`,
+                     `pfl`.`signature`   AS `signature`,
+                     `pfl`.`website`     AS `website`,
+                     `pfl`.`about`       AS `about`,
+                     `pfl`.`rendered`    AS `rendered`,
+                     `blg`.`id`          AS `blogId`,
+                     `lib`.`id`          AS `libraryId`
                    FROM `Profile` AS `pfl`
               LEFT JOIN `Blog`    AS `blg` ON `blg`.`ownerId` = `pfl`.`userId`
               LEFT JOIN `Library` AS `lib` ON `lib`.`ownerId` = `pfl`.`userId`
@@ -58,39 +61,41 @@
       $stm = $pdo->query($sql);
       $row = $stm->fetchObject();
       if ($row) {
-        $this->userId    = $row->userId;
-        $this->title     = $row->title;
-        $this->avatar    = $row->avatar;
-        $this->signature = $row->signature;
-        $this->website   = $row->website;
-        $this->about     = $row->about;
-        $this->rendered  = $row->rendered;
-        $this->blogId    = $row->blogId;
-        $this->libraryId = $row->libraryId;
+        $this->userId      = $row->userId;
+        $this->displayName = $row->displayName;
+        $this->title       = $row->title;
+        $this->avatar      = $row->avatar;
+        $this->signature   = $row->signature;
+        $this->website     = $row->website;
+        $this->about       = $row->about;
+        $this->rendered    = $row->rendered;
+        $this->blogId      = $row->blogId;
+        $this->libraryId   = $row->libraryId;
       }
     } // load
 
     public function save()
     {
-      $cnf       = Config::instance();
-      $pdo       = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
-      $title     = $pdo->quote($this->title,     PDO::PARAM_STR);
-      $avatar    = $pdo->quote($this->avatar,    PDO::PARAM_STR);
-      $signature = $pdo->quote($this->signature, PDO::PARAM_STR);
-      $website   = $pdo->quote($this->website,   PDO::PARAM_STR);
-      $about     = $pdo->quote($this->about,     PDO::PARAM_STR);
-      $userList  = User::listUsers();
-      $emotes    = Emoticons::instance();
-      $options   = array(
-                      'allowedTags'       => array(),
-                      'userList'          => $userList,
-                      'emoticonList'      => $emotes->listIcons(),
-                      'openLinksInNewTab' => true
-                    );
-      $mentioned = array();
+      $cnf         = Config::instance();
+      $pdo         = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
+      $displayName = $pdo->quote($this->displayName, PDO::PARAM_STR);
+      $title       = $pdo->quote($this->title,       PDO::PARAM_STR);
+      $avatar      = $pdo->quote($this->avatar,      PDO::PARAM_STR);
+      $signature   = $pdo->quote($this->signature,   PDO::PARAM_STR);
+      $website     = $pdo->quote($this->website,     PDO::PARAM_STR);
+      $about       = $pdo->quote($this->about,       PDO::PARAM_STR);
+      $userList    = User::listUsers();
+      $emotes      = Emoticons::instance();
+      $options     = array(
+                        'allowedTags'       => array(),
+                        'userList'          => $userList,
+                        'emoticonList'      => $emotes->listIcons(),
+                        'openLinksInNewTab' => true
+                      );
+      $mentioned   = array();
       $this->rendered = MessageParser::parse($this->about, $mentioned, $options);
       $rendered = $pdo->quote($this->rendered, PDO::PARAM_STR);
-      $sql      = "UPDATE `Profile` SET `title` = $title, `avatar` = $avatar, `signature` = $signature,
+      $sql      = "UPDATE `Profile` SET `displayName` = $displayName, `title` = $title, `avatar` = $avatar, `signature` = $signature,
                    `website` = $website, `about` = $about, `rendered` = $rendered WHERE `userId` = " . intval($this->userId);
       $pdo->query($sql);
       return $this->userId;
@@ -98,6 +103,10 @@
 
     public function update($params)
     {
+
+      if (property_exists($params, 'displayName')) {
+        $this->displayName = $params->displayName;
+      }
       if (property_exists($params, 'title')) {
         $this->title = $params->title;
       }
@@ -123,12 +132,14 @@
       $pdo    = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $sql    = "DELETE FROM `Profile` WHERE `userId` = $userId";
       $pdo->query($sql);
-      $this->userId    = 0;
-      $this->title     = "";
-      $this->avatar    = "";
-      $this->signature = "";
-      $this->website   = "";
-      $this->about     = "";
+      $this->userId      = 0;
+      $this->displayName = "";
+      $this->title       = "";
+      $this->avatar      = "";
+      $this->signature   = "";
+      $this->website     = "";
+      $this->about       = "";
+      $this->rendered    = "";
     } // delete
 
     public function getUser()
@@ -178,22 +189,24 @@
       $sql     = "SELECT GROUP_CONCAT(DISTINCT `usr`.`id`) AS `userIds`
                   FROM `User`         AS `usr`
                   LEFT JOIN `Profile` AS `pfl` ON `pfl`.`userId` = `usr`.`id`
-                  WHERE (`usr`.`username`  LIKE $terms
-                      OR `pfl`.`title`     LIKE $terms
-                      OR `pfl`.`signature` LIKE $terms
-                      OR `pfl`.`about`     LIKE $terms)";
+                  WHERE (`usr`.`username`    LIKE $terms
+                      OR `pfl`.`displayName` LIKE $terms
+                      OR `pfl`.`title`       LIKE $terms
+                      OR `pfl`.`signature`   LIKE $terms
+                      OR `pfl`.`about`       LIKE $terms)";
       if (!empty($userIds)) {
         $sql .= " AND `pfl`.`userId` IN (" . implode(",", array_map('intval', $userIds)) . ")";
       }
       $stm     = $pdo->query($sql);
       $userIds = $stm->fetchColumn();
-      $sql     = "SELECT `usr`.`id`       AS `userId`,
-                         `usr`.`username` AS `username`,
-                         `usr`.`joined`   AS `joined`,
-                         `pfl`.`avatar`   AS `avatar`,
-                         `pfl`.`title`    AS `title`,
-                         `blg`.`id`       AS `blogId`,
-                         `lib`.`id`       AS `libraryId`
+      $sql     = "SELECT `usr`.`id`          AS `userId`,
+                         `usr`.`username`    AS `username`,
+                         `usr`.`joined`      AS `joined`,
+                         `pfl`.`avatar`      AS `avatar`,
+                         `pfl`.`title`       AS `title`,
+                         `pfl`.`displayName` AS `displayName`,
+                         `blg`.`id`          AS `blogId`,
+                         `lib`.`id`          AS `libraryId`
                        FROM `User`    AS `usr`
                   LEFT JOIN `Profile` AS `pfl` ON `pfl`.`userId`  = `usr`.`id`
                   LEFT JOIN `Blog`    AS `blg` ON `blg`.`ownerId` = `usr`.`id`

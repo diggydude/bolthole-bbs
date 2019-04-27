@@ -58,6 +58,8 @@
     {
       $cnf = Config::instance();
       $pdo = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
+      $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,  false);
+      $pdo->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, false);
       $sql = "SELECT * FROM `User` WHERE `id` = " . intval($id);
       $stm = $pdo->query($sql);
       $row = $stm->fetchObject();
@@ -97,19 +99,20 @@
              . " `joined`, `accessLevel`) VALUES ($username, $password, $question,"
              . " $answer, $joined, $accessLevel)";
         $pdo->query($sql);
-        $this->id  = $pdo->lastInsertId();
-        $title     = $pdo->quote($cnf->profiles->defaultTitle,     PDO::PARAM_STR);
-        $avatar    = $pdo->quote($cnf->profiles->defaultAvatar,    PDO::PARAM_STR);
-        $signature = $pdo->quote($cnf->profiles->defaultSignature, PDO::PARAM_STR);
-        $website   = $pdo->quote($cnf->profiles->defaultWebsite,   PDO::PARAM_STR);
-        $about     = $pdo->quote($cnf->profiles->defaultAbout,     PDO::PARAM_STR);
-        $rendered  = $pdo->quote($cnf->profiles->defaultAbout,     PDO::PARAM_STR);
-        $sql       = "INSERT INTO `Profile` (`userId`, `title`, `avatar`, `signature`, `website`, `about`, `rendered`)
-                      VALUES (" . $this->id . ", $title, $avatar, $signature, $website, $about, $rendered)";
+        $this->id    = $pdo->lastInsertId();
+        $displayName = $username;
+        $title       = $pdo->quote($cnf->profiles->defaultTitle,     PDO::PARAM_STR);
+        $avatar      = $pdo->quote($cnf->profiles->defaultAvatar,    PDO::PARAM_STR);
+        $signature   = $pdo->quote($cnf->profiles->defaultSignature, PDO::PARAM_STR);
+        $website     = $pdo->quote($cnf->profiles->defaultWebsite,   PDO::PARAM_STR);
+        $about       = $pdo->quote($cnf->profiles->defaultAbout,     PDO::PARAM_STR);
+        $rendered    = $pdo->quote($cnf->profiles->defaultAbout,     PDO::PARAM_STR);
+        $sql         = "INSERT INTO `Profile` (`userId`, `displayName`, `title`, `avatar`, `signature`, `website`, `about`, `rendered`)
+                        VALUES (" . $this->id . ", $displayName, $title, $avatar, $signature, $website, $about, $rendered)";
         $pdo->query($sql);
-        $sql = "INSERT INTO `Blog` (`ownerId`) VALUES (" .$this->id . ")";
+        $sql = "INSERT INTO `Blog` (`ownerId`) VALUES (" . $this->id . ")";
         $pdo->query($sql);
-        $sql = "INSERT INTO `Library` (`ownerId`) VALUES (" .$this->id . ")";
+        $sql = "INSERT INTO `Library` (`ownerId`) VALUES (" . $this->id . ")";
         $pdo->query($sql);
       }
       return $this->id;
@@ -193,15 +196,18 @@
 
     public static function listUsers()
     {
-      $cnf   = Config::instance();
-      $pdo   = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
-      $sql   = "SELECT `usr`.`id`       AS `userId`,
-                       `usr`.`username` AS `username`,
-                       `usr`.`joined`   AS `joined`,
-                       `pfl`.`avatar`   AS `avatar`,
-                       `pfl`.`title`    AS `title`,
-                       `blg`.`id`       AS `blogId`,
-                       `lib`.`id`       AS `libraryId`
+      $cnf = Config::instance();
+      $pdo = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
+      $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,  false);
+      $pdo->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, false);
+      $sql   = "SELECT `usr`.`id`          AS `userId`,
+                       `usr`.`username`    AS `username`,
+                       `usr`.`joined`      AS `joined`,
+                       `pfl`.`displayName` AS `displayName`,
+                       `pfl`.`avatar`      AS `avatar`,
+                       `pfl`.`title`       AS `title`,
+                       `blg`.`id`          AS `blogId`,
+                       `lib`.`id`          AS `libraryId`
                      FROM `User`    AS `usr`
                 LEFT JOIN `Profile` AS `pfl` ON `pfl`.`userId`  = `usr`.`id`
                 LEFT JOIN `Blog`    AS `blg` ON `blg`.`ownerId` = `usr`.`id`
