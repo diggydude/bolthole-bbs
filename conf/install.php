@@ -10,7 +10,7 @@
                         'name'         => "Pam's Confessional",
                         'documentRoot' => "C:\xampp\www",
                         'baseUri'      => 'http://127.0.0.1',
-                        'copyright'    => '2019 Retro Web, Inc.',
+                        'copyright'    => '2019 Diggy Dude',
                         'description'  => "Well, it's hard to explain, really.",
                         'keywords'     => 'chat, forum, blog, uploads, downloads, file sharing, retro, website',
                         'timezone'     => 'America/Chicago',
@@ -25,9 +25,9 @@
                       );
 
   $config->db       = (object) array(
-                        'dsn'      => 'mysql:dbname=bolthole;host=127.0.0.1',
-                        'username' => 'apache',
-                        'password' => 'eK23s5il'
+                        'dsn'      => 'mysql:dbname=pamsconf_bolthole;host=127.0.0.1',
+                        'username' => 'pamsconf',
+                        'password' => 'd00hickey'
                       );
 
   $config->files    = (object) array(
@@ -94,7 +94,27 @@
                        );
 
   $config->forum    = (object) array(
-                        'maxThreads' => 100
+                        'maxThreads'  => 100,
+						'allowedTags' => array(
+						                   'b', 'i', 'u', 'color', 'size', 'url',
+                                           'code', 'marquee', 'blink', 'rainbow',
+                                           'gradient', 'spoiler'
+						                 )
+                      );
+					  
+  $config->chat     = (object) array(
+                        'allowedTags' => array(
+						                   'b', 'i', 'u', 'color', 'size', 'url',
+                                           'code', 'marquee', 'blink', 'rainbow',
+                                           'gradient', 'spoiler'
+						                 )
+                      );
+					  
+  $config->comments = (object) array(
+                        'allowedTags' => array(
+						                   'b', 'i', 'u', 'color', 'url', 'marquee',
+                                           'blink', 'rainbow', 'gradient', 'spoiler'
+						                 )
                       );
 
   $config->profiles = (object) array(
