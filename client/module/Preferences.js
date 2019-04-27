@@ -1,7 +1,7 @@
 var Preferences = {
 
   "theme"              : 0,
-  "cursor"             : 0,
+  "cursor"             : 2,
   "sounds"             : 1,
   "notifyReply"        : true,
   "notifyVisit"        : true,
