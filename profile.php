@@ -19,10 +19,11 @@
         $config  = Config::instance();
         $profile = new Profile($_POST['userId']);
         $params  = (object) array(
-                     'title'     => $_POST['title'],
-                     'signature' => $_POST['signature'],
-                     'website'   => $_POST['website'],
-                     'about'     => $_POST['about']
+                     'displayName' => $_POST['displayName'],
+                     'title'       => $_POST['title'],
+                     'signature'   => $_POST['signature'],
+                     'website'     => $_POST['website'],
+                     'about'       => $_POST['about']
                    );
         if ($_FILES) {
           $uploader = new Uploader($config->files->avatars);
@@ -72,35 +73,36 @@
           $params->avatar = $info->hash;
         }
         $profile->update($params);
-		$user = $profile->getUser();
+        $user = $profile->getUser();
         $response->success = true;
         $response->message = "Your profile has been saved.";
         $response->results = (object) array(
-                               'userId'    => $profile->userId,
-                               'username'  => $user->username,
-                               'joined'    => $user->joined,
-                               'title'     => $profile->title,
-                               'avatar'    => $profile->avatar,
-                               'signature' => $profile->signature,
-                               'website'   => $profile->website,
-                               'about'     => $profile->about,
-                               'rendered'  => $profile->rendered,
-                               'blogId'    => $profile->blogId,
-                               'blogPosts' => $profile->listBlogPosts(),
-                               'libraryId' => $profile->libraryId,
-                               'files'     => $profile->listFiles(),
-                               'comments'  => $profile->listComments()
+                               'userId'      => $profile->userId,
+                               'username'    => $user->username,
+                               'joined'      => $user->joined,
+                               'displayName' => $profile->displayName,
+                               'title'       => $profile->title,
+                               'avatar'      => $profile->avatar,
+                               'signature'   => $profile->signature,
+                               'website'     => $profile->website,
+                               'about'       => $profile->about,
+                               'rendered'    => $profile->rendered,
+                               'blogId'      => $profile->blogId,
+                               'blogPosts'   => $profile->listBlogPosts(),
+                               'libraryId'   => $profile->libraryId,
+                               'files'       => $profile->listFiles(),
+                               'comments'    => $profile->listComments()
                              );
-		$user = $profile->getUser();
-		Alerts::enqueue(
-		  (object) array(
-		    'typeId'    => 10,
-			'private'   => false,
-			'recipient' => 1,
-			'data'      => "<a href=\"#\" class=\"alert-profile-link\" data-userId=\"" . $user->id . "\">" . $user->username . "</a>"
-			             . " updated their profile."
-		  )
-		);
+        $user = $profile->getUser();
+        Alerts::enqueue(
+          (object) array(
+            'typeId'    => 10,
+            'private'   => false,
+            'recipient' => 1,
+            'data'      => "<a href=\"#\" class=\"alert-profile-link\" data-userId=\"" . $user->id . "\">" . $user->username . "</a>"
+                         . " updated their profile."
+          )
+        );
         break;
       case "postComment":
         $comment = Comment::create(
@@ -112,35 +114,36 @@
                        'body'         => $_POST['body']
                      )
                    );
-		$profile = new Profile($_POST['profileId']);
-		$user    = $profile->getUser();
+        $profile = new Profile($_POST['profileId']);
+        $user    = $profile->getUser();
         $response->success = true;
         $response->message = "Your comment has been posted.";
         $response->results = (object) array(
-                               'userId'    => $profile->userId,
-                               'username'  => $user->username,
-                               'joined'    => $user->joined,
-                               'title'     => $profile->title,
-                               'avatar'    => $profile->avatar,
-                               'signature' => $profile->signature,
-                               'website'   => $profile->website,
-                               'about'     => $profile->about,
-                               'rendered'  => $profile->rendered,
-                               'blogId'    => $profile->blogId,
-                               'blogPosts' => $profile->listBlogPosts(),
-                               'libraryId' => $profile->libraryId,
-                               'files'     => $profile->listFiles(),
-                               'comments'  => $profile->listComments()
+                               'userId'      => $profile->userId,
+                               'username'    => $user->username,
+                               'joined'      => $user->joined,
+                               'displayName' => $profile->displayName,
+                               'title'       => $profile->title,
+                               'avatar'      => $profile->avatar,
+                               'signature'   => $profile->signature,
+                               'website'     => $profile->website,
+                               'about'       => $profile->about,
+                               'rendered'    => $profile->rendered,
+                               'blogId'      => $profile->blogId,
+                               'blogPosts'   => $profile->listBlogPosts(),
+                               'libraryId'   => $profile->libraryId,
+                               'files'       => $profile->listFiles(),
+                               'comments'    => $profile->listComments()
                              );
-		$commenter = new User($_POST['postedBy']);
-		Alerts::enqueue(
-		  (object) array(
-		    'typeId'    => 4,
-			'private'   => true,
-			'recipient' => $_POST['profileId'],
-			'data'      => "<a href=\"#\" class=\"alert-profile-link\" data-userId=\"" . $commenter->id . "\">". $commenter->username . "</a>"                         . " commented on your profile."
-		  )
-		);
+        $commenter = new User($_POST['postedBy']);
+        Alerts::enqueue(
+          (object) array(
+            'typeId'    => 4,
+            'private'   => true,
+            'recipient' => $_POST['profileId'],
+            'data'      => "<a href=\"#\" class=\"alert-profile-link\" data-userId=\"" . $commenter->id . "\">". $commenter->username . "</a>"                         . " commented on your profile."
+          )
+        );
         break;
       case "listProfiles":
         $profiles = User::listUsers();
@@ -149,9 +152,9 @@
                                'profiles' => array_values($profiles)
                              );
         break;
-	  case "search":
-	    $profiles = Profile::search($_POST['terms']);
-		$response->success = true;
+      case "search":
+        $profiles = Profile::search($_POST['terms']);
+        $response->success = true;
         $response->results = (object) array(
                                'profiles' => array_values($profiles)
                              );
@@ -166,20 +169,21 @@
     $user    = $profile->getUser();
     $response->success = true;
     $response->results = (object) array(
-                           'userId'    => $profile->userId,
-                           'username'  => $user->username,
-                           'joined'    => $user->joined,
-                           'title'     => $profile->title,
-                           'avatar'    => $profile->avatar,
-                           'signature' => $profile->signature,
-                           'website'   => $profile->website,
-                           'about'     => $profile->about,
-                           'rendered'  => $profile->rendered,
-                           'blogId'    => $profile->blogId,
-                           'blogPosts' => $profile->listBlogPosts(),
-                           'libraryId' => $profile->libraryId,
-                           'files'     => $profile->listFiles(),
-                           'comments'  => $profile->listComments()
+                           'userId'      => $profile->userId,
+                           'username'    => $user->username,
+                           'joined'      => $user->joined,
+                           'displayName' => $profile->displayName,
+                           'title'       => $profile->title,
+                           'avatar'      => $profile->avatar,
+                           'signature'   => $profile->signature,
+                           'website'     => $profile->website,
+                           'about'       => $profile->about,
+                           'rendered'    => $profile->rendered,
+                           'blogId'      => $profile->blogId,
+                           'blogPosts'   => $profile->listBlogPosts(),
+                           'libraryId'   => $profile->libraryId,
+                           'files'       => $profile->listFiles(),
+                           'comments'    => $profile->listComments()
                          );
     if ($_GET['viewerId'] != $_GET['userId']) {
       $viewer = new User($_GET['viewerId']);
