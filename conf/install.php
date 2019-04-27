@@ -10,7 +10,7 @@
                         'name'         => "Pam's Confessional",
                         'documentRoot' => "C:\xampp\www",
                         'baseUri'      => 'http://127.0.0.1',
-                        'copyright'    => '2019 Diggy Dude',
+                        'copyright'    => '2019 Diggy Dude. All wrongs deserved.',
                         'description'  => "Well, it's hard to explain, really.",
                         'keywords'     => 'chat, forum, blog, uploads, downloads, file sharing, retro, website',
                         'timezone'     => 'America/Chicago',
@@ -95,26 +95,26 @@
 
   $config->forum    = (object) array(
                         'maxThreads'  => 100,
-						'allowedTags' => array(
-						                   'b', 'i', 'u', 'color', 'size', 'url',
+                        'allowedTags' => array(
+                                           'b', 'i', 'u', 'color', 'size', 'url',
                                            'code', 'marquee', 'blink', 'rainbow',
                                            'gradient', 'spoiler'
-						                 )
+                                         )
                       );
-					  
+
   $config->chat     = (object) array(
                         'allowedTags' => array(
-						                   'b', 'i', 'u', 'color', 'size', 'url',
+                                           'b', 'i', 'u', 'color', 'size', 'url',
                                            'code', 'marquee', 'blink', 'rainbow',
                                            'gradient', 'spoiler'
-						                 )
+                                         )
                       );
-					  
+
   $config->comments = (object) array(
                         'allowedTags' => array(
-						                   'b', 'i', 'u', 'color', 'url', 'marquee',
+                                           'b', 'i', 'u', 'color', 'url', 'marquee',
                                            'blink', 'rainbow', 'gradient', 'spoiler'
-						                 )
+                                         )
                       );
 
   $config->profiles = (object) array(
@@ -130,11 +130,11 @@
                                           'path' => 'C:/ansifilter/ansifilter.exe'
                                         )
                       );
-					  
+
   $config->security = (object) array(
                         'algorithm'       => PASSWORD_BCRYPT,
                         'optimumHashCost' => getOptimumHashCost()
-					  );
+                      );
 
   $config->save();
 
