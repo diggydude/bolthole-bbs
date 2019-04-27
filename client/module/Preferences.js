@@ -20,6 +20,8 @@ var Preferences = {
   "init"               : function()
                          {
                            if (Client.getStorage('preferences') == null) {
+                             this.apply();
+                             this.setCursorEffect();
                              this.save();
                            }
                            else {
@@ -34,9 +36,7 @@ var Preferences = {
                            for (var p in prefs) {
                              this[p] = prefs[p];
                            }
-                           if (this.cursor > 0) {
-                             this.setCursorEffect();
-                           }
+                           this.setCursorEffect();
                            this.apply();
                          }, // load
 
@@ -78,7 +78,11 @@ var Preferences = {
 
   "setCursorEffect"    : function()
                          {
-                           var script = document.createElement('SCRIPT');
+                           var script;
+                           if (this.cursor == 0) {
+                             return;
+                           }
+                           script = document.createElement('SCRIPT');
                            document.getElementsByTagName('HEAD')[0].appendChild(script);
                            script.setAttribute('id', 'cursor-effect');
                            script.setAttribute('src', './client/cursor/' + $('settings_cursor').options[this.cursor].value + '.js');
