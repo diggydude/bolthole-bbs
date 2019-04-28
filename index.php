@@ -206,6 +206,10 @@
               <div class="listBox" id="profile">
                 <div class="tbl">
                   <div class="tr">
+                    <div class="label">Display Name:</div>
+                    <div class="control"><input type="text" id="profile_display_name" value="" /></div>
+                  </div>
+                  <div class="tr">
                     <div class="label">Title:</div>
                     <div class="control"><input type="text" id="profile_title" value="" /></div>
                   </div>
