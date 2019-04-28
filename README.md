@@ -73,13 +73,11 @@ http://qbnz.com/highlighter/
 
 **Disclaimer**
 
-To the best of my knowledge, all third-party content herein is freely distributable under some open source license or another. Such licenses can be found in the code comments. Since this package incorporates so many third-party contributions released under diverse and sundry licenses that I can't reasonably be expected to sort the legalities, any portion written by me and not specifically attributed in comments to other authors is hereby placed in the public domain and offered Scot free with no warranty, guarantee, or liability of any kind.
+To the best of my knowledge, all third-party content herein is freely distributable under some open source license or another. Said licenses and their terms are described in the applicable files. Since this package incorporates so many third-party contributions released under diverse and sundry licenses that it would be impossible to avoid conflicts by releasing my code under any one license, any portion written by me and not specifically attributed in comments to other authors is hereby placed in the public domain and offered Scot free with no warranty, guarantee, or liability of any kind.
 
 **To Do:**
 
 * Minify JavaScript and CSS files
-
-* Make `#hashtag` links actually do something
 
 * HTML frontend for installer
 
