@@ -13,7 +13,7 @@ It's a free hosting account, so you can't upload avatars or other files there. R
 
 (2) Import `conf/schema.sql` using phpMyAdmin, MySQL Query Browser, or the MySQL command line.
 
-(3) Edit `conf/install.php` and run it. Be sure to change the parameters for the System and Sysop accounts at the bottom of the file. These accounts don't have any special privileges yet, but that's subject to change in the near future.
+(3) Edit `conf/install.php` and run it. Be sure to change the parameters for the System and Sysop accounts at the bottom of the file. These accounts don't have any special privileges other than the ability to ban other users (and immunity from being kicked or banned), but that's likely to change soon.
 
 The installer will create a configuration file, `conf/config.conf`. Delete `conf/install.php` or move it outside of your document root after you run it. As `conf/config.conf` will contain your database login credentials, it's highly recommended that you move it outside of your document root also, and edit `conf/init_http.php` to reflect its new location.
 
