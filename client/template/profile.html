@@ -1,25 +1,25 @@
 <div id="profile-masthead">
   <div id="profile-masthead-info">
     <div id="profile-masthead-left">
-      <div id="profile-username"><%=username %></div>
+      <div id="profile-username"><%=displayName %></div>
       <div id="profile-title"><%=title %></div>
-	</div>
-	<div id="profile-masthead-right">
-	  <input type="hidden" id="follow-userId" value="<%=userId %>" />
-	  <input type="hidden" id="follow-username" value="<%=username %>" />
-	  <button id="unfollow-button">Unfollow</button>
+    </div>
+    <div id="profile-masthead-right">
+      <input type="hidden" id="follow-userId" value="<%=userId %>" />
+      <input type="hidden" id="follow-username" value="<%=username %>" />
+      <button id="unfollow-button">Unfollow</button>
       <button id="follow-button">Follow</button>
-	</div>
+    </div>
   </div>
-  <div id="profile-tab-bar">  
+  <div id="profile-tab-bar">
     <div class="tab-bar">
       <div class="tab-clear-left"></div>
       <div class="tab" onclick="openPage('about', this);" id="defaultTab">About</div>
-  	<div class="tab-spacer"></div>
+    <div class="tab-spacer"></div>
       <div class="tab" onclick="openPage('blog',  this);">Blog</div>
-  	<div class="tab-spacer"></div>
+    <div class="tab-spacer"></div>
       <div class="tab" onclick="openPage('files', this);">Files</div>
-  	<div class="tab-spacer"></div>
+    <div class="tab-spacer"></div>
     </div>
   </div>
   <div id="profile-avatar"><img src="<%=Config.avatarFolder %>/<%=avatar %>_large.png" alt="<%=username %>" /></div>
@@ -52,6 +52,9 @@
 <!-- Blog tab -->
 <div id="blog" class="tab-content">
   <h2><%=username %>'s Blog</h2>
+  <% if (blogPosts.length == 0) { %>
+    <p><%=username %> hasn't written any blog posts yet.</p>
+  <% } %>
   <% for (i = 0; i < blogPosts.length; i++) { %>
     <div>
       <h3><%=blogPosts[i].title %></h3>
@@ -85,4 +88,7 @@
       <% } %>
     </tbody>
   </table>
+  <% if (files.length == 0) { %>
+    <p><%=username %> hasn't uploaded any files yet.</p>
+  <% } %>
 </div>
