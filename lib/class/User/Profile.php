@@ -199,22 +199,25 @@
       }
       $stm     = $pdo->query($sql);
       $userIds = $stm->fetchColumn();
-      $sql     = "SELECT `usr`.`id`          AS `userId`,
-                         `usr`.`username`    AS `username`,
-                         `usr`.`joined`      AS `joined`,
-                         `pfl`.`avatar`      AS `avatar`,
-                         `pfl`.`title`       AS `title`,
-                         `pfl`.`displayName` AS `displayName`,
-                         `blg`.`id`          AS `blogId`,
-                         `lib`.`id`          AS `libraryId`
-                       FROM `User`    AS `usr`
-                  LEFT JOIN `Profile` AS `pfl` ON `pfl`.`userId`  = `usr`.`id`
-                  LEFT JOIN `Blog`    AS `blg` ON `blg`.`ownerId` = `usr`.`id`
-                  LEFT JOIN `Library` AS `lib` ON `lib`.`ownerId` = `usr`.`id`
-                  WHERE `usr`.`id` IN ($userIds) ORDER BY `usr`.`username`";
-      $stm     = $pdo->query($sql);
-      $rows    =  $stm->fetchAll(PDO::FETCH_OBJ);
-      $users   = array();
+	  if (strlen($userIds) < 1) {
+		return array();
+	  }
+      $sql   = "SELECT `usr`.`id`          AS `userId`,
+                       `usr`.`username`    AS `username`,
+                       `usr`.`joined`      AS `joined`,
+                       `pfl`.`avatar`      AS `avatar`,
+                       `pfl`.`title`       AS `title`,
+                       `pfl`.`displayName` AS `displayName`,
+                       `blg`.`id`          AS `blogId`,
+                       `lib`.`id`          AS `libraryId`
+                     FROM `User`    AS `usr`
+                LEFT JOIN `Profile` AS `pfl` ON `pfl`.`userId`  = `usr`.`id`
+                LEFT JOIN `Blog`    AS `blg` ON `blg`.`ownerId` = `usr`.`id`
+                LEFT JOIN `Library` AS `lib` ON `lib`.`ownerId` = `usr`.`id`
+                WHERE `usr`.`id` IN ($userIds) ORDER BY `usr`.`username`";
+      $stm   = $pdo->query($sql);
+      $rows  =  $stm->fetchAll(PDO::FETCH_OBJ);
+      $users = array();
       foreach ($rows as $row) {
         $users[$row->userId] = $row;
       }
