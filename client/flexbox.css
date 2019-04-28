@@ -456,3 +456,14 @@ td.numeric {
   height: 600px;
   border: 0px;
 }
+
+#hashtag-page-container,
+#file-search-results,
+#blog-search-results {
+  padding: 5px;
+}
+
+#profile-list, #post-list, #blog-post-list, #file-list {
+  width: 100%;
+}
+
