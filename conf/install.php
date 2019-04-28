@@ -25,7 +25,7 @@
                       );
 
   $config->db       = (object) array(
-                        'dsn'      => 'mysql:dbname=pamsconf_bolthole;host=127.0.0.1',
+                        'dsn'      => 'mysql:dbname=bolthole;host=127.0.0.1',
                         'username' => 'mysql_username',
                         'password' => 'mysql_password'
                       );
