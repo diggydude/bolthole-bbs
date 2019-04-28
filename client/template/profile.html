@@ -71,17 +71,14 @@
     <thead>
       <th>Name</th>
       <th>Type</th>
-      <!-- th>Size</th -->
       <th>Uploaded</th>
       <th class="numeric">Downloads</th>
     </thead>
     <tbody>
       <% for (i = 0; i < files.length; i++) { %>
         <tr>
-          <!-- td nowrap><a href="#" class="profile-file-details-link" data-fileId="<%=files[i].id %>"><%=files[i].filename %></a></td -->
           <td nowrap><a href="#" class="file-details-link" data-fileId="<%=files[i].id %>"><%=files[i].filename %></a></td>
           <td nowrap><%=files[i].mimeType %></td>
-          <!-- td class="numeric" nowrap><%=files[i].size %></td -->
           <td nowrap><%=files[i].uploadedAt.toLocalTime() %></td>
           <td class="numeric" nowrap><%=files[i].downloads %></td>
         </tr>

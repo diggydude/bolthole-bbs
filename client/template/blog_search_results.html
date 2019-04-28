@@ -1,0 +1,23 @@
+<div id="blog-search-results">
+  <h2>Blog Posts</h2>
+  <% if (posts.length > 0) { %>
+    <table id="blog-post-list">
+      <thead>
+        <th>Post</th>
+        <th>Posted By</th>
+        <th>Posted At</th>
+      </thead>
+      <tbody>
+        <% for (i = 0; i < posts.length; i++) { %>
+          <tr>
+            <td style="width: 50%;"><a href="#" class="blog-post-link" data-postId="<%=posts[i].postId %>"><%=posts[i].title %></a></td>
+            <td style="width: 30%;"><a href="#" class="profile-link" data-userId="<%=posts[i].postedBy %>"><%=posts[i].author %></a></td>
+            <td style="width: 20%;"><%=posts[i].postedAt.toLocalTime() %></td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p>No matching blog posts.</p>
+  <% } %>
+</div>
