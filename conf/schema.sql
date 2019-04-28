@@ -16,21 +16,22 @@ CREATE TABLE `User` (
   `accessLevel` TINYINT(4)   NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE (`username`),
-  CHECK (CHAR_LENGTH(`username`) > 2),
+  CHECK (CHAR_LENGTH(`username`) > 3),
   CHECK (CHAR_LENGTH(`password`) > 7)
 ) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE `Profile` (
-  `userId`    INT(11)      NOT NULL,
-  `title`     VARCHAR(32)  NOT NULL DEFAULT '',
-  `avatar`    VARCHAR(32)  NOT NULL DEFAULT '',
-  `signature` VARCHAR(255) NOT NULL DEFAULT '',
-  `website`   VARCHAR(128) NOT NULL DEFAULT '',
-  `about`     TEXT         NOT NULL,
-  `rendered`  TEXT         NOT NULL,
+  `userId`      INT(11)      NOT NULL,
+  `title`       VARCHAR(32)  NOT NULL DEFAULT '',
+  `displayName` VARCHAR(32)  NOT NULL DEFAULT '',
+  `avatar`      VARCHAR(32)  NOT NULL DEFAULT '',
+  `signature`   VARCHAR(255) NOT NULL DEFAULT '',
+  `website`     VARCHAR(128) NOT NULL DEFAULT '',
+  `about`       TEXT         NOT NULL,
+  `rendered`    TEXT         NOT NULL,
   PRIMARY KEY (`userId`),
   FOREIGN KEY (`userId`) REFERENCES `User` (`id`)
-) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE `Following` (
   `followerId` INT(11) NOT NULL,
@@ -235,7 +236,7 @@ CREATE TABLE `EventDispatch` (
   FOREIGN KEY (`eventId`)     REFERENCES `Event` (`id`),
   FOREIGN KEY (`recipientId`) REFERENCES `User`  (`id`)
 ) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;
-  
+
 
 /* *************** BLOGS *************** */
 
