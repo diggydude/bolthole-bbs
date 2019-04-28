@@ -67,7 +67,7 @@
           continue;
         }
         $search[]  = $hashtag;
-        $replace[] = "<a href=\"#\" class=\"hashtag-link\" data-hashtag=\"" . $term . "\">#" . $term . "</a>";
+        $replace[] = "<a href=\"#\" class=\"hashtag-link\" data-hashtag=\"#" . $term . "\">#" . $term . "</a>";
       }
       return str_replace($search, $replace, $text);
     } // parseHashTags
