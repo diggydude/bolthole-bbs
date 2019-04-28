@@ -94,9 +94,9 @@
                         'body'         => $_POST['body']
                       )
                     );
-		$post     = new BlogPost($_POST['postId']);
+        $post     = new BlogPost($_POST['postId']);
         $comments = $post->listComments();
-		$blog     = new Blog($post->inBlog);
+        $blog     = new Blog($post->inBlog);
         $owner    = $blog->getOwner();
         $profile  = $owner->getProfile();
         $response->success = true;
@@ -115,16 +115,24 @@
                                'signature'   => $profile->signature,
                                'comments'    => $comments
                              );
-		$commenter = new User($_POST['postedBy']);
-		$username  = $commenter->username;
-		Alerts::enqueue(
-		  (object) array(
-		    'typeId'    => 4,
-			'private'   => true,
-			'recipient' => $owner->id,
-			'data'      => "<a href=\"#\" class=\"profile-link\" data-userId=\"" . $commenter->id . "\">". $commenter->username . "</a>"                         . " commented on <a href=\"#\" class=\"blog-post-link\" data-postId=\"" . $post->id . "\">your blog post</a>."
-		  )
-		);
+        $commenter = new User($_POST['postedBy']);
+        $username  = $commenter->username;
+        Alerts::enqueue(
+          (object) array(
+            'typeId'    => 4,
+            'private'   => true,
+            'recipient' => $owner->id,
+            'data'      => "<a href=\"#\" class=\"profile-link\" data-userId=\"" . $commenter->id . "\">". $commenter->username . "</a>"
+			             . " commented on <a href=\"#\" class=\"blog-post-link\" data-postId=\"" . $post->id . "\">your blog post</a>."
+          )
+        );
+        break;
+      case "search":
+        $posts = Blog::search($_POST['terms']);
+        $response->success = true;
+        $response->results = (object) array(
+                               'posts' => $posts
+                             );
         break;
       default:
         $response->message = "Unsupported command: \"" . $_POST['command'] . "\".";

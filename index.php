@@ -60,8 +60,9 @@
         <div id="site-search">
           <input id="site-search-terms" type="text" />
           <select id="site-search-where">
-            <option value="forum">Forum</option>
+            <option value="forum">Discussions</option>
             <option value="profiles">Profiles</option>
+            <option value="blog">Blog Posts</option>
             <option value="files">File Libraries</option>
             <!-- option value="stores">Stores</option -->
             <!-- option value="channels">Channels</option -->
@@ -70,7 +71,7 @@
         </div>
       </header>
       <nav class="nav">
-        <a href="#" class="nav-link" id="show-forum-link">Forum</a> &nbsp;
+        <a href="#" class="nav-link" id="show-forum-link">Bulletin Board</a> &nbsp;
         <a href="#" class="nav-link" id="list-profiles-link">Profiles</a> &nbsp;
         <!-- a href="#" class="nav-link" id="show-stores-link">Stores</a> &nbsp;
         <a href="#" class="nav-link" id="show-channels-link">Channels</a> &nbsp;
