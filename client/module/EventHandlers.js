@@ -137,7 +137,7 @@ var EventHandlers = {
                    "func"  : function()
                              {
                                var hashtag = this.getAttribute('data-hashtag');
-                               Client.showSuccess('Not implemented yet!');
+                               Search.hashtag(hashtag);
                              }
                   },
                   {"event" : "keypress",

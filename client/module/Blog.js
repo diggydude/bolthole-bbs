@@ -67,7 +67,7 @@ var Blog = {
                           with (Client.request) {
                             open('POST', uri, true);
                             onload = function()
-                                     { console.log(this.responseText);
+                                     {
                                        var response = JSON.parse(this.responseText);
                                        if (response.success) {
                                          Client.showSuccess(response.message);
@@ -102,35 +102,62 @@ var Blog = {
                           $('blog-post-editor').style.display = "none";
                         }, // hidePostEditor
 
-}; // Blog
+  "postComment"       : function()
+                        {
+                          var uri      = "/blog.php";
+                          var formData = new FormData();
+                          with (formData) {
+                            append('command',  'postComment');
+                            append('postId',   $('blog-post-comment-id').value);
+                            append('postedBy', Session.userId);
+                            append('body',     $('blog-post-comment-entry').value);
+                          }
+                          with (Client.request) {
+                            open('POST', uri, true);
+                            onload  = function()
+                                      {
+                                        var response = JSON.parse(this.responseText);
+                                        if (response.success) {
+                                          Client.showSuccess(response.message);
+                                          $('main').innerHTML = Client.render('blog_post', response.results);
+                                          $('main').scrollTop = $('main').scrollHeight;
+                                          return;
+                                        }
+                                        Client.showError(response.message);
+                                      };
+                            onerror = function()
+                                      {
+                                        Client.showError('Error ' + this.status + ': ' + this.statusText);
+                                      };
+                            send(formData);
+                          }
+                        }, // postComment
 
-Blog.postComment = function()
-                   {
-                     var uri      = "/blog.php";
-                     var formData = new FormData();
-                     with (formData) {
-                       append('command',   'postComment');
-                       append('postId',    $('blog-post-comment-id').value);
-                       append('postedBy',  Session.userId);
-                       append('body',      $('blog-post-comment-entry').value);
-                     }
-                     with (Client.request) {
-                       open('POST', uri, true);
-                       onload  = function()
-                                 {
-                                   var response = JSON.parse(this.responseText);
-                                   if (response.success) {
-                                     Client.showSuccess(response.message);
-                                     $('main').innerHTML = Client.render('blog_post', response.results);
-                                     $('main').scrollTop = $('main').scrollHeight;
-                                     return;
-                                   }
-                                   Client.showError(response.message);
-                                 };
-                       onerror = function()
-                                 {
-                                   Client.showError('Error ' + this.status + ': ' + this.statusText);
-                                 };
-                       send(formData);
-                     }
-                   }; // Blog.postComment
+  "search"            : function(terms)
+                        {
+                          var uri      = "/blog.php";
+                          var formData = new FormData();
+                          with (formData) {
+                            append('command', 'search');
+							append('terms',   terms);
+						  }
+                          with (Client.request) {
+                            open('POST', uri, true);
+                            onload  = function()
+                                      {console.log(this.responseText);
+                                        var response = JSON.parse(this.responseText);
+                                        if (response.success) {
+										  $('main').innerHTML = Client.render('blog_search_results', response.results);
+                                          return;
+                                        }
+                                        Client.showError(response.message);
+                                      };
+                            onerror = function()
+                                      {
+                                        Client.showError('Error ' + this.status + ': ' + this.statusText);
+                                      };
+                            send(formData);
+                          }
+						} //search
+						
+}; // Blog
