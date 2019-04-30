@@ -1,6 +1,6 @@
 <div id="hashtag-page-container">
   <h2><%=hashtag %></h2>
-  <p>The following items contain hashtag <span style="font-weight: bold;"><%=hashtag %></span>:</p>
+  <p>The following items contain hashtag <span style="font-style: italic;"><%=hashtag %></span>:</p>
   <% if (profiles.length > 0) { %>
     <h3>Profiles</h3>
     <table id="profile-list">
@@ -26,7 +26,7 @@
     <h3>Bulletins</h3>
     <table id="post-list">
       <thead>
-        <th>Bulletin</th>
+        <th>Title</th>
         <th>Posted By</th>
         <th>Posted At</th>
       </thead>
@@ -41,11 +41,11 @@
       </tbody>
     </table>
   <% } %>
-  <% if (posts.length > 0) { %>
+  <% if (blogs.length > 0) { %>
     <h3>Blog Posts</h3>
     <table id="blog-post-list">
       <thead>
-        <th>Post</th>
+        <th>Title</th>
         <th>Posted By</th>
         <th>Posted At</th>
       </thead>
