@@ -109,6 +109,8 @@ The platform is intended to support closed communities, and isn't well-suited to
 
 Some features are deliberately less automated than they could be. Mister Obvious wanted to encourage users to learn how things work at a somewhat lower level, rather than have everything done for them. For example, YouTube URLs are not automatically converted to embedded video players. The user will have to paste the video ID into `[youtube]` tags to accomplish that. The procedure for embedding ANSI art, while easy, isn't obvious at first either, as explained below. As a general rule, users can post whatever tags they want on their profiles and blogs, but the sysop may choose which tags are allowed in the forum, chat, and comments to control noise levels.
 
+As on Twitter, users may include emojis in their profiles, display names, custom titles, and signatures, but not in most other places. Neither Mister Obvious nor I are keen on seeing smiling piles of poo everywhere we look.
+
 The platform may look good and perform well on smartphones, or it may not. I have no plans to "fix" it if it doesn't. The target audience is old school users who use real computers.
 
 The forum is a modern take on the threaded mailing lists of the early Web. The 100 most recently active topics are shown in the left pane. Older topics can be accessed via the site search or hashtag links. Posts in the selected topic are shown as a tree in the bottom pane. The tree filters work as follows:
