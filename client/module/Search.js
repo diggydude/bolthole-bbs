@@ -32,7 +32,7 @@ var Search = {
                 with (Client.request) {
                   open('POST', uri, true);
                   onload  = function()
-                            {console.log(this.responseText);
+                            {
                               var response = JSON.parse(this.responseText);
                               if (response.success) {
                                 $('main').innerHTML = Client.render('hashtag', response.results);
