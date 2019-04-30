@@ -15,6 +15,8 @@ It's a free hosting account, so you can't upload avatars or other files there. R
 
 (3) Edit `conf/install.php` and run it. Be sure to change the parameters for the System and Sysop accounts at the bottom of the file. These accounts don't have any special privileges other than the ability to ban other users (and immunity from being kicked or banned), but that's likely to change soon.
 
+(4) If you increase `$config->files->uploads->maxSize` in `conf/install.php`, be sure to change all occurrences of `php_value upload_max_filesize` in `.htaccess` to the same value, or the latter value will override the former value.
+
 The installer will create a configuration file, `conf/config.conf`. Delete `conf/install.php` or move it outside of your document root after you run it. As `conf/config.conf` will contain your database login credentials, it's highly recommended that you move it outside of your document root also, and edit `conf/init_http.php` to reflect its new location.
 
 If you want to enable inline ANSI art in profiles and blog posts, you'll need to install ANSIFilter and set its path in the Bolthole installer script. A Windows binary and packages for select Linux distros are available. No Debian package yet, but the author assures me it builds easily on Raspbian using g++ and make.
