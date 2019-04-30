@@ -23,7 +23,7 @@ http://www.andre-simon.de/doku/ansifilter/en/ansifilter.php
 
 **Features:**
 
-* Instant messaging, instant notifications, blogging, and file sharing
+* Chat, instant messaging, instant notifications, blogging, and file sharing
 
 * User-friendly flexbox layout keeps all features and controls one click away
 
