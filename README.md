@@ -127,7 +127,7 @@ When a forum search is performed, the search results will be cached locally so y
 
 In search mode, the bottom pane shows a tree composed of the limbs containing posts that matched the search phrase. The most relevant posts will usually be the lowest nodes in the tree.
 
-In a manner similar to the forum, only the user's last 100 blog posts and uploads are shown on their profile. Older content can be reached via the site search or hashtag links. As a general rule, creating hashtags is preferable to using the site search, as the hashtag pages include matching content from **all** modules (i.e., discussions, profiles, uploads, etc.) vs. searching each individual module.
+In a manner similar to the forum, only the user's last 100 blog posts and uploads are shown on their profile. Older content can be reached via the site search or hashtag links. As a general rule, creating hashtags is preferable to using the site search, as the hashtag pages include matching content from **all** modules (i.e., discussions, profiles, uploads, etc.) vs. searching each individual module. And, of course, the hashtag page is only a click away vs. typing in search terms.
 
 ANSI art embedding works by converting the ANSI file to HTML and displaying it in an iframe. To embed ANSI art in your profile or blog post:
 
