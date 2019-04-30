@@ -213,6 +213,33 @@
              );
     } // search
 
+    public static function hashtagSearch($tag)
+    {
+      $cnf = Config::instance();
+      $pdo = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
+      $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,  false);
+      $pdo->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, false);
+      $tag = $pdo->quote('%' . $tag . '%', PDO::PARAM_STR);
+      $sql = "SELECT `pst`.`id`                   AS `postId`,
+                     `pit`.`threadId`             AS `inThread`,
+                     IFNULL(`rpl`.`inReplyTo`, 0) AS `inReplyTo`,
+                     `pst`.`postedAt`             AS `postedAt`,
+                     `pst`.`postedBy`             AS `postedBy`,
+                     `usr`.`username`             AS `author`,
+                     `pfl`.`signature`            AS `signature`,
+                     `pfl`.`avatar`               AS `avatar`,
+                     `pst`.`topic`                AS `topic`,
+                     `pst`.`rendered`             AS `rendered`
+                   FROM `ForumPost`         AS `pst`
+              LEFT JOIN `ForumPostReply`    AS `rpl` ON `rpl`.`postId` = `pst`.`id`
+              LEFT JOIN `ForumPostInThread` AS `pit` ON `pit`.`postId` = `pst`.`id`
+              LEFT JOIN `User`              AS `usr` ON `usr`.`id`     = `pst`.`postedBy`
+              LEFT JOIN `Profile`           AS `pfl` ON `pfl`.`userId` = `usr`.`id`
+              WHERE `pst`.`topic` LIKE $tag OR `pst`.`body` LIKE $tag";
+      $stm = $pdo->query($sql);
+      return $stm->fetchAll(PDO::FETCH_OBJ);
+    } // hashtagSearch
+
     public static function deleteMessage($postId, $deleteThread = false)
     {
       $user = new User($_SESSION['userId']);
