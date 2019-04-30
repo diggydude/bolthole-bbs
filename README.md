@@ -145,4 +145,10 @@ Most of the other bbCode tags should be self-explanatory, except for `[gradient]
 
 `[gradient start=#00ff00 end=#0000ff]This is some gradient text.[/gradient]`
 
+While the backend code generally adheres to the Model-View-Controller pattern, I haven't slavishly followed the common practice of creating a heirarchy of controller classes. I'm actually not aware of any rule that says one must create a class or interface named after each element in a design pattern. The practice seems pedantic to me. The "controllers" in this package are simple switch statements. They get the job done without a lot of unnecessary code.
+
+By the same token, I haven't gone overboard with abstracting each model into three separate layers. Folks who do that appear to be (shall we say) much further along the spectrum than your average autist.
+
+All JavaScript templates are stashed in hidden textareas at the bottom of `index.php`. The HTML5 `<template>` tag will not work here because Gecko (and possibly other browsers) insists on altering the template code, most notably by inserting unwanted `<br>` tags that break the layout. For some reason, the same browser will recognize the value attribute of a textarea for some templates, but only the innerHTML attribute for others, even if the two templates are almost identical. The renderer looks for both.
+
 I hope you all have as much fun using this program as I had making it, which was a boatload!
