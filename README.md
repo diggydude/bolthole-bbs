@@ -89,6 +89,10 @@ To the best of my knowledge, all third-party content herein is freely distributa
 
 * Automatic dark mode scheduling
 
+* memcached integration
+
+* pretty timestamps (e.g., "an hour ago" vs. YYY-MM-DD HH:MM:SS format)
+
 **Further Explanation and Rationale of Key Features**
 
 All timestamps are stored as Greenwich Mean Time and automatically converted to the user's local timezone when displayed. See `client/misc.js` for the conversion function.
@@ -107,7 +111,7 @@ Some features are deliberately less automated than they could be. Mister Obvious
 
 The platform may look good and perform well on smartphones, or it may not. I have no plans to "fix" it if it doesn't. The target audience is old school users who use real computers.
 
-The forum is a modern take on the threaded mailing lists of the early Web. The 100 most recently active topics are shown in the left pane. Older topics can be accessed via the site search. Posts in the selected topic are shown as a tree in the bottom pane. The tree filters work as follows:
+The forum is a modern take on the threaded mailing lists of the early Web. The 100 most recently active topics are shown in the left pane. Older topics can be accessed via the site search or hashtag links. Posts in the selected topic are shown as a tree in the bottom pane. The tree filters work as follows:
 
 * `Branch` shows all posts in the selected topic.
 
@@ -121,7 +125,7 @@ When a forum search is performed, the search results will be cached locally so y
 
 In search mode, the bottom pane shows a tree composed of the limbs containing posts that matched the search phrase. The most relevant posts will usually be the lowest nodes in the tree.
 
-In a manner similar to the forum, only the user's last 100 blog posts and uploads are shown on their profile. Older content can be reached via the site search.
+In a manner similar to the forum, only the user's last 100 blog posts and uploads are shown on their profile. Older content can be reached via the site search or hashtag links. As a general rule, creating hashtags is preferable to using the site search, as the hashtag pages include matching content from **all** modules (i.e., discussions, profiles, uploads, etc.) vs. searching each individual module.
 
 ANSI art embedding works by converting the ANSI file to HTML and displaying it in an iframe. To embed ANSI art in your profile or blog post:
 
