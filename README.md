@@ -149,6 +149,6 @@ While the backend code generally adheres to the Model-View-Controller pattern, I
 
 By the same token, I haven't gone overboard with abstracting each model into three separate layers. Folks who do that appear to be (shall we say) much further along the spectrum than your average autist.
 
-All JavaScript templates are stashed in hidden textareas at the bottom of `index.php`. The HTML5 `<template>` tag will not work here because Gecko (and possibly other browsers) insists on altering the template code, most notably by inserting unwanted `<br>` tags that break the layout. For some reason, the same browser will recognize the value attribute of a textarea for some templates, but only the innerHTML attribute for others, even if the two templates are almost identical. The renderer looks for both.
+All JavaScript templates are stashed in hidden textareas at the bottom of `index.php`. The HTML5 `<template>` tag will not work here because Gecko (and possibly other browsers) insists on altering the template code, most notably by inserting unwanted `<br>` tags that break the layout. For some reason, the same browser will recognize the value attribute of a textarea for one template, but only the innerHTML attribute for another, even if the two templates are almost identical. The renderer looks for both.
 
 I hope you all have as much fun using this program as I had making it, which was a boatload!
