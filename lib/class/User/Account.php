@@ -46,7 +46,7 @@
         return false;
       }
       $cnf    = Config::instance();
-      $hashed = password_hash($password, $cnf->security->algorithm);
+      $hashed = password_hash($password, $cnf->security->algorithm, array('cost' => $cnf->security->optimumHashCost));
       $user   = User::create(
                   (object) array(
                     'username' => $username,
@@ -107,7 +107,7 @@
       $user = new User($userId);
       $user->update(
         (object) array(
-          'password' => password_hash($password, $cnf->security->algorithm)
+          'password' => password_hash($password, $cnf->security->algorithm, array('cost' => $cnf->security->optimumHashCost))
         )
       );
       return $user;
