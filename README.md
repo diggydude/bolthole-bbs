@@ -91,7 +91,7 @@ To the best of my knowledge, all third-party content herein is freely distributa
 
 * memcached integration
 
-* pretty timestamps (e.g., "an hour ago" vs. YYY-MM-DD HH:MM:SS format)
+* pretty timestamps (e.g., "an hour ago" vs. YYYY-MM-DD HH:MM:SS format)
 
 **Further Explanation and Rationale of Key Features**
 
