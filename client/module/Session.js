@@ -40,7 +40,7 @@ var Session = {
                        with (Client.request) {
                          open('POST', uri, true);
                          onload  = function()
-                                   {console.log(this.responseText);
+                                   {
                                      var response = JSON.parse(this.responseText);
                                      if (response.success) {
                                        Session.load(response.results);
