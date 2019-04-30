@@ -3,6 +3,8 @@
   require_once(__DIR__ . '/../System/Config.php');
   require_once(__DIR__ . '/../User/User.php');
   require_once(__DIR__ . '/Library.php');
+  require_once(__DIR__ . '/../Markup/MessageParser.php');
+  require_once(__DIR__ . '/../Messaging/Emoticons.php');
 
   class UserFile
   {
@@ -17,6 +19,7 @@
       $hash,
       $uploadedAt,
       $description,
+      $rendered,
       $inLibrary,
       $downloads;
 
@@ -30,6 +33,7 @@
       $this->hash        = "";
       $this->uploadedAt  = "0000-00-00 00:00:00";
       $this->description = "";
+      $this->rendered    = "";
       $this->inLibrary   = 0;
       $this->downloads   = 0;
       if ($id > 0) {
@@ -68,6 +72,7 @@
             . " `fil`.`hash`        AS `hash`,"
             . " `flb`.`uploadedAt`  AS `uploadedAt`,"
             . " `flb`.`description` AS `description`,"
+            . " `flb`.`rendered`    AS `rendered`,"
             . " `flb`.`libraryId`   AS `inLibrary`,"
             . " `flb`.`downloads`   AS `downloads`"
             . "      FROM `FileInLibrary` AS `flb`"
@@ -84,6 +89,7 @@
         $this->hash        = $row['hash'];
         $this->uploadedAt  = $row['uploadedAt'];
         $this->description = $row['description'];
+        $this->rendered    = $row['rendered'];
         $this->inLibrary   = $row['inLibrary'];
         $this->downloads   = $row['downloads'];
       }
@@ -91,27 +97,38 @@
 
     public function save()
     {
-      $cnf         = Config::instance();
-      $pdo         = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
-      $filename    = $pdo->quote($this->filename,    PDO::PARAM_STR);
-      $uploadedAt  = $pdo->quote($this->uploadedAt,  PDO::PARAM_STR);
-      $description = $pdo->quote($this->description, PDO::PARAM_STR);
-      $libraryId   = intval($this->inLibrary);
-      $downloads   = intval($this->downloads);
-      $mimeType    = $pdo->quote($this->mimeType, PDO::PARAM_STR);
-      $size        = intval($this->size);
-      $hash        = $pdo->quote($this->hash, PDO::PARAM_STR);
-      $sql         = "SELECT `id` AS `fileId` FROM `File` WHERE `hash` = $hash";
-      $stm         = $pdo->query($sql);
+      $cnf            = Config::instance();
+      $pdo            = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
+      $filename       = $pdo->quote($this->filename,    PDO::PARAM_STR);
+      $uploadedAt     = $pdo->quote($this->uploadedAt,  PDO::PARAM_STR);
+      $description    = $pdo->quote($this->description, PDO::PARAM_STR);
+      $userList       = User::listUsers();
+      $emotes         = Emoticons::instance();
+      $options        = array(
+                           'allowedTags'       => array(),
+                           'userList'          => $userList,
+                           'emoticonList'      => $emotes->listIcons(),
+                           'openLinksInNewTab' => true
+                         );
+      $mentioned      = array();
+      $this->rendered = MessageParser::parse($this->description, $mentioned, $options);
+      $rendered       = $pdo->quote($this->rendered, PDO::PARAM_STR);
+      $libraryId      = intval($this->inLibrary);
+      $downloads      = intval($this->downloads);
+      $mimeType       = $pdo->quote($this->mimeType, PDO::PARAM_STR);
+      $size           = intval($this->size);
+      $hash           = $pdo->quote($this->hash, PDO::PARAM_STR);
+      $sql            = "SELECT `id` AS `fileId` FROM `File` WHERE `hash` = $hash";
+      $stm            = $pdo->query($sql);
       if (($fileId = $stm->fetchColumn()) === false) {
         $sql = "INSERT INTO `File` (`mimeType`, `size`, `hash`) VALUES ($mimeType, $size, $hash)";
         $pdo->query($sql);
         $fileId = $pdo->lastInsertId();
       }
       $fileId = intval($fileId);
-      $sql = "INSERT INTO `FileInLibrary` (`filename`, `fileId`, `uploadedAt`, `description`, `libraryId`, `downloads`)
-              VALUES ($filename, $fileId, $uploadedAt, $description, $libraryId, $downloads) ON DUPLICATE KEY UPDATE
-              `filename` = $filename, `description` = $description, `id` = LAST_INSERT_ID(`id`)";
+      $sql = "INSERT INTO `FileInLibrary` (`filename`, `fileId`, `uploadedAt`, `description`, `rendered`, `libraryId`, `downloads`)
+              VALUES ($filename, $fileId, $uploadedAt, $description, $rendered, $libraryId, $downloads) ON DUPLICATE KEY UPDATE
+              `filename` = $filename, `description` = $description, `rendered` = $rendered, `id` = LAST_INSERT_ID(`id`)";
       $pdo->query($sql);
       $this->id = $pdo->lastInsertId();
       return $this->id;
@@ -133,6 +150,7 @@
       $this->hash        = "";
       $this->uploadedAt  = "0000-00-00 00:00:00";
       $this->description = "";
+      $this->rendered    = "";
       $this->inLibrary   = 0;
       $this->downloads   = 0;
     } // delete
@@ -165,6 +183,7 @@
            . " `flb`.`fileId`      AS `fileId`,"
            . " `flb`.`filename`    AS `filename`,"
            . " `flb`.`description` AS `description`,"
+           . " `flb`.`rendered`    AS `rendered`,"
            . " `flb`.`uploadedAt`  AS `uploadedAt`,"
            . " `flb`.`downloads`   AS `downloads`,"
            . " `flb`.`libraryId`   AS `inLibrary`,"
@@ -188,6 +207,7 @@
              . " `flb`.`fileId`      AS `fileId`,"
              . " `flb`.`filename`    AS `filename`,"
              . " `flb`.`description` AS `description`,"
+             . " `flb`.`rendered`    AS `rendered`,"
              . " `flb`.`uploadedAt`  AS `uploadedAt`,"
              . " `flb`.`downloads`   AS `downloads`,"
              . " `flb`.`libraryId`   AS `inLibrary`,"
