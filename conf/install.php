@@ -144,7 +144,7 @@
   User::create(
     (object) array(
       'username'    => 'System',
-      'password'    => password_hash('ch@n93m3', PASSWORD_BCRYPT),
+      'password'    => password_hash('ch@n93m3', $config->security->algorithm, array('cost' => $config->security->optimumHashCost)),
       'question'    => 'What is your username?',
       'answer'      => 'System',
       'accessLevel' => 4
@@ -154,7 +154,7 @@
   User::create(
     (object) array(
       'username'    => 'Sysop',
-      'password'    => password_hash('ch@n93m3', PASSWORD_BCRYPT),
+      'password'    => password_hash('ch@n93m3', $config->security->algorithm, array('cost' => $config->security->optimumHashCost)),
       'question'    => 'What is your username?',
       'answer'      => 'Sysop',
       'accessLevel' => 4
