@@ -16,7 +16,7 @@
           <td style="width: 48px;"><img class="profile-list-avatar" src="<%=Config.avatarFolder %>/<%=profiles[i].avatar %>_small.png" alt="<%=profiles[i].username %>" /></td>
           <td style="width: 40%;"><a href="#" class="profile-link" data-userId="<%=profiles[i].userId %>"><%=profiles[i].username %></a></td>
           <td style="width: 40%;"><%=profiles[i].title %></td>
-          <td style="width: 20%;"><%=profiles[i].joined.toLocalTime() %></td>
+          <td style="width: 20%;"><%=profiles[i].joined.toLocalTime().toElapsedTime() %></td>
         </tr>
       <% } %>
       </tbody>
@@ -27,15 +27,15 @@
     <table id="post-list">
       <thead>
         <th>Title</th>
-        <th>Posted By</th>
-        <th>Posted At</th>
+        <th>Author</th>
+        <th>Posted</th>
       </thead>
       <tbody>
         <% for (i = 0; i < posts.length; i++) { %>
           <tr>
             <td style="width: 50%;"><a href="#" class="forum-post-link" data-postId="<%=posts[i].postId %>"><%=posts[i].topic %></a></td>
             <td style="width: 30%;"><a href="#" class="profile-link" data-userId="<%=posts[i].postedBy %>"><%=posts[i].author %></a></td>
-            <td style="width: 20%;"><%=posts[i].postedAt.toLocalTime() %></td>
+            <td style="width: 20%;"><%=posts[i].postedAt.toLocalTime().toElapsedTime() %></td>
           </tr>
         <% } %>
       </tbody>
@@ -46,15 +46,15 @@
     <table id="blog-post-list">
       <thead>
         <th>Title</th>
-        <th>Posted By</th>
-        <th>Posted At</th>
+        <th>Author</th>
+        <th>Posted</th>
       </thead>
       <tbody>
         <% for (i = 0; i < blogs.length; i++) { %>
           <tr>
             <td style="width: 50%;"><a href="#" class="blog-post-link" data-postId="<%=blogs[i].postId %>"><%=blogs[i].title %></a></td>
             <td style="width: 30%;"><a href="#" class="profile-link" data-userId="<%=blogs[i].postedBy %>"><%=blogs[i].author %></a></td>
-            <td style="width: 20%;"><%=blogs[i].postedAt.toLocalTime() %></td>
+            <td style="width: 20%;"><%=blogs[i].postedAt.toLocalTime().toElapsedTime() %></td>
           </tr>
         <% } %>
       </tbody>
@@ -74,7 +74,7 @@
           <tr>
             <td style="width: 45%;" nowrap><a href="#" class="file-details-link" data-fileId="<%=files[i].id %>"><%=files[i].filename %></a></td>
             <td style="width: 30%;" nowrap><%=files[i].mimeType %></td>
-            <td style="width: 20%;" nowrap><%=files[i].uploadedAt.toLocalTime() %></td>
+            <td style="width: 20%;" nowrap><%=files[i].uploadedAt.toLocalTime().toElapsedTime() %></td>
             <td style="width: 5%;" class="numeric" nowrap><%=files[i].downloads %></td>
           </tr>
         <% } %>
