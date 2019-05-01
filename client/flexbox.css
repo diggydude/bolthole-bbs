@@ -459,11 +459,44 @@ td.numeric {
 
 #hashtag-page-container,
 #file-search-results,
-#blog-search-results {
+#blog-search-results,
+#help-container {
   padding: 5px;
 }
 
-#profile-list, #post-list, #blog-post-list, #file-list {
+#profile-list, #post-list, #blog-post-list, #file-list, .bbcode-list {
   width: 100%;
 }
 
+.bbcode-list > tbody > tr > td {
+  padding: 3px;
+}
+
+#code-tag-examples > tbody > tr > td {
+  font-size: 12px;
+}
+
+.spoiler-container {
+  padding: 5px;
+  border: 1px dotted #ffffff;
+  margin: 10px;
+}
+
+.spoiler-header {
+  color: #ffffff;
+  font-weight: bold;
+  padding: 5px;
+  margin: 0px;
+}
+
+.spoiler-text {
+  padding: 5px;
+  border: #ffffff dotted;
+  border-width: 1px 0px 1px 0px;
+}
+
+.spoiler-button-bar {
+  text-align: center;
+  padding: 5px;
+  margin: 0px;
+}
