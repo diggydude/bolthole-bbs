@@ -1,0 +1,183 @@
+<div id="help-container">
+  <h2>Help</h2>
+  <h3>1. BBCode Tag Usage</h3>
+  <h4>1.1 Basic Markup</h4>
+  <p>Whether or not a tag may be nested inside other tags depends on the tags.
+     Generally, placing other tags inside a tag that greatly alters the input text,
+     such as <code>[rainbow]</code>, <code>[gradient]</code>, or <code>[spoiler]</code>,
+     will not work correctly. Placing other tags inside of <code>[i]</code>,
+     <code>[b]</code>, or <code>[u]</code> tags usually works.</p>
+  <table class="bbcode-list">
+    <thead>
+      <th>Tag</th>
+      <th>Result</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>[i]italic text[/i]</td>
+        <td><span style="font-style: italic;">italic text</span></td>
+      </tr>
+      <tr>
+        <td>[b]bold text[/b]</td>
+        <td><span style="font-weight: bold;">bold text</span></td>
+      </tr>
+      <tr>
+        <td>[u]underlined text[/u]</td>
+        <td><span style="text-decoration: underline;">underlined text</span></td>
+      </tr>
+      <tr>
+        <td>[url=http://example.org/]Click here![/url]</td>
+        <td><a href="http://example.org/" target="_blank">Click here!</a></td>
+      </tr>
+      <tr>
+        <td>[rainbow]rainbow text[/rainbow]</td>
+        <td><span style="color: rgb(243,128,31);">r</span><span style="color: rgb(196,196,2);">a</span><span style="color: rgb(127,243,12);">i</span><span style="color: rgb(59,253,59);">n</span><span style="color: rgb(12,223,128);">b</span><span style="color: rgb(2,163,196);">o</span><span style="color: rgb(32,92,243);">w</span> <span style="color: rgb(92,32,253);">t</span><span style="color: rgb(163,2,223);">e</span><span style="color: rgb(224,12,163);">x</span><span style="color: rgb(253,59,92);">t</span></td>
+      </tr>
+      <tr>
+        <td>[gradient start=yellow end=blue]gradient text[/gradient]</td>
+        <td><span style="color: rgb(0,128,0);">g</span><span style="color: rgb(0,117,21);">r</span><span style="color: rgb(0,106,42);">a</span><span style="color: rgb(0,96,63);">d</span><span style="color: rgb(0,85,85);">i</span><span style="color: rgb(0,74,106);">e</span><span style="color: rgb(0,64,127);">n</span><span style="color: rgb(0,53,148);">t</span> <span style="color: rgb(0,42,170);">t</span><span style="color: rgb(0,32,191);">e</span><span style="color: rgb(0,21,212);">x</span><span style="color: rgb(0,10,233);">t</span></td>
+      </tr>
+      <tr>
+        <td>[blink]blinking text[/blink]</td>
+        <td><span class="blinking-text">blinking text</span></td>
+      </tr>
+      <tr>
+        <td>[marquee]scrolling text[/marquee]</td>
+        <td><div class="marquee"><div class="marquee-text">scrolling text</div></div></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4>1.2 The [img] Tag</h4>
+  <p>This tag may only be used with images that you or other members have uploaded. Placing
+     the URL of an image from another website inside the <code>[img]</code> tag will not work.
+     When you upload a file, you'll see a page of information about the file. One of the items
+     shown is a 32-character MD5 hash of the file. Copy and paste the MD5 hash value between
+     the <code>[img]</code> tags.</p>
+  <table class="bbcode-list">
+    <thead>
+      <th>Tag</th>
+      <th>Result</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="vertical-align: top;">[img]11e21d7da3d9d8d679e116233aa8255a[/img]</td>
+        <td><img src="./assets/user_files/11e21d7da3d9d8d679e116233aa8255a" alt="" /></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4>1.3 The [spoiler] Tag</h4>
+  <p>This tag scrambles text. Click the Decode button to unscramble it.</p>
+  <table class="bbcode-list">
+    <thead>
+      <th>Tag</th>
+      <th>Result</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="width: 50%;">[spoiler]Han Solo shot first.[/spoiler]</td>
+        <td style="width: 50%;"><div class="spoiler-container"><div class="spoiler-header">Spoiler:</div><div class="spoiler-text" id="spoiler-UCq0MozVJul6L9s2Bt3yIQfM7m7Io4gn">Una Fbyb fubg svefg.</div><div class="spoiler-button-bar"><button class="spoiler-decode-button" data-spoilerId="UCq0MozVJul6L9s2Bt3yIQfM7m7Io4gn">Decode</button></div></div></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4>1.4 The [code] Tag</h4>
+  <p>This tag can be used with or without syntax highlighting. For syntax highlighting,
+     specify the programming language in the opening tag. For ASCII art or command line
+     input and output, omit the programming language. In the examples below, we display
+     the same JavaScript code with and without syntax highlighting.</p>
+  <table class="bbcode-list" id="code-tag-examples">
+    <thead>
+      <th>Tag</th>
+      <th>Result</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+<pre style="font-family: sans-serif">[code=javascript]
+function sleep(milliseconds)
+{
+  var start = new Date().getTime();
+  for (var i = 0; i < Number.MAX_SAFE_INTEGER; i++) {
+    if ((new Date().getTime() - start) > milliseconds) {
+      break;
+    }
+  }
+} // sleep
+[/code]</pre></td>
+        <td>
+<pre class="javascript" style="font-family:monospace;">&nbsp;
+  <span style="color: #000066; font-weight: bold;">function</span> sleep<span style="color: #009900;">&#40;</span>milliseconds<span style="color: #009900;">&#41;</span>
+  <span style="color: #009900;">&#123;</span>
+    <span style="color: #000066; font-weight: bold;">var</span> start <span style="color: #339933;">=</span> <span style="color: #000066; font-weight: bold;">new</span> <span style="">Date</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">getTime</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+    <span style="color: #000066; font-weight: bold;">for</span> <span style="color: #009900;">&#40;</span><span style="color: #000066; font-weight: bold;">var</span> i <span style="color: #339933;">=</span> <span style="color: #CC0000;">0</span><span style="color: #339933;">;</span> i <span style="color: #339933;">&lt;</span> <span style="">Number</span>.<span style="color: #660066;">MAX_SAFE_INTEGER</span><span style="color: #339933;">;</span> i<span style="color: #339933;">++</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+      <span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#40;</span><span style="color: #000066; font-weight: bold;">new</span> <span style="">Date</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">getTime</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">-</span> start<span style="color: #009900;">&#41;</span> <span style="color: #339933;">&gt;</span> milliseconds<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+        <span style="color: #000066; font-weight: bold;">break</span><span style="color: #339933;">;</span>
+      <span style="color: #009900;">&#125;</span>
+    <span style="color: #009900;">&#125;</span>
+  <span style="color: #009900;">&#125;</span> <span style="color: #006600; font-style: italic;">// sleep</span>
+  &nbsp;</pre></td>
+      </tr>
+      <tr>
+        <td>
+<pre style="font-family: sans-serif">[code]
+function sleep(milliseconds)
+{
+  var start = new Date().getTime();
+  for (var i = 0; i < Number.MAX_SAFE_INTEGER; i++) {
+    if ((new Date().getTime() - start) > milliseconds) {
+      break;
+    }
+  }
+} // sleep
+[/code]</pre></td>
+        <td>
+<pre style="font-family: monospace;">
+function sleep(milliseconds)
+{
+  var start = new Date().getTime();
+  for (var i = 0; i < Number.MAX_SAFE_INTEGER; i++) {
+    if ((new Date().getTime() - start) > milliseconds) {
+      break;
+    }
+  }
+} // sleep
+</pre></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4>1.5 The [youtube] Tag</h4>
+  <p>Place the video ID between the tags. For example, if you have this YouTube URL:</p>
+  <code>https://www.youtube.com/watch?v=gqc8AqIZj4w</code>
+  <p>you would copy and paste the <code>gqc8AqIZj4w</code> part between the tags.</p>
+  <table class="bbcode-list">
+    <thead>
+      <th>Tag</th>
+      <th>Result</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="vertical-align: top;">[youtube]gqc8AqIZj4w[/youtube]</td>
+        <td><iframe width="280" height="157" src="https://www.youtube.com/embed/gqc8AqIZj4w" frameborder="0" allowfullscreen></iframe></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4>1.6 The [ansi] Tag</h4>
+  <p>As with the <code>[img]</code> tag, the <code>[ansi]</code> tag will only work with ANSI art
+     files you or other members have uploaded. Place the file's MD5 hash value between the tags.</p>
+  <blockquote>NOTE: This is a preliminary implementation. The tag currently assumes the file is an
+     80-column Code Page 437 file. This tag will soon change to allow users to specify
+     other character sets and column widths.</blockquote>
+  <p>The following example uses a PNG image to simulate the result. The actual result
+     will be a full-size HTML rendering of the Extended ASCII characters in your file.</p>
+  <table class="bbcode-list">
+    <thead>
+      <th>Tag</th>
+      <th>Result</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="vertical-align: top;">[ansi]ff5d8fbfbb15323fc9d1d9bc538a1cfd[/ansi]</td>
+        <td><img src="./client/ansi_example.png" /></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
