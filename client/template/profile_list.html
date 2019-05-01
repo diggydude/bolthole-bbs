@@ -13,7 +13,7 @@
 	    <td><img class="profile-list-avatar" src="<%=Config.avatarFolder %>/<%=profiles[i].avatar %>_small.png" alt="<%=profiles[i].username %>" /></td>
         <td><a href="#" class="profile-link" data-userId="<%=profiles[i].userId %>"><%=profiles[i].username %></a></td>
         <td><%=profiles[i].title %></td>
-        <td><%=profiles[i].joined.toLocalTime() %></td>
+        <td><%=profiles[i].joined.toLocalTime().toElapsedTime() %></td>
       </tr>
     <% } %>
     </tbody>

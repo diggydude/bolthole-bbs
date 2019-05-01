@@ -12,7 +12,7 @@
         <tr>
           <td nowrap><a href="#" class="file-details-link" data-fileId="<%=files[i].id %>"><%=files[i].filename %></a></td>
           <td nowrap><%=files[i].mimeType %></td>
-          <td nowrap><%=files[i].uploadedAt.toLocalTime() %></td>
+          <td nowrap><%=files[i].uploadedAt.toLocalTime().toElapsedTime() %></td>
           <td class="numeric" nowrap><%=files[i].downloads %></td>
         </tr>
       <% } %>

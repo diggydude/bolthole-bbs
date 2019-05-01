@@ -7,7 +7,7 @@
       <div id="forum-post-topic"><%=topic %></div>
       <div id="forum-post-byline">
         Posted by <a href="#" class="profile-link" data-userId="<%=postedBy %>"><%=author %></a>
-        at <%=postedAt.toLocalTime() %>
+        at <%=postedAt.toLocalTime().toElapsedTime() %>
 	  </div>
     </div>
   </div>

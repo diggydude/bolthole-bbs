@@ -27,7 +27,7 @@
 <!-- About tab -->
 <div id="about" class="tab-content">
   <h2>About <%=username %></h2>
-  <div id="profile-joined"><span style="font-weight: bold;">Joined:</span> <%=joined.toLocalTime() %></div>
+  <div id="profile-joined"><span style="font-weight: bold;">Joined:</span> <%=joined.toLocalTime().toElapsedTime() %></div>
   <div id="profile-website"><span style="font-weight: bold;">Website:</span> <a href="<%=website %>" target="_blank"><%=website %></a></div>
   <div id="profile-about"><%=rendered %></div>
   <div id="profile-signature"><%=signature %></div>
@@ -42,7 +42,7 @@
       <div class="comment-text">
         <div class="comment-byline">
           <span class="comment-author"><a href="#" class="profile-link" data-userId="<%=comments[i].postedBy %>"><%=comments[i].author %></a></span>
-          <span class="comment-postedAt"><%=comments[i].postedAt.toLocalTime() %></span>
+          <span class="comment-postedAt"><%=comments[i].postedAt.toLocalTime().toElapsedTime() %></span>
         </div>
         <div class="comment-body"><%=comments[i].body %></div>
       </div>
@@ -58,7 +58,7 @@
   <% for (i = 0; i < blogPosts.length; i++) { %>
     <div>
       <h3><%=blogPosts[i].title %></h3>
-      <div class="profile-blog-byline">Posted <%=blogPosts[i].postedAt.toLocalTime() %></div>
+      <div class="profile-blog-byline">Posted <%=blogPosts[i].postedAt.toLocalTime().toElapsedTime() %></div>
       <div class="profile-blog-summary"><%=blogPosts[i].summary %></div>
       <div class="profile-blog-more"><a href="#" class="blog-post-link" data-postId="<%=blogPosts[i].postId %>">Read More...</a></div>
     </div>
@@ -79,7 +79,7 @@
         <tr>
           <td nowrap><a href="#" class="file-details-link" data-fileId="<%=files[i].id %>"><%=files[i].filename %></a></td>
           <td nowrap><%=files[i].mimeType %></td>
-          <td nowrap><%=files[i].uploadedAt.toLocalTime() %></td>
+          <td nowrap><%=files[i].uploadedAt.toLocalTime().toElapsedTime() %></td>
           <td class="numeric" nowrap><%=files[i].downloads %></td>
         </tr>
       <% } %>

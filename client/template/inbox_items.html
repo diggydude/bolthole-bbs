@@ -13,7 +13,7 @@
       <a href="#" class="profile-link" data-userId="<%=messages[i].from %>"><%=messages[i].sender %></a>
     </div>
     <div style="display: table-cell; width: 30%;">
-      <%=messages[i].postedAt.toLocalTime() %>
+      <%=messages[i].postedAt.toLocalTime().toElapsedTime() %>
     </div>
   </div>
   <% } %>

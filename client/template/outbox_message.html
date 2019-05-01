@@ -7,7 +7,7 @@
       <div>
         <div id="forum-post-topic"><%=subject %></div>
         <div id="forum-post-byline">
-          Sent to <a href="#" id="profile-link" data-userId="<%=to %>"><%=recipient %></a> at <%=postedAt.toLocalTime() %>
+          Sent to <a href="#" id="profile-link" data-userId="<%=to %>"><%=recipient %></a> at <%=postedAt.toLocalTime().toElapsedTime() %>
   	  </div>
       </div>
     </div>

@@ -8,7 +8,7 @@
       </div>
       <div id="user-file-headline">
         <div id="user-file-filename"><%=filename %></div>
-        <div id="user-file-uploaded">Uploaded at <%=uploadedAt.toLocalTime() %></div>
+        <div id="user-file-uploaded">Uploaded at <%=uploadedAt.toLocalTime().toElapsedTime() %></div>
       </div>
     </div>
   </div>
@@ -53,7 +53,7 @@
       <div class="comment-text">
         <div class="comment-byline">
           <span class="comment-author"><a href="#" class="profile-link" data-userId="<%=comments[i].postedBy %>"><%=comments[i].author %></a></span>
-          <span class="comment-postedAt"><%=comments[i].postedAt.toLocalTime() %></span>
+          <span class="comment-postedAt"><%=comments[i].postedAt.toLocalTime().toElapsedTime() %></span>
         </div>
         <div class="comment-body"><%=comments[i].body %></div>
       </div>

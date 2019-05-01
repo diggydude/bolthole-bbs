@@ -12,7 +12,7 @@
           <tr>
             <td style="width: 50%;"><a href="#" class="blog-post-link" data-postId="<%=posts[i].postId %>"><%=posts[i].title %></a></td>
             <td style="width: 30%;"><a href="#" class="profile-link" data-userId="<%=posts[i].postedBy %>"><%=posts[i].author %></a></td>
-            <td style="width: 20%;"><%=posts[i].postedAt.toLocalTime() %></td>
+            <td style="width: 20%;"><%=posts[i].postedAt.toLocalTime().toElapsedTime() %></td>
           </tr>
         <% } %>
       </tbody>
