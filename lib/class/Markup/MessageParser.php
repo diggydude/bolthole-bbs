@@ -99,34 +99,35 @@
 
     public static function parseMarkup($text, $allowedTags = array(), $openLinksInNewTab = true)
     {
-      $_s = array(
-              'i'       => '/\[i\]((?!\[\/i\]).*?)\[\/i\]/ms',
-              'b'       => '/\[b\]((?!\[\/b\]).*?)\[\/b\]/ms',
-              'u'       => '/\[u\]((?!\[\/u\]).*?)\[\/u\]/ms',
-              'color'   => '/\[color=([^\]]*)\]((?!\[\/color\]).*?)\[\/color\]/ms',
-              'size'    => '/\[size=([^\]]*)\]((?!\[\/size\]).*?)\[\/size\]/ms',
-              'url'     => '/\[url=([^\]]*)\]((?!\[\/url\]).*?)\[\/url\]/ms',
-              'img'     => '/\[img\]((?!\[\/img\]).*?)\[\/img\]/ms',
-              'youtube' => '/\[youtube\]((?!\[\/youtube\]).*?)\[\/youtube\]/ms',
-              'marquee' => '/\[marquee\]((?!\[\/marquee\]).*?)\[\/marquee\]/ms',
-              'blink'   => '/\[blink\]((?!\[\/blink\]).*?)\[\/blink\]/m'
-            );
-      $_r = array(
-              'i'       => '<span style="font-style: italic;">$1</span>',
-              'b'       => '<span style="font-weight: bold;">$1</span>',
-              'u'       => '<span style="text-decoration: underline;">$1</span>',
-              'color'   => '<span style="color: $1;">$2</span>',
-              'size'    => '<span style="font-size: $1;">$2</span>',
-              'url'     => '<a href="$1"' . (($openLinksInNewTab) ? ' target="_blank"' : '') . '>$2</a>',
-              'img'     => '<img src="/img/dump/$1" alt="$1" />',
-              'youtube' => '<iframe width="560" height="315"'
-                         . ' src="https://www.youtube.com/embed/$1" frameborder="0"'
-                         . ' allowfullscreen></iframe>',
-              'marquee' => '<div class="marquee"><div class="marquee-text">$1</div></div>',
-              'blink'   => '<span class="blinking-text">$1</span>'
-            );
-      $s  = array();
-      $r  = array();
+      $cnf = Config::instance();
+      $_s  = array(
+               'i'       => '/\[i\]((?!\[\/i\]).*?)\[\/i\]/ms',
+               'b'       => '/\[b\]((?!\[\/b\]).*?)\[\/b\]/ms',
+               'u'       => '/\[u\]((?!\[\/u\]).*?)\[\/u\]/ms',
+               'color'   => '/\[color=([^\]]*)\]((?!\[\/color\]).*?)\[\/color\]/ms',
+               'size'    => '/\[size=([^\]]*)\]((?!\[\/size\]).*?)\[\/size\]/ms',
+               'url'     => '/\[url=([^\]]*)\]((?!\[\/url\]).*?)\[\/url\]/ms',
+               'img'     => '/\[img\]((?!\[\/img\]).*?)\[\/img\]/ms',
+               'youtube' => '/\[youtube\]((?!\[\/youtube\]).*?)\[\/youtube\]/ms',
+               'marquee' => '/\[marquee\]((?!\[\/marquee\]).*?)\[\/marquee\]/ms',
+               'blink'   => '/\[blink\]((?!\[\/blink\]).*?)\[\/blink\]/m'
+             );
+      $_r  = array(
+               'i'       => '<span style="font-style: italic;">$1</span>',
+               'b'       => '<span style="font-weight: bold;">$1</span>',
+               'u'       => '<span style="text-decoration: underline;">$1</span>',
+               'color'   => '<span style="color: $1;">$2</span>',
+               'size'    => '<span style="font-size: $1;">$2</span>',
+               'url'     => '<a href="$1"' . (($openLinksInNewTab) ? ' target="_blank"' : '') . '>$2</a>',
+               'img'     => '<img src="' . $cnf->files->uploads->baseUri . '/$1" alt="$1" />',
+               'youtube' => '<iframe width="560" height="315"'
+                          . ' src="https://www.youtube.com/embed/$1" frameborder="0"'
+                          . ' allowfullscreen></iframe>',
+               'marquee' => '<div class="marquee"><div class="marquee-text">$1</div></div>',
+               'blink'   => '<span class="blinking-text">$1</span>'
+             );
+      $s   = array();
+      $r   = array();
       if (!empty($allowedTags)) {
         foreach ($allowedTags as $tag) {
           if (array_key_exists($tag, $_s)) {
@@ -214,6 +215,7 @@
           if (!file_exists($dest)) {
             exec("$cmd -H --art-cp437 -i $src -o $dest -F \"Courier New\"", $out, $ret);
             if (intval($ret) != 0) {
+			  $text = str_replace($matches[0][$i], '[The ANSI file could not be rendered.]', $text);
               continue;
             }
           }

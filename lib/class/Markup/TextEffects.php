@@ -72,7 +72,13 @@
 
     public static function spoiler($text)
     {
-      return str_rot13($text);
+	  $id   = randomString(32);
+	  $html = "<div class=\"spoiler-container\">"
+            . "  <div class=\"spoiler-header\">Spoiler:</div>"
+            . "  <div class=\"spoiler-text\" id=\"spoiler-$id\">" . str_rot13($text) . "</div>"
+            . "  <div class=\"spoiler-button-bar\"><button class=\"spoiler-decode-button\" data-spoilerId=\"$id\">Decode</button></div>"
+            . "</div>";
+      return $html;
     } // spoiler
 
   } // TextEffects
