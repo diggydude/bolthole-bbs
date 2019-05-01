@@ -91,8 +91,6 @@ To the best of my knowledge, all third-party content herein is freely distributa
 
 * memcached integration
 
-* pretty timestamps (e.g., "an hour ago" vs. YYYY-MM-DD HH:MM:SS format)
-
 **Further Explanation and Rationale of Key Features**
 
 All timestamps are stored as Greenwich Mean Time and automatically converted to the user's local timezone when displayed. See `client/misc.js` for the conversion function.
