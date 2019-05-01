@@ -30,11 +30,59 @@ String.prototype.toLocalTime = function()
   u.setUTCFullYear(parseInt(m[1]));
   u.setUTCMonth(parseInt(m[2]) - 1, parseInt(m[3]));
   u.setUTCHours(parseInt(m[4]), parseInt(m[5]), parseInt(m[6]));
-  var l = u.getFullYear().toString() + "-" + (u.getMonth() + 1).toString().padStart(2, '0')
-        + "-" + u.getDate().toString().padStart(2, '0') + " " + u.getHours().toString().padStart(2, '0')
-		+ ":" + u.getMinutes().toString().padStart(2, '0');
-  return l;
+  this.value = u.getFullYear().toString()
+             + "-" + (u.getMonth() + 1).toString().padStart(2, '0')
+             + "-" + u.getDate().toString().padStart(2, '0')
+             + " " + u.getHours().toString().padStart(2, '0')
+             + ":" + u.getMinutes().toString().padStart(2, '0')
+             + ":" + u.getSeconds().toString().padStart(2, '0');
+  return this.value;
 }; // String.prototype.toLocalTime
+
+String.prototype.toElapsedTime = function()
+{
+  var elapsed, num;
+  var msInSec = 1000;
+  var msInMin = 60000;
+  var msInHr  = 3600000;
+  var msInDay = 86400000;
+  var msInMon = 2629800000;
+  var msInYr  = 31557600000;
+  var m = this.match(/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/);
+  var then = new Date();
+  var now  = new Date();
+  then.setFullYear(parseInt(m[1]));
+  then.setMonth(parseInt(m[2]) - 1, parseInt(m[3]));
+  then.setHours(parseInt(m[4]), parseInt(m[5]), parseInt(m[6]));
+  elapsed = Math.abs(now - then);
+  if (elapsed >= msInYr) {
+    num = Math.floor(elapsed / msInYr);
+    this.value = (num == 1) ? "a year ago" : num.toString()  + " years ago";
+    return this.value;
+  }
+  if (elapsed >= msInMon) {
+    num = Math.floor(elapsed / msInMon);
+    this.value = (num == 1) ? "a month ago" : num.toString() + " months ago";
+    return this.value;
+  }
+  if (elapsed >= msInDay) {
+    num = Math.floor(elapsed / msInDay);
+    this.value = (num == 1) ? "yesterday" : num.toString() + " days ago";
+    return this.value;
+  }
+  if (elapsed >= msInHr)  {
+    num = Math.floor(elapsed / msInHr);
+    this.value = (num == 1) ? "an hour ago" : num.toString()  + " hours ago";
+    return this.value;
+  }
+  if (elapsed >= msInMin) {
+    num = Math.floor(elapsed / msInMin);
+    this.value = (num == 1) ? "a minute ago" : num.toString() + " minutes ago";
+    return this.value;
+  }
+  this.value = Math.floor(elapsed / msInSec).toString() + " seconds ago";
+  return this.value;
+} // String.prototype.toElapsedTime
 
 Array.prototype.sortByProperty = function(property)
 {
