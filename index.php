@@ -34,6 +34,7 @@
     </script>
     <script type="text/javascript" src="./client/misc.js"></script>
     <script type="text/javascript" src="./client/js.cookie.js"></script>
+    <script type="text/javascript" src="./client/rot13.js"></script>
     <script type="text/javascript" src="./client/tabs.js"></script>
     <script type="text/javascript" src="./client/jstparser.js"></script>
     <script type="text/javascript" src="./client/module/EventHandlers.js"></script>
@@ -76,6 +77,7 @@
         <!-- a href="#" class="nav-link" id="show-stores-link">Stores</a> &nbsp;
         <a href="#" class="nav-link" id="show-channels-link">Channels</a> &nbsp;
         <a href="#" class="nav-link" id="show-tos-link">Terms of Service</a -->
+        <a href="#" class="nav-link" id="help-link">Help</a>
       </nav>
       <div class="main">
         <aside class="left">
