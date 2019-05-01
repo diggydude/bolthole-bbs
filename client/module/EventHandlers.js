@@ -18,6 +18,14 @@ var EventHandlers = {
                              }
                   },
                   {"event" : "click",
+                   "id"    : "help-link",
+                   "class" : null,
+                   "func"  : function()
+                             {
+                               Client.showHelp();
+                             }
+                  },
+                  {"event" : "click",
                    "id"    : "sign-in-button",
                    "class" : null,
                    "func"  : function()
@@ -558,6 +566,17 @@ var EventHandlers = {
                    "func"  : function(event)
                              {
                                Search.search();
+                             }
+                  },
+                  {"event" : "click",
+                   "id"    : null,
+                   "class" : "spoiler-decode-button",
+                   "func"  : function()
+                             {
+                               var id  = this.getAttribute('data-spoilerId');
+                               var div = $('spoiler-' + id);
+							   var txt = div.innerText.rot13();
+							   div.innerText = txt;
                              }
                   }
                 ],

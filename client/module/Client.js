@@ -83,6 +83,11 @@ var Client = {
                         $('success-message').innerHTML = message;
                         $('success-message').style.display = "block";
                         window.setTimeout(function(){$('success-message').style.display = "none";}, 5000);
-                      } // showSuccess
+                      }, // showSuccess
+					  
+  "showHelp"        : function()
+                      {
+						$('main').innerHTML = this.render('help', {});
+					  } // showHelp
 
 }; // Client
