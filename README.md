@@ -35,6 +35,8 @@ http://www.andre-simon.de/doku/ansifilter/en/ansifilter.php
 
 * All of the old school HTML tags (and some new ones) emulated in bbCode, e.g., `[blink]`, `[marquee]`, `[rainbow]`, `[gradient]`, `[spoiler]`, `[ansi]`, and `[youtube]`
 
+* Inline spoiler decoder
+
 * AOL sound effects
 
 * IRC-style `/me`, `/action`, `/kick`, and `/ban` commands
@@ -73,6 +75,10 @@ Thanks to Nigel McNie, Benny Baumann, and Milian Wolff for GeSHi syntax highligh
 
 http://qbnz.com/highlighter/
 
+Thanks to Jonas Raoni Soares Silva for his JavaScript rot13 implementation.
+
+http://jsfromhell.com/string/rot13
+
 **Disclaimer**
 
 To the best of my knowledge, all third-party content herein is freely distributable under some open source license or another. Said licenses and their terms are described in the applicable files. Since this package incorporates so many third-party contributions released under diverse and sundry licenses that it would be impossible to avoid conflicts by releasing my code under any one license, any portion written by me and not specifically attributed in comments to other authors is hereby placed in the public domain and offered Scot free with no warranty, guarantee, or liability of any kind.
@@ -82,8 +88,6 @@ To the best of my knowledge, all third-party content herein is freely distributa
 * Minify JavaScript and CSS files
 
 * HTML frontend for installer
-
-* Spoiler decoder
 
 * Generate more themes, including dark mode
 
