@@ -107,8 +107,8 @@
       }
       else {
         $sql = "INSERT INTO `BlogPost` ("
-             . " `title`, `editedAt`, `body`, `rendered`, `inBlog`)"
-             . " VALUES ($title, $editedAt, $body, $rendered, $inBlog)";
+             . " `title`, `postedAt`, `editedAt`, `body`, `rendered`, `inBlog`)"
+             . " VALUES ($title, $postedAt, $editedAt, $body, $rendered, $inBlog)";
         $pdo->query($sql);
         $this->id = $pdo->lastInsertId();
       }
