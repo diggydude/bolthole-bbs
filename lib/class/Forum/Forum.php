@@ -235,7 +235,8 @@
               LEFT JOIN `ForumPostInThread` AS `pit` ON `pit`.`postId` = `pst`.`id`
               LEFT JOIN `User`              AS `usr` ON `usr`.`id`     = `pst`.`postedBy`
               LEFT JOIN `Profile`           AS `pfl` ON `pfl`.`userId` = `usr`.`id`
-              WHERE `pst`.`topic` LIKE $tag OR `pst`.`body` LIKE $tag";
+              WHERE `pst`.`topic` LIKE $tag OR `pst`.`body` LIKE $tag
+			  ORDER BY `pst`.`postedAt` DESC";
       $stm = $pdo->query($sql);
       return $stm->fetchAll(PDO::FETCH_OBJ);
     } // hashtagSearch
