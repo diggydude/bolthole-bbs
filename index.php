@@ -2,16 +2,26 @@
 
   require_once(__DIR__ . '/conf/init_http.php');
   require_once(__DIR__ . '/lib/class/User/User.php');
+  require_once(__DIR__ . '/lib/class/Messaging/Emoticons.php');
 
-  $users = User::listUsers();
-  $conf  = json_encode(
-             (object) array(
-               'siteName'      => $config->site->name,
-               'maxUploadSize' => $config->files->uploads->maxSize,
-               'maxAvatarSize' => $config->files->avatars->maxSize,
-               'avatarFolder'  => $config->files->avatars->baseUri
-             )
-           );
+  $users  = User::listUsers();
+  $emotes = Emoticons::instance();
+  $conf   = json_encode(
+              (object) array(
+                'siteName'      => $config->site->name,
+                'maxUploadSize' => $config->files->uploads->maxSize,
+                'maxAvatarSize' => $config->files->avatars->maxSize,
+                'avatarFolder'  => $config->files->avatars->baseUri,
+                'allowedTags'   => (object) array(
+                                     'forum'    => '[' . implode('], [', $config->forum->allowedTags) . ']',
+                                     'chat'     => '[' . implode('], [', $config->chat->allowedTags) . ']',
+                                     'comments' => '[' . implode('], [', $config->comments->allowedTags) . ']',
+                                     'files'    => '[' . implode('], [', $config->files->uploads->allowedTags) . ']'
+                                   ),
+                'emoticons'     => $emotes->listIcons(true),
+				'emoticonPath'  => $config->files->emoticons->baseUri
+              )
+            );
 
 ?>
 <!DOCTYPE html>
