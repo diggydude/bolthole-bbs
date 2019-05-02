@@ -23,10 +23,10 @@ body {
   clip-path: padding-box;
   overflow: hidden;
 }
-a {
+a:not([name]) {
   text-decoration: none;
 }
-a:hover {
+a:not([name]):hover {
   text-decoration: underline;
 }
 input, textarea, select, button, input[type=submit] {
@@ -461,14 +461,17 @@ td.numeric {
 #file-search-results,
 #blog-search-results,
 #help-container {
-  padding: 5px;
+  padding: 5px 5px 20px 5px;
 }
 
-#profile-list, #post-list, #blog-post-list, #file-list, .bbcode-list {
+#profile-list, #post-list, #blog-post-list, #file-list,
+.bbcode-list, .emoticon-list, .command-list {
   width: 100%;
 }
 
-.bbcode-list > tbody > tr > td {
+.bbcode-list > tbody > tr > td,
+.emoticon-list > tbody > tr > td,
+.command-list > tbody > tr > td {
   padding: 3px;
 }
 
