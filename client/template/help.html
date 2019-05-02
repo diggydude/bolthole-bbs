@@ -1,12 +1,36 @@
 <div id="help-container">
-  <h2>Help</h2>
-  <h3>1. BBCode Tag Usage</h3>
-  <h4>1.1 Basic Markup</h4>
+  <a name="help-contents"><h2>Help</h2></a>
+  <ul>
+    <li><a href="#bbcode-usage">1. BBCode</a>
+        <ul>
+          <li><a href="#basic-markup">1.1 Basic Markup</a></li>
+          <li><a href="#img-tag">1.2 The [img] Tag</a></li>
+          <li><a href="#spoiler-tag">1.3 The [spoiler] Tag</a></li>
+          <li><a href="#code-tag">1.4 The [code] Tag</a></li>
+          <li><a href="#youtube-tag">1.5 The [youtube] Tag</a></li>
+          <li><a href="#ansi-tag">1.6 The [ansi] Tag</a></li>
+          <li><a href="#allowed-tags">1.7 Where Tags May Be Used</a></li>
+        </ul>
+    </li>
+    <li><a href="#emojis-hashtags-mentions">2. Emojis, Hashtags, and Mentions</a></li>
+    <li><a href="#emoticons">3. Emoticons</a></li>
+    <li><a href="#chat-commands">4. Chat Commands</a>
+        <ul>
+          <li><a href="#me-and-action">4.1 The /me and /action Commands</a></li>
+          <li><a href="#kick-and-ban">4.2 The /kick and /ban Commands</a></li>
+        </ul>
+    </li>
+  </ul>
+  <a name="bbcode-usage"><h3>1. BBCode</h3></a>
+  <p>BBCode is a markup language that enables users to add style to their text and embed
+     media elements in a Web page.</p>
+  <a name="basic-markup"><h4>1.1 Basic Markup</h4></a>
   <p>Whether or not a tag may be nested inside other tags depends on the tags.
-     Generally, placing other tags inside a tag that greatly alters the input text,
+     Generally, placing other tags inside a tag that modifies its own content,
      such as <code>[rainbow]</code>, <code>[gradient]</code>, or <code>[spoiler]</code>,
-     will not work correctly. Placing other tags inside of <code>[i]</code>,
-     <code>[b]</code>, or <code>[u]</code> tags usually works.</p>
+     will not work as expected. Placing other tags inside of <code>[i]</code>,
+     <code>[b]</code>, <code>[u]</code>, <code>[size]</code>, or <code>[color]</code>
+     tags usually works.</p>
   <table class="bbcode-list">
     <thead>
       <th>Tag</th>
@@ -24,6 +48,14 @@
       <tr>
         <td>[u]underlined text[/u]</td>
         <td><span style="text-decoration: underline;">underlined text</span></td>
+      </tr>
+      <tr>
+        <td>[color=green]green text[/color]</td>
+        <td><span style="color: #00ff00;">green text</span></td>
+      </tr>
+      <tr>
+        <td>[size=18pt]eighteen-point text[/size]</td>
+        <td><span style="font-size: 18pt;">eighteen-point text</span></td>
       </tr>
       <tr>
         <td>[url=http://example.org/]Click here![/url]</td>
@@ -47,7 +79,8 @@
       </tr>
     </tbody>
   </table>
-  <h4>1.2 The [img] Tag</h4>
+  <p><a href="#help-contents">Back to Top</a></p>
+  <a name="img-tag"><h4>1.2 The [img] Tag</h4></a>
   <p>This tag may only be used with images that you or other members have uploaded. Placing
      the URL of an image from another website inside the <code>[img]</code> tag will not work.
      When you upload a file, you'll see a page of information about the file. One of the items
@@ -65,7 +98,8 @@
       </tr>
     </tbody>
   </table>
-  <h4>1.3 The [spoiler] Tag</h4>
+  <p><a href="#help-contents">Back to Top</a></p>
+  <a name="spoiler-tag"><h4>1.3 The [spoiler] Tag</h4></a>
   <p>This tag scrambles text. Click the Decode button to unscramble it.</p>
   <table class="bbcode-list">
     <thead>
@@ -74,16 +108,17 @@
     </thead>
     <tbody>
       <tr>
-        <td style="width: 50%;">[spoiler]Han Solo shot first.[/spoiler]</td>
+        <td style="vertical-align: top; width: 50%;">[spoiler]Han Solo shot first.[/spoiler]</td>
         <td style="width: 50%;"><div class="spoiler-container"><div class="spoiler-header">Spoiler:</div><div class="spoiler-text" id="spoiler-UCq0MozVJul6L9s2Bt3yIQfM7m7Io4gn">Una Fbyb fubg svefg.</div><div class="spoiler-button-bar"><button class="spoiler-decode-button" data-spoilerId="UCq0MozVJul6L9s2Bt3yIQfM7m7Io4gn">Decode</button></div></div></td>
       </tr>
     </tbody>
   </table>
-  <h4>1.4 The [code] Tag</h4>
+  <p><a href="#help-contents">Back to Top</a></p>
+  <a name="code-tag"><h4>1.4 The [code] Tag</h4></a>
   <p>This tag can be used with or without syntax highlighting. For syntax highlighting,
      specify the programming language in the opening tag. For ASCII art or command line
-     input and output, omit the programming language. In the examples below, we display
-     the same JavaScript code with and without syntax highlighting.</p>
+     input and output, omit the language. In the examples below, we display the same
+     JavaScript code with and without syntax highlighting.</p>
   <table class="bbcode-list" id="code-tag-examples">
     <thead>
       <th>Tag</th>
@@ -144,7 +179,8 @@ function sleep(milliseconds)
       </tr>
     </tbody>
   </table>
-  <h4>1.5 The [youtube] Tag</h4>
+  <p><a href="#help-contents">Back to Top</a></p>
+  <a name="youtube-tag"><h4>1.5 The [youtube] Tag</h4></a>
   <p>Place the video ID between the tags. For example, if you have this YouTube URL:</p>
   <code>https://www.youtube.com/watch?v=gqc8AqIZj4w</code>
   <p>you would copy and paste the <code>gqc8AqIZj4w</code> part between the tags.</p>
@@ -160,7 +196,8 @@ function sleep(milliseconds)
       </tr>
     </tbody>
   </table>
-  <h4>1.6 The [ansi] Tag</h4>
+  <p><a href="#help-contents">Back to Top</a></p>
+  <a name="ansi-tag"><h4>1.6 The [ansi] Tag</h4></a>
   <p>As with the <code>[img]</code> tag, the <code>[ansi]</code> tag will only work with ANSI art
      files you or other members have uploaded. Place the file's MD5 hash value between the tags.</p>
   <blockquote>NOTE: This is a preliminary implementation. The tag currently assumes the file is an
@@ -180,4 +217,90 @@ function sleep(milliseconds)
       </tr>
     </tbody>
   </table>
+  <p><a href="#help-contents">Back to Top</a></p>
+  <a name="allowed-tags"><h4>1.7 Where Tags May Be Used</h4></a>
+  <p>The sysop may disable certain tags in certain areas of the site to reduce noise.
+     Other tag restrictions are hard-coded into the system.</p>
+  <p>All tags are allowed in your profile, blog posts, and private messages.</p>
+  <p>No tags are allowed in display names, custom titles, or signatures.</p>
+  <p>The following tags are enabled on the bulletin board: <%=Config.allowedTags.forum %></p>
+  <p>The following tags are enabled in chat: <%=Config.allowedTags.chat %></p>
+  <p>The following tags are enabled in file descriptions: <%=Config.allowedTags.files %></p>
+  <p>The following tags are enabled in comments: <%=Config.allowedTags.comments %></p>
+  <p><a href="#help-contents">Back to Top</a></p>
+  <a name="emojis-hashtags-mentions"><h3>2. Emojis, Hashtags, and Mentions</h3></a>
+  <p>Emojis are allowed in profiles, display names, custom titles, and signatures, but
+     are not supported anywhere else on the system.</p>
+  <p>Hashtags are allowed in all areas. Placing a "#" sign before any non-whitespace text
+     automagically creates a link to a special search results page. Hashtags are the preferred
+     method of curating related content.</p>
+  <p>Mentions are allowed in all areas. Placing a "@" sign before a registered username
+     automagically creates a link to that user's profile. Members may receive notifications
+     whenever someone mentions them by checking a box in their Preferences.</p>
+  <p><a href="#help-contents">Back to Top</a></p>
+  <a name="emoticons"><h3>3. Emoticons</h3></a>
+  <p>Emoticons, or "smileys," or "emotes," are small images that represent emotions. They
+     were the forerunners to today's emojis. The earliest emoticons were simple text sequences,
+     such as <code>:)</code> to represent a smile. In later years, other small images, such as
+     public figures and memes, were added to the vocabulary on some message boards.</p>
+  <p>The following emoticons are installed on the system, and may be used in all areas:</p>
+  <table class="emoticon-list">
+    <thead>
+      <th>Code</th>
+      <th style="text-align: center;">Result</th>
+    </thead>
+    <tbody>
+      <% for (p in Config.emoticons) { %>
+        <tr>
+          <td><%=(":" + p + ":") %></td>
+          <td style="text-align: center;"><img src="<%=Config.emoticonPath %>/<%=Config.emoticons[p] %>" alt="<%=(":" + p + ":") %>" /></td>
+        </tr>
+     <% } %>
+    </tbody>
+  </table>
+  <p><a href="#help-contents">Back to Top</a></p>
+  <a name="chat-commands"><h3>4. Chat Commands</h3></a>
+  <p>Chat commands are executed by typing a command in the chatroom.</p>
+  <a name="me-and-action"><h4>4.1 The /me and /action Commands</h4></a>
+  <p>These two commands are synonymous. They indicate that the user is performing an action.</p>
+  <table class="command-list">
+    <thead>
+      <th>Command</th>
+      <th>Result</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>/me pulls MarySmith's pigtails.</td>
+        <td><span class="chat-action">JohnDoe pulls MarySmith's pigtails.</span></td>
+      </tr>
+      <tr>
+        <td>/action smacks JohnDoe upside the head.</td>
+        <td><span class="chat-action">MarySmith smacks JohnDoe upside the head.</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p><a href="#help-contents">Back to Top</a></p>
+  <a name="kick-and-ban"><h4>4.2 The /kick and /ban Commands</h4></a>
+  <p>The /kick command temporarily knocks a user offline, forcing them to login again. Any
+     user may kick any other user except the System and Sysop users, who cannot be kicked
+     or banned.</p>
+  <p>The /ban command permanently bans a user from the system. Only the System and Sysop
+     users can ban another user.</p>
+  <table class="command-list">
+    <thead>
+      <th>Command</th>
+      <th>Result</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>/kick JohnDoe</td>
+        <td><div class="chat-message">&lt;<span class="chat-author">System</span>&gt; MarySmith kicked JohnDoe.</div></td>
+      </tr>
+      <tr>
+        <td>/ban JohnDoe</td>
+        <td><div class="chat-message">&lt;<span class="chat-author">System</span>&gt; JohnDoe has been banned.</div></td>
+      </tr>
+    </tbody>
+  </table>
+  <p><a href="#help-contents">Back to Top</a></p>
 </div>
