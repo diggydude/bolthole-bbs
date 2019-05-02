@@ -186,6 +186,36 @@ td.numeric {
   height: 150px;
   overflow: auto;
 }
+
+.mailbox-container {
+  display: table;
+  width: 100%;
+}
+
+.mailbox-header, .mailbox-row {
+  display: table-row;
+}
+
+.mailbox-column-head {
+  display: table-cell;
+  font-weight: bold;
+  border-bottom: 1px #ffffff dotted;
+  padding-bottom: 5px;
+}
+
+.mailbox-cell {
+  display: table-cell;
+}
+
+.mailbox-subject-head, .mailbox-subject-cell  {
+  width: 50%;
+}
+
+.mailbox-sender-head, .mailbox-timestamp-head,
+.mailbox-sender-cell, .mailbox-timestamp-cell {
+  width: 25%;
+}
+
 #settings > .tbl > .tr > .label {
   font-size: 11px;
   font-weight: bold;
