@@ -1,0 +1,78 @@
+body, a[name], .modal-content {
+  color: #555555;
+  background-color: rgb(104, 253, 109);
+}
+
+a {
+  color: rgb(114, 7, 197);
+}
+
+input, textarea, select {
+  color: rgb(2, 151, 7);
+  background-color: rgb(154, 254, 158);
+  border-color: rgb(2, 151, 7);
+}
+
+button, input[type=submit] {
+  color: rgb(240, 15, 124);
+  background-color: rgb(62, 244, 159);
+  border-color: rgb(240, 15, 124);
+}
+
+button:disabled, input:disabled {
+  color: rgb(2, 151, 7);
+  background-color: inherit;
+  border-color: rgb(2, 151, 7);
+}
+
+table {
+  border-color: rgb(55, 253, 62);
+}
+
+thead {
+  color: #cccccc;
+  background-color: rgb(55, 253, 62);
+}
+
+header, footer, .right, .active, .accordion:hover, #profile-masthead {
+  color: rgb(154, 254, 158);
+  background-color: rgb(55, 253, 62);
+}
+
+header > a, footer > a, .right a {
+  color: rgb(254, 82, 68);
+}
+
+nav, .left, .tab {
+  color: #cccccc;
+  background-color: rgb(117, 247, 17);
+}
+
+.tab:hover {
+  color: rgb(240, 15, 124);
+  background-color: rgb(62, 244, 159);
+}
+
+.activeTab {
+  color: #555555;
+  background-color: rgb(104, 253, 109);
+}
+
+.activeTab:hover {
+  color: #555555;
+  background-color: rgb(104, 253, 109);
+}
+
+#profile-avatar {
+ border-color: rgb(104, 253, 109);
+}
+
+nav > a, .left a {
+  color: rgb(188, 107, 250);
+}
+
+.left > form > button:disabled, .left > form > input:disabled {
+  color: rgb(67, 148, 5);
+  background-color: inherit;
+  border-color: rgb(67, 148, 5);
+}
