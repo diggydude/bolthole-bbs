@@ -1,18 +1,18 @@
-<div style="display: table; width: 100%;">
-  <div style="display: table-row;">
-    <div style="display: table-cell; width: 50%; font-weight: bold;  border-bottom: 1px #ffffff dotted; padding-bottom: 5px;">Subject:</div>
-	<div style="display: table-cell; width: 20%; font-weight: bold;  border-bottom: 1px #ffffff dotted; padding-bottom: 5px;">From:</div>
-	<div style="display: table-cell; width: 30%; font-weight: bold;  border-bottom: 1px #ffffff dotted; padding-bottom: 5px;">Sent:</div>
+<div class="mailbox-container">
+  <div class="mailbox-header">
+    <div class="mailbox-column-head mailbox-subject-head">Subject:</div>
+    <div class="mailbox-column-head mailbox-sender-head">From:</div>
+    <div class="mailbox-column-head mailbox-timestamp-head">Sent:</div>
   </div>
   <% for (i = 0; i < messages.length; i++) { %>
-  <div style="display: table-row;">
-    <div style="display: table-cell; width: 50%;">
+  <div class="mailbox-row">
+    <div class="mailbox-cell mailbox-subject-cell">
       <a href="#" class="mail-message-link" data-messageId="<%=messages[i].messageId %>"><%=messages[i].subject %></a>
     </div>
-	<div style="display: table-cell; width: 20%;">
+    <div class="mailbox-cell mailbox-sender-cell">
       <a href="#" class="profile-link" data-userId="<%=messages[i].from %>"><%=messages[i].sender %></a>
     </div>
-    <div style="display: table-cell; width: 30%;">
+    <div class="mailbox-cell mailbox-tiemstamp-cell">
       <%=messages[i].postedAt.toLocalTime().toElapsedTime() %>
     </div>
   </div>
