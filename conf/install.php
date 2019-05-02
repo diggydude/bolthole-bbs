@@ -72,6 +72,11 @@
                                                               'video/mpeg',
                                                               'video/mp4',
                                                               'x-music/x-midi'
+                                                            ),
+                                          'allowedTags'  => array(
+                                                              'b', 'i', 'u', 'color', 'size', 'url',
+                                                              'code', 'marquee', 'blink', 'rainbow',
+                                                              'gradient'
                                                             )
                                         ),
                          'avatars'   => (object) array(
@@ -106,14 +111,14 @@
                         'allowedTags' => array(
                                            'b', 'i', 'u', 'color', 'size', 'url',
                                            'code', 'marquee', 'blink', 'rainbow',
-                                           'gradient', 'spoiler'
+                                           'gradient'
                                          )
                       );
 
   $config->comments = (object) array(
                         'allowedTags' => array(
                                            'b', 'i', 'u', 'color', 'url', 'marquee',
-                                           'blink', 'rainbow', 'gradient', 'spoiler'
+                                           'blink', 'rainbow', 'gradient'
                                          )
                       );
 
