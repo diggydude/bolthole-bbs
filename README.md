@@ -29,7 +29,7 @@ http://www.andre-simon.de/doku/ansifilter/en/ansifilter.php
 
 * User-friendly flexbox layout keeps all features and controls one click away
 
-* Instant user-selectable theme changes
+* Instant user-selectable theme changes (This wasn't working before because I forgot to commit the themes folder and its contents. Oops!) 
 
 * User-selectable old school cursor trails 
 
