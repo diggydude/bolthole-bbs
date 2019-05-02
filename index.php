@@ -71,7 +71,7 @@
         <div id="site-search">
           <input id="site-search-terms" type="text" />
           <select id="site-search-where">
-            <option value="forum">Discussions</option>
+            <option value="forum">Bulletins</option>
             <option value="profiles">Profiles</option>
             <option value="blog">Blog Posts</option>
             <option value="files">File Libraries</option>
