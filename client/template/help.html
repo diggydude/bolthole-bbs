@@ -182,7 +182,7 @@ function sleep(milliseconds)
   <p><a href="#help-contents">Back to Top</a></p>
   <a name="youtube-tag"><h4>1.5 The [youtube] Tag</h4></a>
   <p>Place the video ID between the tags. For example, if you have this YouTube URL:</p>
-  <code>https://www.youtube.com/watch?v=gqc8AqIZj4w</code>
+  <blockquote><code>https://www.youtube.com/watch?v=gqc8AqIZj4w</code></blockquote>
   <p>you would copy and paste the <code>gqc8AqIZj4w</code> part between the tags.</p>
   <table class="bbcode-list">
     <thead>
@@ -199,12 +199,15 @@ function sleep(milliseconds)
   <p><a href="#help-contents">Back to Top</a></p>
   <a name="ansi-tag"><h4>1.6 The [ansi] Tag</h4></a>
   <p>As with the <code>[img]</code> tag, the <code>[ansi]</code> tag will only work with ANSI art
-     files you or other members have uploaded. Place the file's MD5 hash value between the tags.</p>
-  <blockquote>NOTE: This is a preliminary implementation. The tag currently assumes the file is an
-     80-column Code Page 437 file. This tag will soon change to allow users to specify
-     other character sets and column widths.</blockquote>
+     files that you or other members have uploaded. Place the file's MD5 hash value between the tags.</p>
+  <p>If no parameters are supplied, the tag assumes your ANSI file is an 80-column Code Page 437 file.
+     Other character sets and dimensions can be set in the opening tag:</p>
+  <blockquote><code>[ansi type=cp437 width=44 height=22]130aada24aeec38442aa53115bc25eb6[/ansi]</code></blockquote>
+  <p>Setting tag parameters is an all-or-nothing proposition, i.e., if you specify one parameter, then you must specify
+     all three parameters. Accepted values for the type parameter are <code>cp437</code>, <code>bin</code>,
+	 and <code>tundra</code>.</p>
   <p>The following example uses a PNG image to simulate the result. The actual result
-     will be a full-size HTML rendering of the Extended ASCII characters in your file.</p>
+     would be a full-size HTML rendering of the Extended ASCII characters in your file.</p>
   <table class="bbcode-list">
     <thead>
       <th>Tag</th>
