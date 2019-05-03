@@ -139,7 +139,7 @@ ANSI art embedding works by converting the ANSI file to HTML and displaying it i
 
 * Paste the hash between `[ansi]` tags in your profile "about" field or blog post.
 
-The ANSI art converter assumes Code Page 437 and 80-column width. These parameters can be set in the tag:
+The ANSI art converter assumes Code Page 437 and 80-column width. These parameters can be set in the tag. The type options are `cp437`, `bin`, and `tundra`.
 
 `[ansi]130aada24aeec38442aa53115bc25eb6[/ansi]`
 
