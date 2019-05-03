@@ -203,23 +203,50 @@
     public static function stashAnsiArt($text)
     {
       $config  = Config::instance();
+      $cmd     = $config->programs->ansifilter->path;
+      $matches = array();
+      $search  = "/\[ansi type=((?!width).*?) width=((?!height).*?) height=([^\]]*)\]((?!\[\/ansi\]).*?)\[\/ansi\]/ms";
+      $count   = preg_match_all($search, $text, $matches);
+      if ($count) {
+        for ($i = 0; $i < $count; $i++) {
+          $id   = randomString(32);
+          $type = strtolower($matches[1][$i]);
+          $type =  (in_array($type, array('bin', 'cp437', 'tundra'))) ? ("--art-" . $type) : "--art-cp437";
+          $w    = $matches[2][$i];
+          $h    = $matches[3][$i];
+          $src  = $config->files->uploads->directory . "/" . $matches[4][$i];
+          $dest = $src . ".html";
+          $uri  = $config->files->uploads->baseUri . "/" . $matches[4][$i] . ".html";
+          if (!file_exists($dest)) {
+            $exec = "$cmd -H $type --art-width $w --art-height $h -i $src -o $dest -F \"Courier New\"";
+            exec($exec, $out, $ret);
+            if (intval($ret) != 0) {
+              $text = str_replace($matches[0][$i], '[The ANSI file could not be rendered.]', $text);
+              continue;
+            }
+          }
+          self::$codeBlocks[$id] = "<iframe class=\"ansi-art-frame\" src=\"$uri\"></iframe>";
+          $text = str_replace($matches[0][$i], '[[' . $id . ']]', $text);
+        }
+      }
       $matches = array();
       $search  = "/\[ansi\]((?!\[\/ansi\]).*?)\[\/ansi\]/ms";
       $count   = preg_match_all($search, $text, $matches);
       if ($count) {
         for ($i = 0; $i < $count; $i++) {
           $id   = randomString(32);
-          $src  = $config->files->uploads->baseUri . "/" . $matches[1][$i];
+          $src  = $config->files->uploads->directory . "/" . $matches[1][$i];
           $dest = $src . ".html";
-          $cmd  = $config->programs->ansifilter->path;
+          $uri  = $config->files->uploads->baseUri . "/" . $matches[1][$i] . ".html";
           if (!file_exists($dest)) {
-            exec("$cmd -H --art-cp437 -i $src -o $dest -F \"Courier New\"", $out, $ret);
+            $exec = "$cmd -H --art-cp437 -i $src -o $dest -F \"Courier New\"";
+            exec($exec, $out, $ret);
             if (intval($ret) != 0) {
-			  $text = str_replace($matches[0][$i], '[The ANSI file could not be rendered.]', $text);
+              $text = str_replace($matches[0][$i], '[The ANSI file could not be rendered.]', $text);
               continue;
             }
           }
-          self::$codeBlocks[$id] = "<iframe class=\"ansi-art-frame\" src=\"$dest\"></iframe>";
+          self::$codeBlocks[$id] = "<iframe class=\"ansi-art-frame\" src=\"$uri\"></iframe>";
           $text = str_replace($matches[0][$i], '[[' . $id . ']]', $text);
         }
       }
