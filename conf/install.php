@@ -132,7 +132,8 @@
 
   $config->programs = (object) array(
                         'ansifilter' => (object) array(
-                                          'path' => 'C:/ansifilter/ansifilter.exe'
+                                          'enabled' => true,
+                                          'path'    => 'C:/ansifilter/ansifilter.exe'
                                         )
                       );
 
