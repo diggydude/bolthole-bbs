@@ -10,7 +10,8 @@ var AlertFilter = {
                   "notifyMention"    : [
                                          /^(.*) mentioned you in a forum post\.$/,
                                          /^(.*) mentioned you in a blog post\.$/,
-                                         /^(.*) mentioned you in chat\.$/
+                                         /^(.*) mentioned you in chat\.$/,
+                                         /^(.*) mentioned you in a comment\.$/
                                        ],
                   "notifyComment"    : [
                                          /^(.*) commented on your profile\.$/,
