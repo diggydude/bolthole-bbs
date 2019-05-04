@@ -202,7 +202,10 @@
 
     public static function stashAnsiArt($text)
     {
-      $config  = Config::instance();
+      $config = Config::instance();
+      if (!$config->programs->ansifilter->enabled) {
+        return $text;
+      }
       $cmd     = $config->programs->ansifilter->path;
       $matches = array();
       $search  = "/\[ansi type=((?!width).*?) width=((?!height).*?) height=([^\]]*)\]((?!\[\/ansi\]).*?)\[\/ansi\]/ms";
