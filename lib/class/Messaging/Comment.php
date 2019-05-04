@@ -109,6 +109,29 @@
         $pdo->query($sql);
         $this->id = $pdo->lastInsertId();
       }
+      $username = $userList[$postedBy]->username;
+      $data = "<a href=\"#\" class=\"profile-link\" data-userId=\"$postedBy\">" . $username . "</a> mentioned you in a ";
+      switch ($moduleTypeId) {
+        case 1:
+          $data .= "<a href=\"#\" class=\"profile-link\" data-userId=\"$moduleId\">comment</a>.";
+          break;
+        case 2:
+          $data .= "<a href=\"#\" class=\"blog-post-link\" data-postId=\"$moduleId\">comment</a>.";
+          break;
+        case 3:
+          $data .= "<a href=\"#\" class=\"file-details-link\" data-fileId=\"$moduleId\">comment</a>.";
+          break;
+      }
+      foreach ($mentioned as $userId) {
+        Alerts::enqueue(
+          (object) array(
+            'typeId'    => 5,
+            'recipient' => $userId,
+            'private'   => true,
+            'data'      => $data
+          )
+        );
+      }
       return $this->id;
     } // save
 
