@@ -34,7 +34,7 @@ thead {
   background-color: rgb(55, 253, 62);
 }
 
-header, footer, .right, .active, .accordion:hover, #profile-masthead {
+header, footer, .active, .accordion:hover, #profile-masthead {
   color: rgb(154, 254, 158);
   background-color: rgb(55, 253, 62);
 }
@@ -45,7 +45,12 @@ header > a, footer > a, .right a {
 
 nav, .left, .tab {
   color: #cccccc;
-  background-color: rgb(117, 247, 17);
+  background-color: rgb(94, 201, 7);
+}
+
+.right {
+  color: #ffffff;
+  background-color: rgb(55, 253, 62);
 }
 
 .tab:hover {
@@ -68,7 +73,7 @@ nav, .left, .tab {
 }
 
 nav > a, .left a {
-  color: rgb(188, 107, 250);
+  color: rgb(255, 183, 200);
 }
 
 .left > form > button:disabled, .left > form > input:disabled {
