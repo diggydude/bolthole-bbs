@@ -89,8 +89,6 @@ To the best of my knowledge, all third-party content herein is freely distributa
 
 * HTML frontend for installer
 
-* Generate more themes, including dark mode
-
 * Automatic dark mode scheduling
 
 * memcached integration
