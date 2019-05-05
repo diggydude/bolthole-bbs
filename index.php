@@ -168,6 +168,7 @@
                         <option value="200">Oxygen</option>
                         <option value="335">Sunset</option>
                         <option value="260">Twilight</option>
+                        <option value="360">Midnight</option>
                       </select>
                     </div>
                   </div>
