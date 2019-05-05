@@ -19,7 +19,7 @@
                                      'files'    => '[' . implode('], [', $config->files->uploads->allowedTags) . ']'
                                    ),
                 'emoticons'     => $emotes->listIcons(true),
-				'emoticonPath'  => $config->files->emoticons->baseUri
+                'emoticonPath'  => $config->files->emoticons->baseUri
               )
             );
 
@@ -161,9 +161,13 @@
                     <div class="label">Theme:</div>
                     <div class="control">
                       <select id="settings_theme">
-                        <option value="0">Citrus Punch</option>
-                        <option value="100">Seasick Ferry</option>
-                        <option value="200">Stratosphere</option>
+                        <option value="0">Citrus</option>
+                        <option value="50">Autumn</option>
+                        <option value="100">Forest</option>
+                        <option value="150">Seasick</option>
+                        <option value="200">Oxygen</option>
+                        <option value="335">Sunset</option>
+                        <option value="260">Twilight</option>
                       </select>
                     </div>
                   </div>
