@@ -282,6 +282,30 @@ var EventHandlers = {
                                Blog.postComment();
                              }
                   },
+                  {"event" : "keyup",
+                   "id"    : "compose_subject",
+                   "class" : null,
+                   "func"  : function()
+                             {
+                               if ((this.value == "") || ($('compose_body').value == "")) {
+                                 $('compose_send').disabled = true;
+                                 return;
+                               }
+                               $('compose_send').disabled = false;
+                             }
+                  },
+                  {"event" : "keyup",
+                   "id"    : "compose_body",
+                   "class" : null,
+                   "func"  : function()
+                             {
+                               if ((this.value == "") || ($('compose_subject').value == "")) {
+                                 $('compose_send').disabled = true;
+                                 return;
+                               }
+                               $('compose_send').disabled = false;
+                             }
+                  },
                   {"event" : "click",
                    "id"    : "compose_send",
                    "class" : null,
@@ -307,15 +331,22 @@ var EventHandlers = {
                                Mailbox.search('inbox');
                              }
                   },
-                  {"event" : "keypress",
+                  {"event" : "keyup",
                    "id"    : "inbox_search_terms",
                    "class" : null,
-                   "func"  : function()
+                   "func"  : function(event)
                              {
+                               var code = event.charCode || event.keyCode;
                                if (this.value == "") {
                                  $('inboxSearchResults').innerHTML = "";
                                  $('inboxSearchResults').style.display = "none";
                                  $('inbox').style.display = "block";
+                                 $('inbox_search').disabled = true;
+                                 return;
+                               }
+                               $('inbox_search').disabled = false;
+                               if (code == 13) {
+                                 Mailbox.search('inbox');
                                }
                              }
                   },
@@ -327,15 +358,22 @@ var EventHandlers = {
                                Mailbox.search('outbox');
                              }
                   },
-                  {"event" : "keypress",
+                  {"event" : "keyup",
                    "id"    : "outbox_search_terms",
                    "class" : null,
                    "func"  : function()
                              {
+                               var code = event.charCode || event.keyCode;
                                if (this.value == "") {
                                  $('outboxSearchResults').innerHTML = "";
                                  $('outboxSearchResults').style.display = "none";
                                  $('outbox').style.display = "block";
+                                 $('outbox_search').disabled = true;
+                                 return;
+                               }
+                               $('outbox_search').disabled = false;
+                               if (code == 13) {
+                                 Mailbox.search('outbox');
                                }
                              }
                   },
@@ -575,8 +613,8 @@ var EventHandlers = {
                              {
                                var id  = this.getAttribute('data-spoilerId');
                                var div = $('spoiler-' + id);
-							   var txt = div.innerText.rot13();
-							   div.innerText = txt;
+                               var txt = div.innerText.rot13();
+                               div.innerText = txt;
                              }
                   }
                 ],

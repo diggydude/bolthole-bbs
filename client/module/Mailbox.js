@@ -7,17 +7,17 @@ var Mailbox = {
 
   "init"        : function()
                   {
-                    if ((this.inbox = JSON.parse(window.localStorage.getItem('inbox'))) == null) {
+                    if ((this.inbox = Client.getStorage('inbox')) == null) {
                       this.inbox = [];
                     }
-                    if ((this.outbox = JSON.parse(window.localStorage.getItem('outbox'))) == null) {
+                    if ((this.outbox = Client.getStorage('outbox')) == null) {
                       this.outbox = [];
                     }
                     this.refreshView();
                     EventHandlers.apply();
-                    $('compose_send').disabled  = false;
-                    $('inbox_search').disabled  = false;
-                    $('outbox_search').disabled = false;
+                    $('compose_send').disabled  = true;
+                    $('inbox_search').disabled  = true;
+                    $('outbox_search').disabled = true;
                     this.handle = Client.taskList.add(
                       function() {
                         Mailbox.poll();
@@ -33,7 +33,7 @@ var Mailbox = {
                       for (var i = 0; i < response.inbox.length; i++) {
                         this.inbox.push(response.inbox[i]);
                       }
-                      window.localStorage.setItem('inbox', JSON.stringify(this.inbox));
+                      Client.putStorage('inbox', this.inbox);
                       if (Preferences.sounds) {
                         $('gotmail-audio').play();
                       }
@@ -43,7 +43,7 @@ var Mailbox = {
                       for (i = 0; i < response.outbox.length; i++) {
                         this.outbox.push(response.outbox[i]);
                       }
-                      window.localStorage.setItem('outbox', JSON.stringify(this.outbox));
+                      Client.putStorage('outbox', this.outbox);
                       refresh = true;
                     }
                     if (refresh) {
@@ -140,6 +140,7 @@ var Mailbox = {
                                     Mailbox.update(response.results);
                                     if (response.message != "") {
                                       Client.showSuccess(response.message);
+                                      $('compose_send').disabled = true;
                                     }
                                   }
                                   Client.showError(response.message);
