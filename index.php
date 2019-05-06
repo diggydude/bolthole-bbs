@@ -50,6 +50,7 @@
     <script type="text/javascript" src="./client/module/EventHandlers.js"></script>
     <script type="text/javascript" src="./client/module/TaskList.js"></script>
     <script type="text/javascript" src="./client/module/Tree.js"></script>
+    <script type="text/javascript" src="./client/module/DarkMode.js"></script>
     <script type="text/javascript" src="./client/module/Client.js"></script>
     <script type="text/javascript" src="./client/module/Following.js"></script>
     <script type="text/javascript" src="./client/module/Profile.js"></script>
@@ -162,7 +163,7 @@
                     <div class="control">
                       <select id="settings_theme">
                         <option value="0">Citrus</option>
-                        <option value="50">Autumn</option>
+                        <option value="50">Harvest</option>
                         <option value="100">Forest</option>
                         <option value="150">Seasick</option>
                         <option value="200">Oxygen</option>
@@ -193,6 +194,45 @@
                       <select id="settings_sounds">
                         <option value="0">Off</option>
                         <option value="1">On</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="groupLabel">Automatic dark mode switching:</div>
+                <div class="tbl">
+                  <div class="tr">
+                    <div class="label">Dark Mode On:</div>
+                    <div class="control">
+                      <select id="settings-dark-mode-on">
+                        <option value="0">Never</option>
+                        <option value="1">5:00 PM</option>
+                        <option value="2">5:30 PM</option>
+                        <option value="3">6:00 PM</option>
+                        <option value="4">6:30 PM</option>
+                        <option value="5">7:00 PM</option>
+                        <option value="6">7:30 PM</option>
+                        <option value="7">8:00 PM</option>
+                        <option value="8">8:30 PM</option>
+                        <option value="9">9:00 PM</option>
+                        <option value="10">9:30 PM</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="tr">
+                    <div class="label">Dark Mode Off:</div>
+                    <div class="control">
+                      <select id="settings-dark-mode-off">
+                        <option value="0">Never</option>
+                        <option value="1">5:00 AM</option>
+                        <option value="2">5:30 AM</option>
+                        <option value="3">6:00 AM</option>
+                        <option value="4">6:30 AM</option>
+                        <option value="5">7:00 AM</option>
+                        <option value="6">7:30 AM</option>
+                        <option value="7">8:00 AM</option>
+                        <option value="8">8:30 AM</option>
+                        <option value="9">9:00 AM</option>
+                        <option value="10">9:30 AM</option>
                       </select>
                     </div>
                   </div>
