@@ -29,7 +29,11 @@ http://www.andre-simon.de/doku/ansifilter/en/ansifilter.php
 
 * User-friendly flexbox layout keeps all features and controls one click away
 
-* Instant user-selectable theme changes (This wasn't working before because I forgot to commit the themes folder and its contents. Oops!) 
+* Instant theme changes
+
+* Automatic dark mode switching with user-selectable on/off times
+
+* Automatic timezone detection and timestamp conversion
 
 * User-selectable old school cursor trails 
 
@@ -88,8 +92,6 @@ To the best of my knowledge, all third-party content herein is freely distributa
 * Minify JavaScript and CSS files
 
 * HTML frontend for installer
-
-* Automatic dark mode scheduling
 
 * memcached integration
 
