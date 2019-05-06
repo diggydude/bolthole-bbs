@@ -3,6 +3,8 @@ var Preferences = {
   "theme"              : 0,
   "cursor"             : 2,
   "sounds"             : 1,
+  "darkModeOn"         : 0,
+  "darkModeOff"        : 0,
   "notifyReply"        : true,
   "notifyVisit"        : true,
   "notifyMention"      : true,
@@ -45,6 +47,8 @@ var Preferences = {
                            this.theme               = $('settings_theme').selectedIndex;
                            this.cursor              = $('settings_cursor').selectedIndex;
                            this.sounds              = $('settings_sounds').selectedIndex;
+                           this.darkModeOn          = $('settings-dark-mode-on').selectedIndex;
+                           this.darkModeOff         = $('settings-dark-mode-off').selectedIndex;
                            this.notifyReply         = $('settings_notifyReply').checked;
                            this.notifyVisit         = $('settings_notifyVisit').checked;
                            this.notifyMention       = $('settings_notifyMention').checked;
@@ -65,14 +69,17 @@ var Preferences = {
 
   "apply"              : function()
                          {
-                           $('settings_theme').selectedIndex  = this.theme;
-                           $('settings_cursor').selectedIndex = this.cursor;
-                           $('settings_sounds').selectedIndex = (this.sounds) ? 1 : 0;
+                           $('settings_theme').selectedIndex         = this.theme;
+                           $('settings_cursor').selectedIndex        = this.cursor;
+                           $('settings_sounds').selectedIndex        = (this.sounds) ? 1 : 0;
+                           $('settings-dark-mode-on').selectedIndex  = this.darkModeOn;
+                           $('settings-dark-mode-off').selectedIndex = this.darkModeOff;
                            for (var p in this) {
                              if (p.indexOf('notify') > -1) {
                                $('settings_' + p).checked = this[p];
                              }
                            }
+                           DarkMode.run();
                            $('theme').setAttribute('href', './client/theme/' + $('settings_theme').options[this.theme].value + '.css');
                          }, // apply
 
