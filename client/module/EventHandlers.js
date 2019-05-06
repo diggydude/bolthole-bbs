@@ -540,7 +540,9 @@ var EventHandlers = {
                    "class" : null,
                    "func"  : function()
                              {
-                               $('theme').setAttribute('href', './client/theme/' + this.options[this.selectedIndex].value + '.css');
+                               var theme = this.options[this.selectedIndex].value;
+                               $('theme').setAttribute('href', './client/theme/' + theme + '.css');
+                               Preferences.theme = theme;
                              }
                   },
                   {"event" : "change",
