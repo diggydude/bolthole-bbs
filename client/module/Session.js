@@ -10,20 +10,25 @@ var Session = {
                        switch (form) {
                          case "sign-in":
                            Client.showModal('Sign In', 'sign_in', {}, false);
+                           $('sign-in-username').focus();
                            break;
                          case "sign-up":
                            Client.showModal('Sign Up', 'sign_up', {}, false);
+                           $('sign-up-username').focus();
                            break;
                          case "change-password":
                            Client.showModal('Change Password', 'change_password', {"userId" : arguments[1]}, false);
+                           $('chg-pwd-password').focus();
                            break;
                          case "lost-password":
                            Client.showModal('Recover Account (Step 1 of 2)', 'lost_password', {}, false);
+                           $('recover-username').focus();
                            break;
                          case "recover-account":
                            Client.showModal('Recover Account (Step 2 of 2)', 'recover_account',
                              {"question" : arguments[1], "username" :arguments[2]}, false
                            );
+                           $('recover-answer').focus();
                            break;
                          default:
                            return;
