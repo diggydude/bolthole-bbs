@@ -81,7 +81,8 @@ nav > a, .left a {
   color: #eeeeee;
 }
 
-.left > form > button:disabled, .left > form > input:disabled {
+.send > button:disabled, .send > input:disabled,
+.searchControls > button:disabled, .searchControls > input:disabled {
   color: #aaaaaa;
   background-color: inherit;
   color: #aaaaaa;

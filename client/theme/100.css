@@ -76,7 +76,8 @@ nav > a, .left a {
   color: rgb(255, 183, 200);
 }
 
-.left > form > button:disabled, .left > form > input:disabled {
+.send > button:disabled, .send > input:disabled,
+.searchControls > button:disabled, .searchControls > input:disabled {
   color: rgb(67, 148, 5);
   background-color: inherit;
   border-color: rgb(67, 148, 5);
