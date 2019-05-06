@@ -148,7 +148,7 @@ var EventHandlers = {
                                Search.hashtag(hashtag);
                              }
                   },
-                  {"event" : "keypress",
+                  {"event" : "keyup",
                    "id"    : "chatMessage",
                    "class" : null,
                    "func"  : function(event)
@@ -617,6 +617,22 @@ var EventHandlers = {
                              {
                                if (event.target == $('file-upload-editor')) {
                                  UserFiles.hideUploader();
+                               }
+                             }
+                  },
+                  {"event" : "keyup",
+                   "id"    : "site-search-terms",
+                   "class" : null,
+                   "func"  : function(event)
+                             {
+                               var code = event.charCode || event.keyCode;
+                               if (this.value == "") {
+                                 $('site-search-button').disabled = true;
+                                 return;
+                               }
+                               $('site-search-button').disabled = false;
+                               if (code == 13) {
+                                 Search.search();
                                }
                              }
                   },

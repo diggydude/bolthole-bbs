@@ -9,12 +9,13 @@ var Client = {
                         if (localStorage.getItem('bolthole') == null) {
                           localStorage.setItem('bolthole', JSON.stringify([]));
                         }
-                        $('welcome-audio').volume = 0.25;
-                        $('gotmail-audio').volume = 0.25;
-                        $('goodbye-audio').volume = 0.25;
-                        $('chime-audio').volume   = 0.25;
-                        $('gong-audio').volume    = 0.25;
-                        $('welcome').innerHTML    = "Please sign in or register.";
+                        $('welcome-audio').volume        = 0.25;
+                        $('gotmail-audio').volume        = 0.25;
+                        $('goodbye-audio').volume        = 0.25;
+                        $('chime-audio').volume          = 0.25;
+                        $('gong-audio').volume           = 0.25;
+                        $('welcome').innerHTML           = "Please sign in or register.";
+                        $('site-search-button').disabled = true;
                         this.taskList.run();
                       }, // init
 
@@ -84,10 +85,10 @@ var Client = {
                         $('success-message').style.display = "block";
                         window.setTimeout(function(){$('success-message').style.display = "none";}, 5000);
                       }, // showSuccess
-					  
+
   "showHelp"        : function()
                       {
-						$('main').innerHTML = this.render('help', {});
-					  } // showHelp
+                        $('main').innerHTML = this.render('help', {});
+                      } // showHelp
 
 }; // Client

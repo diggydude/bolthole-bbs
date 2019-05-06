@@ -6,8 +6,9 @@ var Chat = {
 
   "init"           : function()
                      {
-                       var uri  = "/chat.php";
-                       var formData = new FormData();
+                       var uri                = "/chat.php";
+                       var formData           = new FormData();
+                       $('chatSend').disabled = true;
                        with (formData) {
                          append('command',  'join');
                          append('username', Session.username);
