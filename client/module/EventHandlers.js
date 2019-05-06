@@ -195,12 +195,32 @@ var EventHandlers = {
                                Following.unfollow($('follow-userId').value);
                              }
                   },
+                  {"event" : "keyup",
+                   "id"    : "following_search_terms",
+                   "class" : null,
+                   "func"  : function(event)
+                             {
+                               var code = event.charCode || event.keyCode;
+                               if (this.value == "") {
+                                 $('following_search').disabled = true;
+                                 return;
+                               }
+                               $('following_search').disabled = false;
+                               if (code == 13) {
+                                 Following.search();
+                                 this.value = "";
+                                 $('following_search').disabled = true;
+                               }
+                             }
+                  },
                   {"event" : "click",
                    "id"    : "following_search",
                    "class" : null,
                    "func"  : function()
                              {
                                Following.search();
+                               $('following_search_terms').value = "";
+                               this.disabled = true;
                              }
                   },
                   {"event" : "click",

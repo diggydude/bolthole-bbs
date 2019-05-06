@@ -9,6 +9,7 @@ var Following = {
                  }
                  this.followed = Client.getStorage('following');
                  this.show();
+                 $('following_search').disabled = true;
                }, // init
 
   "follow"   : function(userId, username)
