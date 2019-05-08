@@ -4,6 +4,8 @@
   width: 100%;
   height: 100%;
   font-size: 14px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 #forum-left {
@@ -21,6 +23,7 @@
 }
 
 .forum-thread-list-item {
+  white-space: nowrap;
   padding: 3px 5px 0px 5px;
 }
 
@@ -104,9 +107,13 @@
 
 #forum-post-tree  ul {
   list-style-type: square;
-   list-style-image: url('/client/icons/forum_post_icon.png');
+  list-style-image: url('/client/icons/forum_post_icon.png');
   margin: 0px 0px 0px 15px;
   padding: 0;
+}
+
+#forum-post-tree li {
+  white-space: nowrap;
 }
 
 #forum-post-tree-controls {
