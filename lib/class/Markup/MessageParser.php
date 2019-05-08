@@ -175,6 +175,7 @@
         for ($i = 0; $i < $count; $i++) {
           $id    = randomString(32);
           $geshi = new GeSHi($matches[2][$i], $matches[1][$i]);
+		  $geshi->set_link_target('_blank');
           self::$codeBlocks[$id] = $geshi->parse_code();
           $text = str_replace($matches[0][$i], '[[' . $id . ']]', $text);
         }
@@ -185,7 +186,7 @@
       if ($count) {
         for ($i = 0; $i < $count; $i++) {
           $id = randomString(32);
-          self::$codeBlocks[$id] = "<pre class=\"proggy\">" . $matches[1][$i] . "</pre>";
+          self::$codeBlocks[$id] = "<pre style=\"font-family: monospace;\">" . $matches[1][$i] . "</pre>";
           $text = str_replace($matches[0][$i], '[[' . $id . ']]', $text);
         }
       }
