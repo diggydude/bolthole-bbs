@@ -185,7 +185,7 @@
       if ($count) {
         for ($i = 0; $i < $count; $i++) {
           $id = randomString(32);
-          self::$codeBlocks[$id] = "<pre style=\"font-family: monospace;\">" . $matches[1][$i] . "</pre>";
+          self::$codeBlocks[$id] = "<pre class=\"proggy\">" . $matches[1][$i] . "</pre>";
           $text = str_replace($matches[0][$i], '[[' . $id . ']]', $text);
         }
       }
