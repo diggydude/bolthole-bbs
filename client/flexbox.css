@@ -1,3 +1,12 @@
+@font-face {
+font-family: 'ProggyVectorRegular';
+font-style: normal;
+font-weight: normal;
+src: local('./client/font/ProggyVectorRegular'), url('./client/font/ProggyVectorRegular.woff') format('woff');
+}
+.proggy {
+  font-family: ProggyVectorRegular;
+}
 .flex-container {
   display: flex;
   overflow: hidden;
