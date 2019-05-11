@@ -335,6 +335,7 @@
     <audio id="goodbye-audio" src="./client/sound/goodbye.wav" type="audio/wav"></audio>
     <audio id="chime-audio"   src="./client/sound/chime.wav"   type="audio/wav"></audio>
     <audio id="gong-audio"    src="./client/sound/gong.wav"    type="audio/wav"></audio>
+    <audio id="doh-audio"     src="./client/sound/doh.wav"     type="audio/wav"></audio>
     <script type="text/javascript">
       window.addEventListener('load',
         function()
