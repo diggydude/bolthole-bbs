@@ -158,6 +158,7 @@ var Mailbox = {
                         message = this.inbox[i];
                         Client.showModal(message.subject, 'inbox_message', message, true);
 						message.read = true;
+						Client.putStorage('inbox', this.inbox);
                       }
                     }
                     if (message == null) {
@@ -177,6 +178,7 @@ var Mailbox = {
                     for (var i = 0; i < this.inbox.length; i++) {
                       if (parseInt(this.inbox[i].messageId) == messageId) {
                         this.inbox.splice(i, 1);
+						Client.putStorage('inbox', this.inbox);
                         found = true;
                         break;
                       }
@@ -184,6 +186,7 @@ var Mailbox = {
                     for (var i = 0; i < this.outbox.length; i++) {
                       if (parseInt(this.outbox[i].messageId) == messageId) {
                         this.outbox.splice(i, 1);
+						Client.putStorage('outbox', this.outbox);
                         found = true;
                         break;
                       }
