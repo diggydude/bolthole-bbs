@@ -25,6 +25,7 @@ CREATE TABLE `Profile` (
   `title`       VARCHAR(32)  NOT NULL DEFAULT '',
   `displayName` VARCHAR(32)  NOT NULL DEFAULT '',
   `avatar`      VARCHAR(32)  NOT NULL DEFAULT '',
+  `banner`      VARCHAR(32)  NOT NULL DEFAULT '',
   `signature`   VARCHAR(255) NOT NULL DEFAULT '',
   `website`     VARCHAR(128) NOT NULL DEFAULT '',
   `about`       TEXT         NOT NULL,
@@ -62,18 +63,6 @@ CREATE TABLE `Ban` (
 ) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;
 
 /* ****************** GLUE ****************** */
-
-CREATE TABLE `Theme` (
-  `id`   TINYINT(3)   NOT NULL,
-  `name` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE (`name`)
-) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;
-
-INSERT INTO `Theme` (`id`, `name`) VALUES (1, 'Citrus');
-INSERT INTO `Theme` (`id`, `name`) VALUES (2, 'Seasick');
-INSERT INTO `Theme` (`id`, `name`) VALUES (3, 'Stratosphere');
-INSERT INTO `Theme` (`id`, `name`) VALUES (4, 'Twilight');
 
 CREATE TABLE `ModuleType` (
   `id`   INT(11)      AUTO_INCREMENT,

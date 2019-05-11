@@ -91,6 +91,19 @@
                                                               'image/pjpeg',
                                                               'image/png'
                                                             )
+                                        ),,
+                         'banners'   => (object) array(
+                                          'maxSize'      => 1000000,
+                                          'maxWidth'     => 1200,
+                                          'maxHeight'    => 400,
+                                          'directory'    => realpath(__DIR__ . '/../assets/banners'),
+                                          'baseUri'      => '/assets/banners',
+                                          'allowedTypes' => array(
+                                                              'image/gif',
+                                                              'image/jpeg',
+                                                              'image/pjpeg',
+                                                              'image/png'
+                                                            )
                                         ),
                          'emoticons' => (object) array(
                                           'directory' => realpath(__DIR__  . '/../client/emoticons'),
@@ -124,6 +137,7 @@
 
   $config->profiles = (object) array(
                         'defaultAvatar'    => '266e735438b81e0f3ff90a023da668b3',
+                        'defaultBanner'    => '',
                         'defaultTitle'     => 'Russian Bot',
                         'defaultSignature' => '"No matter where you go, there you are." - Buckaroo Banzai',
                         'defaultWebsite'   => $config->site->baseUri,
