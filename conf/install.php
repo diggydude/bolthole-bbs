@@ -91,7 +91,7 @@
                                                               'image/pjpeg',
                                                               'image/png'
                                                             )
-                                        ),,
+                                        ),
                          'banners'   => (object) array(
                                           'maxSize'      => 1000000,
                                           'maxWidth'     => 1200,
