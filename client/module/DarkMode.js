@@ -81,11 +81,11 @@ var DarkMode = {
                      {
                        var date = new Date();
                        var now  = date.getHours() + (date.getMinutes() / 60);
-                       if (((DarkMode.start > 0) && (now >= DarkMode.start)) || ((DarkMode.end == 0) || (now < DarkMode.end))) {
-                         $('theme').setAttribute('href', './client/theme/360.css');
+                       if ((DarkMode.start == 0) || ((now > DarkMode.end) && (now < DarkMode.start))) {
+                         $('theme').setAttribute('href', './client/theme/' + $('settings_theme').options[Preferences.theme].value + '.css');
                          return;
                        }
-                       $('theme').setAttribute('href', './client/theme/' + $('settings_theme').options[Preferences.theme].value + '.css');
+                       $('theme').setAttribute('href', './client/theme/360.css');
                      }, 'slow'
                    );
                  }, // run
