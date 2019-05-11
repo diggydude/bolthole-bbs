@@ -7,6 +7,7 @@
   <% for (i = 0; i < messages.length; i++) { %>
   <div class="mailbox-row">
     <div class="mailbox-cell mailbox-subject-cell">
+      <img src="./client/icons/<% if (messages[i].read) { %><%='mail_open_icon.png'%><% } else { %><%='mail_closed_icon.png'%><% } %>" alt="message" />
       <a href="#" class="mail-message-link" data-messageId="<%=messages[i].messageId %>"><%=messages[i].subject %></a>
     </div>
     <div class="mailbox-cell mailbox-sender-cell">
