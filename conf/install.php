@@ -137,7 +137,7 @@
 
   $config->profiles = (object) array(
                         'defaultAvatar'    => '266e735438b81e0f3ff90a023da668b3',
-                        'defaultBanner'    => '',
+                        'defaultBanner'    => '62ec503bec9e11b2d6ebe2dd2f23da75',
                         'defaultTitle'     => 'Russian Bot',
                         'defaultSignature' => '"No matter where you go, there you are." - Buckaroo Banzai',
                         'defaultWebsite'   => $config->site->baseUri,
