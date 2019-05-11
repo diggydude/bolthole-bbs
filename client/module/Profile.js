@@ -85,6 +85,8 @@ function Profile()
                                      if (response.success) {
                                        profile.load(response.results);
                                        Client.showSuccess('Your profile has been saved.');
+                                       $('profile_avatar').value = "";
+                                       $('profile_banner').value = "";
                                        return;
                                      }
                                      Client.showError(response.message);
