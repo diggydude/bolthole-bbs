@@ -28,7 +28,6 @@ var Mailbox = {
   "update"      : function(response)
                   {
                     var links;
-                    var refresh = false;
                     if (response.inbox.length > 0) {
                       for (var i = 0; i < response.inbox.length; i++) {
                         this.inbox.push(response.inbox[i]);
@@ -37,18 +36,14 @@ var Mailbox = {
                       if (Preferences.sounds) {
                         $('gotmail-audio').play();
                       }
-                      refresh = true;
                     }
                     if (response.outbox.length > 0) {
                       for (i = 0; i < response.outbox.length; i++) {
                         this.outbox.push(response.outbox[i]);
                       }
                       Client.putStorage('outbox', this.outbox);
-                      refresh = true;
                     }
-                    if (refresh) {
-                      this.refreshView();
-                    }
+                    this.refreshView();
                     if (response.alerts.length > 0) {
                       for (i = 0; i < response.alerts.length; i++) {
                         if (this.filterAlert(response.alerts[i].data) == true) {
