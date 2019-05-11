@@ -15,7 +15,7 @@
     protected
 
       $id,
-      $userame,
+      $username,
       $password,
       $question,
       $answer,
@@ -103,12 +103,13 @@
         $displayName = $username;
         $title       = $pdo->quote($cnf->profiles->defaultTitle,     PDO::PARAM_STR);
         $avatar      = $pdo->quote($cnf->profiles->defaultAvatar,    PDO::PARAM_STR);
+        $banner      = $pdo->quote($cnf->profiles->defaultBanner,    PDO::PARAM_STR);
         $signature   = $pdo->quote($cnf->profiles->defaultSignature, PDO::PARAM_STR);
         $website     = $pdo->quote($cnf->profiles->defaultWebsite,   PDO::PARAM_STR);
         $about       = $pdo->quote($cnf->profiles->defaultAbout,     PDO::PARAM_STR);
         $rendered    = $pdo->quote($cnf->profiles->defaultAbout,     PDO::PARAM_STR);
-        $sql         = "INSERT INTO `Profile` (`userId`, `displayName`, `title`, `avatar`, `signature`, `website`, `about`, `rendered`)
-                        VALUES (" . $this->id . ", $displayName, $title, $avatar, $signature, $website, $about, $rendered)";
+        $sql         = "INSERT INTO `Profile` (`userId`, `displayName`, `title`, `avatar`, `banner`, `signature`, `website`, `about`, `rendered`)
+                        VALUES (" . $this->id . ", $displayName, $title, $avatar, $banner, $signature, $website, $about, $rendered)";
         $pdo->query($sql);
         $sql = "INSERT INTO `Blog` (`ownerId`) VALUES (" . $this->id . ")";
         $pdo->query($sql);

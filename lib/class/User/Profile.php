@@ -16,6 +16,7 @@
       $displayName,
       $title,
       $avatar,
+      $banner,
       $signature,
       $website,
       $about,
@@ -29,6 +30,7 @@
       $this->displayName = "";
       $this->title       = "";
       $this->avatar      = "";
+      $this->banner      = "";
       $this->signature   = "";
       $this->website     = "";
       $this->about       = "";
@@ -48,6 +50,7 @@
                      `pfl`.`displayName` AS `displayName`,
                      `pfl`.`title`       AS `title`,
                      `pfl`.`avatar`      AS `avatar`,
+                     `pfl`.`banner`      AS `banner`,
                      `pfl`.`signature`   AS `signature`,
                      `pfl`.`website`     AS `website`,
                      `pfl`.`about`       AS `about`,
@@ -65,6 +68,7 @@
         $this->displayName = $row->displayName;
         $this->title       = $row->title;
         $this->avatar      = $row->avatar;
+        $this->banner      = $row->banner;
         $this->signature   = $row->signature;
         $this->website     = $row->website;
         $this->about       = $row->about;
@@ -81,6 +85,7 @@
       $displayName = $pdo->quote($this->displayName, PDO::PARAM_STR);
       $title       = $pdo->quote($this->title,       PDO::PARAM_STR);
       $avatar      = $pdo->quote($this->avatar,      PDO::PARAM_STR);
+      $banner      = $pdo->quote($this->banner,      PDO::PARAM_STR);
       $signature   = $pdo->quote($this->signature,   PDO::PARAM_STR);
       $website     = $pdo->quote($this->website,     PDO::PARAM_STR);
       $about       = $pdo->quote($this->about,       PDO::PARAM_STR);
@@ -95,8 +100,9 @@
       $mentioned   = array();
       $this->rendered = MessageParser::parse($this->about, $mentioned, $options);
       $rendered = $pdo->quote($this->rendered, PDO::PARAM_STR);
-      $sql      = "UPDATE `Profile` SET `displayName` = $displayName, `title` = $title, `avatar` = $avatar, `signature` = $signature,
-                   `website` = $website, `about` = $about, `rendered` = $rendered WHERE `userId` = " . intval($this->userId);
+      $sql      = "UPDATE `Profile` SET `displayName` = $displayName, `title` = $title, `avatar` = $avatar, `banner` = $banner,
+	               `signature` = $signature, `website` = $website, `about` = $about, `rendered` = $rendered
+				   WHERE `userId` = " . intval($this->userId);
       $pdo->query($sql);
       return $this->userId;
     } // save
@@ -112,6 +118,9 @@
       }
       if (property_exists($params, 'avatar')) {
         $this->avatar = $params->avatar;
+      }
+      if (property_exists($params, 'banner')) {
+        $this->banner = $params->banner;
       }
       if (property_exists($params, 'signature')) {
         $this->signature = $params->signature;
@@ -136,6 +145,7 @@
       $this->displayName = "";
       $this->title       = "";
       $this->avatar      = "";
+      $this->banner      = "";
       $this->signature   = "";
       $this->website     = "";
       $this->about       = "";
@@ -206,6 +216,7 @@
                        `usr`.`username`    AS `username`,
                        `usr`.`joined`      AS `joined`,
                        `pfl`.`avatar`      AS `avatar`,
+                       `pfl`.`banner`      AS `banner`,
                        `pfl`.`title`       AS `title`,
                        `pfl`.`displayName` AS `displayName`,
                        `blg`.`id`          AS `blogId`,
