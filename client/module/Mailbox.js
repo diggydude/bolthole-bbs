@@ -30,6 +30,7 @@ var Mailbox = {
                     var links;
                     if (response.inbox.length > 0) {
                       for (var i = 0; i < response.inbox.length; i++) {
+						response.inbox[i].read = false;
                         this.inbox.push(response.inbox[i]);
                       }
                       Client.putStorage('inbox', this.inbox);
@@ -47,7 +48,7 @@ var Mailbox = {
                     if (response.alerts.length > 0) {
                       for (i = 0; i < response.alerts.length; i++) {
                         if (this.filterAlert(response.alerts[i].data) == true) {
-                          $('alerts').innerHTML += "<div>" + response.alerts[i].data + "</div>";
+                          $('alerts').innerHTML += "<div><img src=\"./client/icons/alert_icon.png\" alt=\"alert\" /> " + response.alerts[i].data + "</div>";
                           $('alerts').scrollTop = $('alerts').scrollHeight;
                           if (Preferences.sounds) {
                             $('chime-audio').play();
@@ -156,6 +157,7 @@ var Mailbox = {
                       if (parseInt(this.inbox[i].messageId) == messageId) {
                         message = this.inbox[i];
                         Client.showModal(message.subject, 'inbox_message', message, true);
+						message.read = true;
                       }
                     }
                     if (message == null) {
