@@ -14,6 +14,7 @@ var Client = {
                         $('goodbye-audio').volume        = 0.25;
                         $('chime-audio').volume          = 0.25;
                         $('gong-audio').volume           = 0.25;
+                        $('doh-audio').volume            = 0.25;
                         $('welcome').innerHTML           = "Please sign in or register.";
                         $('site-search-button').disabled = true;
                         this.taskList.run();
@@ -76,6 +77,9 @@ var Client = {
                       {
                         $('error-message').innerHTML = message;
                         $('error-message').style.display = "block";
+                        if (Preferences.sounds) {
+                          $('doh-audio').play();
+                        }
                         window.setTimeout(function(){$('error-message').style.display = "none";}, 5000);
                       }, // showError
 
