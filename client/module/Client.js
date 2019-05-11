@@ -75,7 +75,7 @@ var Client = {
 
   "showError"       : function(message)
                       {
-                        $('error-message').innerHTML = message;
+                        $('error-message').innerHTML = "<img src=\"./client/icons/error_icon.png\" alt=\"error\" /> " + message;
                         $('error-message').style.display = "block";
                         if (Preferences.sounds) {
                           $('doh-audio').play();
@@ -85,7 +85,7 @@ var Client = {
 
   "showSuccess"     : function(message)
                       {
-                        $('success-message').innerHTML = message;
+                        $('success-message').innerHTML = "<img src=\"./client/icons/success_icon.png\" alt=\"success\" /> " + message;
                         $('success-message').style.display = "block";
                         window.setTimeout(function(){$('success-message').style.display = "none";}, 5000);
                       }, // showSuccess
