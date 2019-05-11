@@ -142,6 +142,7 @@ var Mailbox = {
                                       Client.showSuccess(response.message);
                                       $('compose_send').disabled = true;
                                     }
+                                    return;
                                   }
                                   Client.showError(response.message);
                                 };
