@@ -80,7 +80,12 @@ String.prototype.toElapsedTime = function()
     this.value = (num == 1) ? "a minute ago" : num.toString() + " minutes ago";
     return this.value;
   }
-  this.value = Math.floor(elapsed / msInSec).toString() + " seconds ago";
+  num = Math.floor(elapsed / msInSec);
+  if (num <= 5) {
+    this.value = "just now";
+    return this,value;
+  }
+  this.value = num.toString() + " seconds ago";
   return this.value;
 } // String.prototype.toElapsedTime
 
