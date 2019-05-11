@@ -6,6 +6,7 @@ function Profile()
   this.displayName = "";
   this.title       = "";
   this.avatar      = "";
+  this.banner      = "";
   this.website     = "";
   this.signature   = "";
   this.about       = "";
@@ -42,6 +43,7 @@ function Profile()
                        this.displayName = params.displayName;
                        this.title       = params.title;
                        this.avatar      = params.avatar;
+                       this.avatar      = params.banner;
                        this.website     = params.website;
                        this.signature   = params.signature;
                        this.about       = params.about;
@@ -70,6 +72,7 @@ function Profile()
                          append('displayName',   $('profile_display_name').value);
                          append('title',         $('profile_title').value);
                          append('avatar',        $('profile_avatar').files[0]);
+                         append('avatar',        $('profile_banner').files[0]);
                          append('website',       $('profile_website').value);
                          append('signature',     $('profile_signature').value);
                          append('about',         $('profile_about').value);
