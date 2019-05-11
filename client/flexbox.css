@@ -200,11 +200,13 @@ td.numeric {
   display: table-cell;
   font-weight: bold;
   border-bottom: 1px #ffffff dotted;
-  padding-bottom: 5px;
+  padding: 2px;
 }
 
 .mailbox-cell {
   display: table-cell;
+  white-space: nowrap;
+  padding: 2px;
 }
 
 .mailbox-subject-head, .mailbox-subject-cell  {
