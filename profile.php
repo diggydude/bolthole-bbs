@@ -26,6 +26,7 @@
                      'about'       => $_POST['about']
                    );
         if ($_FILES) {
+		  // Avatar
           $uploader = new Uploader($config->files->avatars);
           if (($info = $uploader->uploadFile($_FILES['avatar'])) === false) {
             $response->message = $uploader->getLastError();
@@ -71,6 +72,26 @@
           $image->save();
           unlink($info->path);
           $params->avatar = $info->hash;
+		  // Banner
+          $uploader = new Uploader($config->files->banners);
+          if (($info = $uploader->uploadFile($_FILES['banner'])) === false) {
+            $response->message = $uploader->getLastError();
+            break;
+          }
+          $dimensions = getimagesize($info->path);
+          $maxWidth   = $config->files->banners->maxWidth;
+          $maxHeight  = $config->files->banners->maxHeight;
+          if (($dimensions[0] > $maxWidth) || ($dimensions[1] > $maxHeight)) {
+            $response->message = "Banner dimensions cannot exceed $maxWidth by $maxHeight pixels.";
+            @unlink($info->path);
+            break;
+          }
+          $image = Image::fromFile($info->path);
+          $image->setMimeType('image/png');
+          $image->setFilename($config->files->banners->directory . '/' . $info->hash . '.png');
+          $image->save();
+          unlink($info->path);
+          $params->banner = $info->hash;
         }
         $profile->update($params);
         $user = $profile->getUser();
@@ -83,6 +104,7 @@
                                'displayName' => $profile->displayName,
                                'title'       => $profile->title,
                                'avatar'      => $profile->avatar,
+                               'banner'      => $profile->banner,
                                'signature'   => $profile->signature,
                                'website'     => $profile->website,
                                'about'       => $profile->about,
@@ -125,6 +147,7 @@
                                'displayName' => $profile->displayName,
                                'title'       => $profile->title,
                                'avatar'      => $profile->avatar,
+                               'banner'      => $profile->banner,
                                'signature'   => $profile->signature,
                                'website'     => $profile->website,
                                'about'       => $profile->about,
@@ -175,6 +198,7 @@
                            'displayName' => $profile->displayName,
                            'title'       => $profile->title,
                            'avatar'      => $profile->avatar,
+                           'banner'      => $profile->banner,
                            'signature'   => $profile->signature,
                            'website'     => $profile->website,
                            'about'       => $profile->about,

@@ -12,6 +12,8 @@
                 'maxUploadSize' => $config->files->uploads->maxSize,
                 'maxAvatarSize' => $config->files->avatars->maxSize,
                 'avatarFolder'  => $config->files->avatars->baseUri,
+                'maxBannerSize' => $config->files->banners->maxSize,
+                'bannerFolder'  => $config->files->banners->baseUri,
                 'allowedTags'   => (object) array(
                                      'forum'    => '[' . implode('], [', $config->forum->allowedTags) . ']',
                                      'chat'     => '[' . implode('], [', $config->chat->allowedTags) . ']',
@@ -274,6 +276,10 @@
                   <div class="tr">
                     <div class="label">Avatar:</div>
                     <div class="control"><input type="file" accept="image/*" id="profile_avatar" value="" /></div>
+                  </div>
+                  <div class="tr">
+                    <div class="label">Banner:</div>
+                    <div class="control"><input type="file" accept="image/*" id="profile_banner" value="" /></div>
                   </div>
                   <div class="tr">
                     <div class="label">Website:</div>
