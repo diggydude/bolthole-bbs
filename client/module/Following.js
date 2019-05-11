@@ -46,7 +46,7 @@ var Following = {
                  $('following').innerHTML = "";
                  for (var i = 0; i < this.followed.length; i++) {
                    if (typeof(this.followed[i]) === "string") {
-                     link = "<div><a href=\"#\" class=\"profile-link\" data-userId=\"" + i + "\" \">" + this.followed[i] + "</a></div>";
+                     link = "<div><img src=\"./client/icons/bookmark_icon.png\" alt=\"bookmarked\" /> <a href=\"#\" class=\"profile-link\" data-userId=\"" + i + "\" \">" + this.followed[i] + "</a></div>";
                      $('following').innerHTML += link;
                    }
                  }
