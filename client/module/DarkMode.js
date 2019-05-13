@@ -82,7 +82,7 @@ var DarkMode = {
                        var date = new Date();
                        var now  = date.getHours() + (date.getMinutes() / 60);
                        if ((DarkMode.start == 0) || ((now > DarkMode.end) && (now < DarkMode.start))) {
-                         $('theme').setAttribute('href', './client/theme/' + $('settings_theme').options[Preferences.theme].value + '.css');
+                         $('theme').setAttribute('href', './client/theme/' + $('settings_theme').options[$('settings_theme').selectedIndex].value + '.css');
                          return;
                        }
                        $('theme').setAttribute('href', './client/theme/360.css');
