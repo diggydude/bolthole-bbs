@@ -14,14 +14,14 @@
   if ($_POST) {
     switch ($_POST['command']) {
       case "go":
-        $forumResults   = Forum::hashtagSearch($_POST['tag']);
+        $forumResults   = Forum::search($_POST['tag']);
         $profileResults = Profile::search($_POST['tag']);
         $blogResults    = Blog::search($_POST['tag']);
         $fileResults    = UserFile::search($_POST['tag']);
         $response->success = true;
         $response->results = (object) array(
                                'hashtag'  => $_POST['tag'],
-                               'posts'    => $forumResults,
+                               'forum'    => $forumResults,
                                'profiles' => array_values($profileResults),
                                'blogs'    => $blogResults,
                                'files'    => $fileResults
