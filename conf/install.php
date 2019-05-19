@@ -30,6 +30,13 @@
                         'password' => 'mysql_password'
                       );
 
+  $config->search    = (object) array(
+                         'cache' => (object) array(
+                                      'directory' => realpath(__DIR__ . '/../cache/search'),
+                                      'ttl'       => 900
+                                    )
+                       );
+
   $config->files    = (object) array(
                         'uploads'    => (object) array(
                                           'maxSize'      => 10000000,
@@ -117,6 +124,9 @@
                                            'b', 'i', 'u', 'color', 'size', 'url',
                                            'code', 'marquee', 'blink', 'rainbow',
                                            'gradient', 'spoiler'
+                                         ),
+                        'cache'       => (object) array(
+                                           'directory' => realpath(__DIR__ . '/../cache/forum')
                                          )
                       );
 
@@ -132,6 +142,9 @@
                         'allowedTags' => array(
                                            'b', 'i', 'u', 'color', 'url', 'marquee',
                                            'blink', 'rainbow', 'gradient'
+                                         ),
+                        'cache'       => (object) array(
+                                           'directory' => realpath(__DIR__ . '/../cache/comments')
                                          )
                       );
 
@@ -141,7 +154,10 @@
                         'defaultTitle'     => 'Russian Bot',
                         'defaultSignature' => '"No matter where you go, there you are." - Buckaroo Banzai',
                         'defaultWebsite'   => $config->site->baseUri,
-                        'defaultAbout'     => 'Are you gonna fill this in or what?'
+                        'defaultAbout'     => 'Are you gonna fill this in or what?',
+                        'cache'            => (object) array(
+                                                'directory' => realpath(__DIR__ . '/../cache/profiles')
+                                              )
                       );
 
   $config->programs = (object) array(
