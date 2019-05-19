@@ -18,6 +18,7 @@ var Forum = {
                           if (this.searchResults != null) {
                             this.threads = this.searchResults.threads;
                             this.posts   = this.searchResults.posts;
+                            $('main').innerHTML = Client.render('forum', this);
                             if (this.threads.length > 0) {
                               if (this.destination > 0) {
                                 this.showTopic(this.getPostById(this.destination).inThread);

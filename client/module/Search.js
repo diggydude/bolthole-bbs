@@ -33,9 +33,27 @@ var Search = {
                   open('POST', uri, true);
                   onload  = function()
                             {
+                              var hashtagResults, i, postId;
                               var response = JSON.parse(this.responseText);
                               if (response.success) {
-                                $('main').innerHTML = Client.render('hashtag', response.results);
+                                Forum.searchResults = {
+                                  "threads" : response.results.forum.threads,
+                                  "posts"   : response.results.forum.posts
+                                };
+                                hashtagResults = {
+                                  "hashtag"  : response.results.hashtag,
+                                  "profiles" : response.results.profiles,
+                                  "blogs"    : response.results.blogs,
+                                  "files"    : response.results.files,
+                                  "posts"    : []
+                                };
+                                for (i = 0; i < response.results.forum.posts.length; i++) {
+                                  postId = response.results.forum.posts[i].postId;
+                                  if (response.results.forum.relevant.includes(postId)) {
+                                    hashtagResults.posts.push(response.results.forum.posts[i]);
+                                  }
+                                }
+                                $('main').innerHTML = Client.render('hashtag', hashtagResults);
                                 EventHandlers.apply();
                                 return;
                               }
