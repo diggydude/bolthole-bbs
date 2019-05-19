@@ -247,7 +247,7 @@
       $cache->store($key, $data);
       return $data;
     } // search
-
+/*
     public static function hashtagSearch($tag)
     {
       $cnf   = Config::instance();
@@ -287,7 +287,7 @@
       $cache->store($key, $data);
       return $data;
     } // hashtagSearch
-
+*/
     public static function deleteMessage($postId, $deleteThread = false)
     {
       $user = new User($_SESSION['userId']);
