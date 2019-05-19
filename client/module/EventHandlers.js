@@ -6,6 +6,7 @@ var EventHandlers = {
                    "class" : null,
                    "func"  : function()
                              {
+                               Forum.searchResults = null;
                                Forum.show();
                              }
                   },
