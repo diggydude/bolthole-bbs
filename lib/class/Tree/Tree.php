@@ -100,9 +100,9 @@
         }
       }
       usort($store, function($a, $b) {return ($a['id'] == $b['id']) ? 0 : (($a['id'] < $b['id']) ? -1 : 1);});
-      foreach ($store as $value) {
-        if (!array_key_exists($value['id'], $this->nodes)) {
-          $node = $this->createNode($value);
+      foreach ($store as $k => $v) {
+        if (!array_key_exists($v['id'], $this->nodes)) {
+          $node = $this->createNode($v);
           $this->nodes[$node->nodeId] = $node;
           $this->nodes[$node->parentId]->appendChild($node);
         }
