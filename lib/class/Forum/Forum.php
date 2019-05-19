@@ -1,6 +1,7 @@
 <?php
 
   require_once(__DIR__ . '/../System/Config.php');
+  require_once(__DIR__ . '/../System/Cache.php');
   require_once(__DIR__ . '/../User/User.php');
   require_once(__DIR__ . '/../Messaging/Emoticons.php');
   require_once(__DIR__ . '/../Messaging/Alerts.php');
@@ -16,7 +17,15 @@
 
     public static function getRecent()
     {
-      $cnf = Config::instance();
+      $cnf   = Config::instance();
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->forum->cache->directory
+                 )
+               );
+      if ($cache->exists('recent')) {
+        return $cache->fetch('recent');
+      }
       $pdo = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,  false);
       $pdo->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, false);
@@ -35,10 +44,12 @@
         $threadIds[] = intval($row->threadId);
       }
       if (empty($threadIds)) {
-        return (object) array(
-                 'threads' => array(),
-                 'posts'   => array()
-               );
+        $data = (object) array(
+                  'threads' => array(),
+                  'posts'   => array()
+                );
+        $cache->store('recent', $data);
+        return $data;
       }
       $sql   = "SELECT `pst`.`id`                   AS `postId`,
                        `pit`.`threadId`             AS `inThread`,
@@ -58,10 +69,12 @@
                 WHERE `pit`.`threadId` IN (" . implode(",", $threadIds) . ") ORDER BY `pst`.`id`";
       $stm   = $pdo->query($sql);
       $posts = $stm->fetchAll(PDO::FETCH_OBJ);
-      return (object) array(
-               'threads' => $threads,
-               'posts'   => $posts
-             );
+      $data  = (object) array(
+                 'threads' => $threads,
+                 'posts'   => $posts
+               );
+      $cache->store('recent', $data);
+      return $data;
     } // getRecent
 
     public static function postMessage($params)
@@ -112,6 +125,12 @@
       }
       $sql = "INSERT INTO `ForumPostInThread` (`postId`, `threadId`) VALUES ($postId, $threadId)";
       $pdo->query($sql);
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->forum->cache->directory
+                 )
+               );
+      $cache->remove('recent');
       $username = $userList[$postedBy]->username;
       $data     = "<a href=\"#\" class=\"profile-link\" data-userId=\"$postedBy\">$username</a> mentioned"
                 . " you in a <a href=\"#\" class=\"forum-post-link\" data-postId=\"$postId\">forum post</a>.";
@@ -149,7 +168,17 @@
 
     public static function search($terms)
     {
-      $cnf = Config::instance();
+      $cnf   = Config::instance();
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->search->cache->directory,
+                   'ttl'       => $cnf->search->cache->ttl
+                 )
+               );
+      $key   = "forum_" . md5($terms);
+      if ($cache->exists($key)) {
+        return $cache->fetch($key);
+      }
       $pdo = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,  false);
       $pdo->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, false);
@@ -157,27 +186,33 @@
       $sql    = "SELECT `thr`.`id`        AS `threadId`,
                         `thr`.`topic`     AS `topic`,
                         `thr`.`startedBy` AS `startedBy`,
-                        `sus`.`username`  AS `starter`
+                        `sus`.`username`  AS `starter`,
+                        `pst`.`id`        AS `postId`
                       FROM `ForumPost`         AS `pst`
                  LEFT JOIN `ForumPostInThread` AS `pit` ON `pit`.`postId` = `pst`.`id`
                  LEFT JOIN `ForumThread`       AS `thr` ON `thr`.`id`     = `pit`.`threadId`
                  LEFT JOIN `User`              AS `sus` ON `sus`.`id`     = `thr`.`startedBy`
                  WHERE `pst`.`body` LIKE $_terms OR `pst`.`topic` LIKE $_terms";
       $stm    = $pdo->query($sql);
+      $relevant  = array();
       $threadIds = array();
       $threads   = array();
       while (($row = $stm->fetchObject()) !== false) {
-        $threadId = intval($row->threadId);
+        $relevant[] = intval($row->postId);
+        $threadId   = intval($row->threadId);
         if (!in_array($threadId, $threadIds)) {
           $threadIds[] = $threadId;
           $threads[]   = $row;
         }
       }
       if (empty($threadIds)) {
-        return (object) array(
-                 'threads' => array(),
-                 'posts'   => array()
-               );
+        $data = (object) array(
+                  'threads'  => array(),
+                  'posts'    => array(),
+                  'relevant' => array()
+                );
+        $cache->store($key, $data);
+        return $data;
       }
       $sql   = "SELECT `pst`.`id`                   AS `postId`,
                        `pit`.`threadId`             AS `inThread`,
@@ -199,46 +234,58 @@
       $posts = $stm->fetchAll(PDO::FETCH_OBJ);
       $tree  = new Tree();
       $tree->importStore('postId', 'inReplyTo', $posts);
-      $topics  = $tree->find('topic',    Tree::OP_CONTAINS_SUBSTR, $terms);
-      $nodes   = $tree->find('rendered', Tree::OP_CONTAINS_SUBSTR, $terms);
-      $nodes   = array_merge($topics, $nodes);
       $results = array();
-      foreach ($nodes as $node) {
-        $limb = $node->getLimb();
+      foreach ($relevant as $postId) {
+        $limb    = $tree->getNodeById($postId)->getLimb();
         $results = array_merge($results, $limb->toArray());
       }
-      return (object) array(
-               'threads' => $threads,
-               'posts'   => $results
-             );
+      $data = (object) array(
+                'threads'  => $threads,
+                'posts'    => $results,
+                'relevant' => $relevant
+              );
+      $cache->store($key, $data);
+      return $data;
     } // search
 
     public static function hashtagSearch($tag)
     {
-      $cnf = Config::instance();
+      $cnf   = Config::instance();
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->search->cache->directory,
+                   'ttl'       => $cnf->search->cache->ttl
+                 )
+               );
+      $key   = "forum_hashtag_" . md5($tag);
+      if ($cache->exists($key)) {
+        return $cache->$key;
+      }
       $pdo = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,  false);
       $pdo->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, false);
-      $tag = $pdo->quote('%' . $tag . '%', PDO::PARAM_STR);
-      $sql = "SELECT `pst`.`id`                   AS `postId`,
-                     `pit`.`threadId`             AS `inThread`,
-                     IFNULL(`rpl`.`inReplyTo`, 0) AS `inReplyTo`,
-                     `pst`.`postedAt`             AS `postedAt`,
-                     `pst`.`postedBy`             AS `postedBy`,
-                     `usr`.`username`             AS `author`,
-                     `pfl`.`signature`            AS `signature`,
-                     `pfl`.`avatar`               AS `avatar`,
-                     `pst`.`topic`                AS `topic`,
-                     `pst`.`rendered`             AS `rendered`
-                   FROM `ForumPost`         AS `pst`
-              LEFT JOIN `ForumPostReply`    AS `rpl` ON `rpl`.`postId` = `pst`.`id`
-              LEFT JOIN `ForumPostInThread` AS `pit` ON `pit`.`postId` = `pst`.`id`
-              LEFT JOIN `User`              AS `usr` ON `usr`.`id`     = `pst`.`postedBy`
-              LEFT JOIN `Profile`           AS `pfl` ON `pfl`.`userId` = `usr`.`id`
-              WHERE `pst`.`topic` LIKE $tag OR `pst`.`body` LIKE $tag
-			  ORDER BY `pst`.`postedAt` DESC";
-      $stm = $pdo->query($sql);
-      return $stm->fetchAll(PDO::FETCH_OBJ);
+      $tag  = $pdo->quote('%' . $tag . '%', PDO::PARAM_STR);
+      $sql  = "SELECT `pst`.`id`                   AS `postId`,
+                      `pit`.`threadId`             AS `inThread`,
+                      IFNULL(`rpl`.`inReplyTo`, 0) AS `inReplyTo`,
+                      `pst`.`postedAt`             AS `postedAt`,
+                      `pst`.`postedBy`             AS `postedBy`,
+                      `usr`.`username`             AS `author`,
+                      `pfl`.`signature`            AS `signature`,
+                      `pfl`.`avatar`               AS `avatar`,
+                      `pst`.`topic`                AS `topic`,
+                      `pst`.`rendered`             AS `rendered`
+                    FROM `ForumPost`         AS `pst`
+               LEFT JOIN `ForumPostReply`    AS `rpl` ON `rpl`.`postId` = `pst`.`id`
+               LEFT JOIN `ForumPostInThread` AS `pit` ON `pit`.`postId` = `pst`.`id`
+               LEFT JOIN `User`              AS `usr` ON `usr`.`id`     = `pst`.`postedBy`
+               LEFT JOIN `Profile`           AS `pfl` ON `pfl`.`userId` = `usr`.`id`
+               WHERE `pst`.`topic` LIKE $tag OR `pst`.`body` LIKE $tag
+               ORDER BY `pst`.`postedAt` DESC";
+      $stm  = $pdo->query($sql);
+      $data = $stm->fetchAll(PDO::FETCH_OBJ);
+      $cache->store($key, $data);
+      return $data;
     } // hashtagSearch
 
     public static function deleteMessage($postId, $deleteThread = false)
@@ -271,6 +318,20 @@
         $pdo->query($sql);
         $sql = "DELETE FROM `ForumThread` WHERE `id` = $threadId";
         $pdo->query($sql);
+        $cache = new Cache(
+                   (object) array(
+                     'directory' => $cnf->forum->cache->directory
+                   )
+                 );
+        $cache->remove('recent');
+        $cache = new Cache(
+                   (object) array(
+                     'directory' => $cnf->search->cache->directory
+                   )
+                 );
+        foreach ($cache->findKeys('forum_*') as $key) {
+          $cache->remove($key);
+        }
         return true;
       }
       if ($lastPost->postId == $postId) {
@@ -285,6 +346,20 @@
       $pdo->query($sql);
       $sql = "DELETE FROM `ForumPost` WHERE `id` = $postId";
       $pdo->query($sql);
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->forum->cache->directory
+                 )
+               );
+      $cache->remove('recent');
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->search->cache->directory
+                 )
+               );
+      foreach ($cache->findKeys('forum_*') as $key) {
+        $cache->remove($key);
+      }
       return true;
     } // deleteMessage
 
