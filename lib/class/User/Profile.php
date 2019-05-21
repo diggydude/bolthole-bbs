@@ -196,7 +196,16 @@
 
     public function listFiles($limit = 100)
     {
-      $cnf    = Config::instance();
+      $cnf   = Config::instance();
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->profiles->cache->directory
+                 )
+               );
+      $key   = "files_" . $this->userId;
+      if ($cache->exists($key)) {
+        return $cache->fetch($key);
+      }
       $pdo    = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $userId = intval($this->userId);
       $sql    = "SELECT `flb`.`id`       AS `id`,
@@ -214,7 +223,9 @@
                  WHERE `lib`.`ownerId` = $userId
                  ORDER BY `flb`.`uploadedAt` DESC LIMIT " . intval($limit);
       $stm    = $pdo->query($sql);
-      return $stm->fetchAll(PDO::FETCH_OBJ);
+      $files  = $stm->fetchAll(PDO::FETCH_OBJ);
+      $cache->store($key, $files);
+      return $files;
     } // listFiles
 
     public function listComments()
