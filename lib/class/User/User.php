@@ -101,13 +101,13 @@
         $pdo->query($sql);
         $this->id    = $pdo->lastInsertId();
         $displayName = $username;
-        $title       = $pdo->quote($cnf->profiles->defaultTitle,     PDO::PARAM_STR);
-        $avatar      = $pdo->quote($cnf->profiles->defaultAvatar,    PDO::PARAM_STR);
-        $banner      = $pdo->quote($cnf->profiles->defaultBanner,    PDO::PARAM_STR);
-        $signature   = $pdo->quote($cnf->profiles->defaultSignature, PDO::PARAM_STR);
-        $website     = $pdo->quote($cnf->profiles->defaultWebsite,   PDO::PARAM_STR);
-        $about       = $pdo->quote($cnf->profiles->defaultAbout,     PDO::PARAM_STR);
-        $rendered    = $pdo->quote($cnf->profiles->defaultAbout,     PDO::PARAM_STR);
+        $title       = $pdo->quote($cnf->profiles->defaults->title,     PDO::PARAM_STR);
+        $avatar      = $pdo->quote($cnf->profiles->defaults->avatar,    PDO::PARAM_STR);
+        $banner      = $pdo->quote($cnf->profiles->defaults->banner,    PDO::PARAM_STR);
+        $signature   = $pdo->quote($cnf->profiles->defaults->signature, PDO::PARAM_STR);
+        $website     = $pdo->quote($cnf->profiles->defaults->website,   PDO::PARAM_STR);
+        $about       = $pdo->quote($cnf->profiles->defaults->about,     PDO::PARAM_STR);
+        $rendered    = $pdo->quote($cnf->profiles->defaults->about,     PDO::PARAM_STR);
         $sql         = "INSERT INTO `Profile` (`userId`, `displayName`, `title`, `avatar`, `banner`, `signature`, `website`, `about`, `rendered`)
                         VALUES (" . $this->id . ", $displayName, $title, $avatar, $banner, $signature, $website, $about, $rendered)";
         $pdo->query($sql);
