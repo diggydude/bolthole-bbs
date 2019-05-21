@@ -1,6 +1,7 @@
 <?php
 
   require_once(__DIR__ . '/../System/Config.php');
+  require_once(__DIR__ . '/../System/Cache.php');
   require_once(__DIR__ . '/Blog.php');
   require_once(__DIR__ . '/../User/User.php');
   require_once(__DIR__ . '/../Messaging/Emoticons.php');
@@ -60,12 +61,24 @@
 
     public function load($id)
     {
-      $cnf  = Config::instance();
-      $pdo  = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
-      $id   = intval($id);
-      $sql  = "SELECT * FROM `BlogPost` WHERE `id` = $id";
-      $stm  = $pdo->query($sql);
-      $row  = $stm->fetch(PDO::FETCH_ASSOC);
+      $cnf   = Config::instance();
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->profiles->cache->directory
+                 )
+               );
+      $key   = "blog_post_" . $id;
+      if ($cache->exists($key)) {
+        $row = $cache->fetch($key);
+      }
+      else {
+        $pdo  = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
+        $id   = intval($id);
+        $sql  = "SELECT * FROM `BlogPost` WHERE `id` = $id";
+        $stm  = $pdo->query($sql);
+        $row  = $stm->fetch(PDO::FETCH_ASSOC);
+		$cache->store($key, $row);
+	  }
       if ($row) {
         $this->id       = $row['id'];
         $this->title    = $row['title'];
@@ -81,6 +94,11 @@
     public function save()
     {
       $cnf            = Config::instance();
+      $cache          = new Cache(
+                          (object) array(
+                            'directory' => $cnf->profiles->cache->directory
+                          )
+                        );
       $pdo            = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $id             = intval($this->id);
       $title          = $pdo->quote($this->title,    PDO::PARAM_STR);
@@ -112,6 +130,10 @@
         $pdo->query($sql);
         $this->id = $pdo->lastInsertId();
       }
+      $key = "blog_post_" . $this->id;
+	  $cache->remove($key);
+	  $key = "blog_posts_" . $this->inBlog;
+	  $cache->remove($key);
       if (!empty($mentioned)) {
         $blog  = new Blog($inBlog);
         $owner = $blog->getOwner();
@@ -133,10 +155,19 @@
 
     public function delete()
     {
-      $cnf = Config::instance();
-      $pdo = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
-      $id  = intval($this->id);
-      $sql = "DELETE FROM `Comment` WHERE `moduleTypeId` = 2 AND `moduleId` = $id";
+      $cnf   = Config::instance();
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->profiles->cache->directory
+                 )
+               );
+	  $key   = "blog_post_" . $this->id;
+	  $cache->remove($key);
+	  $key   = "blog_posts_" . $this->inBlog;
+	  $cache->remove($key);
+      $pdo   = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
+      $id    = intval($this->id);
+      $sql   = "DELETE FROM `Comment` WHERE `moduleTypeId` = 2 AND `moduleId` = $id";
       $pdo->query($sql);
       $sql = "DELETE FROM `BlogPost` WHERE `id` = $id";
       $pdo->query($sql);
@@ -146,6 +177,7 @@
       $this->editedAt = "0000-00-00 00:00:00";
       $this->body     = "";
       $this->inBlog   = 0;
+	  $cache->remove($this->id);
     } // delete
 
     public function edit($title, $body)
@@ -163,7 +195,16 @@
 
     public static function listPosts($blogId)
     {
-      $cnf    = Config::instance();
+      $cnf   = Config::instance();
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->profiles->cache->directory
+                 )
+               );
+	  $key   = "blog_posts_" . $blogId;
+	  if ($cache->exists($key)) {
+		return $cache->fetch($key);
+	  }
       $pdo    = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $blogId = intval($blogId);
       $sql    = "SELECT `blp`.`id`        AS `postId`,
@@ -191,6 +232,7 @@
         $post->summary = $summary;
         unset($post->body);
       }
+	  $cache->store($key, $posts);
       return $posts;
     } // listPosts
 

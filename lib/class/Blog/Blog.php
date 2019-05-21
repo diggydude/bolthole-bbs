@@ -1,6 +1,7 @@
 <?php
 
   require_once(__DIR__ . '/../System/Config.php');
+  require_once(__DIR__ . '/../System/Cache.php');
   require_once(__DIR__ . '/../User/User.php');
   require_once(__DIR__ . '/BlogPost.php');
 
@@ -117,22 +118,34 @@
     public static function search($terms)
     {
       $cnf   = Config::instance();
-      $pdo   = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
-	  $terms = $pdo->quote('%' . $terms . '%', PDO::PARAM_STR);
-      $sql   = "SELECT `blp`.`id`        AS `postId`,
-                       `blp`.`title`     AS `title`,
-                       `blp`.`postedAt`  AS `postedAt`,
-                       `usr`.`id`        AS `postedBy`,
-                       `usr`.`username`  AS `author`,
-                       `pfl`.`avatar`    AS `avatar`
-                     FROM `BlogPost` AS `blp`
-                LEFT JOIN `Blog`     AS `blg` ON `blg`.`id`     = `blp`.`inBlog`
-                LEFT JOIN `User`     AS `usr` ON `usr`.`id`     = `blg`.`ownerId`
-                LEFT JOIN `Profile`  AS `pfl` ON `pfl`.`userId` = `usr`.`id`
-                WHERE `blp`.`title` LIKE $terms OR `blp`.`body` LIKE $terms
-                ORDER BY `postedAt` DESC LIMIT 100";
-      $stm   = $pdo->query($sql);
-      return $stm->fetchAll(PDO::FETCH_OBJ);
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->search->cache->directory,
+                   'ttl'       => $cnf->search->cache->ttl
+                 )
+               );
+      $key   = "blogs_" . md5($terms);
+      if ($cache->exists($key)) {
+        return $cache->fetch($key);
+      }
+      $pdo     = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
+      $terms   = $pdo->quote('%' . $terms . '%', PDO::PARAM_STR);
+      $sql     = "SELECT `blp`.`id`        AS `postId`,
+                         `blp`.`title`     AS `title`,
+                         `blp`.`postedAt`  AS `postedAt`,
+                         `usr`.`id`        AS `postedBy`,
+                         `usr`.`username`  AS `author`,
+                         `pfl`.`avatar`    AS `avatar`
+                       FROM `BlogPost` AS `blp`
+                  LEFT JOIN `Blog`     AS `blg` ON `blg`.`id`     = `blp`.`inBlog`
+                  LEFT JOIN `User`     AS `usr` ON `usr`.`id`     = `blg`.`ownerId`
+                  LEFT JOIN `Profile`  AS `pfl` ON `pfl`.`userId` = `usr`.`id`
+                  WHERE `blp`.`title` LIKE $terms OR `blp`.`body` LIKE $terms
+                  ORDER BY `postedAt` DESC LIMIT 100";
+      $stm     = $pdo->query($sql);
+      $results = $stm->fetchAll(PDO::FETCH_OBJ);
+	  $cache->store($key, $results);
+	  return $results;
     } // search
 
     public function __get($property)
