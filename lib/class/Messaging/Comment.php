@@ -1,6 +1,7 @@
 <?php
 
   require_once(__DIR__ . '/../System/Config.php');
+  require_once(__DIR__ . '/../System/Cache.php');
   require_once(__DIR__ . '/../User/User.php');
   require_once(__DIR__ . '/Emoticons.php');
   require_once(__DIR__ . '/../Markup/MessageParser.php');
@@ -78,7 +79,14 @@
 
     public function save()
     {
-      $cnf          = Config::instance();
+      $cnf   = Config::instance();
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->comments->cache->directory
+                 )
+               );
+      $key   = "comments_" . $this->moduleTypeId . "_" . $this->moduleId;
+      $cache->remove($key);
       $pdo          = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $id           = intval($this->id);
       $moduleTypeId = intval($this->moduleTypeId);
@@ -153,7 +161,16 @@
 
     public static function listComments($moduleId, $moduleTypeId, $limit = 100)
     {
-      $cnf          = Config::instance();
+      $cnf   = Config::instance();
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->comments->cache->directory
+                 )
+               );
+      $key   = "comments_" . $moduleTypeId . "_" . $moduleId;
+      if ($cache->exists($key)) {
+        return $cache->fetch($key);
+      }
       $pdo          = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $moduleId     = intval($moduleId);
       $moduleTypeId = intval($moduleTypeId);
@@ -169,7 +186,9 @@
                        WHERE `com`.`moduleTypeId` = $moduleTypeId AND `com`.`moduleId` = $moduleId
                        ORDER BY `com`.`postedAt` LIMIT " . intval($limit);
       $stm          = $pdo->query($sql);
-      return $stm->fetchAll(PDO::FETCH_OBJ);
+      $comments     = $stm->fetchAll(PDO::FETCH_OBJ);
+      $cache->store($key, $comments);
+      return $comments;
     } // listComments
 
     public function __get($prop)
