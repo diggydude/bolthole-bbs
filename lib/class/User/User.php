@@ -80,6 +80,12 @@
     public function save()
     {
       $cnf         = Config::instance();
+      $cache       = new Cache(
+                       (object) array(
+                         'directory' => $cnf->profiles->cache->directory
+                       )
+                     );
+      $key         = "users";
       $pdo         = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $id          = intval($this->id);
       $username    = $pdo->quote($this->username, PDO::PARAM_STR);
@@ -116,6 +122,7 @@
         $sql = "INSERT INTO `Library` (`ownerId`) VALUES (" . $this->id . ")";
         $pdo->query($sql);
       }
+      $cache->remove('users');
       return $this->id;
     } // save
 
@@ -141,9 +148,15 @@
         $this->lastError = "Cannot delete the superuser.";
         return false;
       }
-      $cnf = Config::instance();
-      $pdo = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
-      $sql = "DELETE FROM `User` WHERE `id` = $id";
+      $cnf   = Config::instance();
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->profiles->cache->directory
+                 )
+               );
+      $key   = "users";
+      $pdo   = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
+      $sql   = "DELETE FROM `User` WHERE `id` = $id";
       $pdo->query($sql);
       $this->id          = 0;
       $this->username    = "";
@@ -152,6 +165,7 @@
       $this->answer      = "";
       $this->joined      = "0000-00-00 00:00:00";
       $this->accessLevel = self::PERM_GUEST;
+      $cache->remove($key);
       return true;
     } // delete
 
@@ -197,8 +211,17 @@
 
     public static function listUsers()
     {
-      $cnf = Config::instance();
-      $pdo = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
+      $cnf   = Config::instance();
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->profiles->cache->directory
+                 )
+               );
+      $key   = "users";
+      if ($cache->exists($key)) {
+        return $cache->fetch($key);
+      }
+      $pdo   = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,  false);
       $pdo->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, false);
       $sql   = "SELECT `usr`.`id`          AS `userId`,
@@ -220,6 +243,7 @@
       foreach ($rows as $row) {
         $users[$row->userId] = $row;
       }
+      $cache->store($key, $users);
       return $users;
     } // listUsers
 

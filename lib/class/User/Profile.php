@@ -1,6 +1,7 @@
 <?php
 
   require_once(__DIR__ . '/../System/Config.php');
+  require_once(__DIR__ . '/../System/Cache.php');
   require_once(__DIR__ . '/User.php');
   require_once(__DIR__ . '/../Messaging/Emoticons.php');
   require_once(__DIR__ . '/../Blog/Blog.php');
@@ -44,25 +45,37 @@
 
     public function load($userId)
     {
-      $cnf = Config::instance();
-      $pdo = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
-      $sql = "SELECT `pfl`.`userId`      AS `userId`,
-                     `pfl`.`displayName` AS `displayName`,
-                     `pfl`.`title`       AS `title`,
-                     `pfl`.`avatar`      AS `avatar`,
-                     `pfl`.`banner`      AS `banner`,
-                     `pfl`.`signature`   AS `signature`,
-                     `pfl`.`website`     AS `website`,
-                     `pfl`.`about`       AS `about`,
-                     `pfl`.`rendered`    AS `rendered`,
-                     `blg`.`id`          AS `blogId`,
-                     `lib`.`id`          AS `libraryId`
-                   FROM `Profile` AS `pfl`
-              LEFT JOIN `Blog`    AS `blg` ON `blg`.`ownerId` = `pfl`.`userId`
-              LEFT JOIN `Library` AS `lib` ON `lib`.`ownerId` = `pfl`.`userId`
-              WHERE `pfl`.`userId` = " . intval($userId);
-      $stm = $pdo->query($sql);
-      $row = $stm->fetchObject();
+      $cnf   = Config::instance();
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->profiles->cache->directory
+                 )
+               );
+      $key   = "profile_" . $userId;
+      if ($cache->exists($key)) {
+        $row = $cache->fetch($key);
+      }
+      else {
+        $pdo = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
+        $sql = "SELECT `pfl`.`userId`      AS `userId`,
+                       `pfl`.`displayName` AS `displayName`,
+                       `pfl`.`title`       AS `title`,
+                       `pfl`.`avatar`      AS `avatar`,
+                       `pfl`.`banner`      AS `banner`,
+                       `pfl`.`signature`   AS `signature`,
+                       `pfl`.`website`     AS `website`,
+                       `pfl`.`about`       AS `about`,
+                       `pfl`.`rendered`    AS `rendered`,
+                       `blg`.`id`          AS `blogId`,
+                       `lib`.`id`          AS `libraryId`
+                     FROM `Profile` AS `pfl`
+                LEFT JOIN `Blog`    AS `blg` ON `blg`.`ownerId` = `pfl`.`userId`
+                LEFT JOIN `Library` AS `lib` ON `lib`.`ownerId` = `pfl`.`userId`
+                WHERE `pfl`.`userId` = " . intval($userId);
+        $stm = $pdo->query($sql);
+        $row = $stm->fetchObject();
+        $cache->store($key, $row);
+      }
       if ($row) {
         $this->userId      = $row->userId;
         $this->displayName = $row->displayName;
@@ -81,6 +94,12 @@
     public function save()
     {
       $cnf         = Config::instance();
+      $cache       = new Cache(
+                       (object) array(
+                         'directory' => $cnf->profiles->cache->directory
+                       )
+                     );
+      $key         = "profile_" . $this->userId;
       $pdo         = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $displayName = $pdo->quote($this->displayName, PDO::PARAM_STR);
       $title       = $pdo->quote($this->title,       PDO::PARAM_STR);
@@ -101,9 +120,10 @@
       $this->rendered = MessageParser::parse($this->about, $mentioned, $options);
       $rendered = $pdo->quote($this->rendered, PDO::PARAM_STR);
       $sql      = "UPDATE `Profile` SET `displayName` = $displayName, `title` = $title, `avatar` = $avatar, `banner` = $banner,
-	               `signature` = $signature, `website` = $website, `about` = $about, `rendered` = $rendered
-				   WHERE `userId` = " . intval($this->userId);
+                   `signature` = $signature, `website` = $website, `about` = $about, `rendered` = $rendered
+                   WHERE `userId` = " . intval($this->userId);
       $pdo->query($sql);
+      $cache->remove($key);
       return $this->userId;
     } // save
 
@@ -138,6 +158,12 @@
     {
       $userId = intval($this->userId);
       $cnf    = Config::instance();
+      $cache  = new Cache(
+                  (object) array(
+                    'directory' => $cnf->profiles->cache->directory
+                  )
+                );
+      $key    = "profile_" . $userId;
       $pdo    = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $sql    = "DELETE FROM `Profile` WHERE `userId` = $userId";
       $pdo->query($sql);
@@ -150,6 +176,7 @@
       $this->website     = "";
       $this->about       = "";
       $this->rendered    = "";
+      $cache->remove($key);
     } // delete
 
     public function getUser()
@@ -194,6 +221,16 @@
     public static function search($terms, $userIds = array())
     {
       $cnf     = Config::instance();
+      $cache   = new Cache(
+                   (object) array(
+                     'directory' => $cnf->search->cache->directory,
+                     'ttl'       => $cnf->search->cache->ttl
+                   )
+                 );
+      $key     = "profiles_" . md5($terms);
+      if ($cache->exists($key)) {
+        return $cache->fetch($key);
+      }
       $pdo     = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $terms   = $pdo->quote('%' . $terms . '%', PDO::PARAM_STR);
       $sql     = "SELECT GROUP_CONCAT(DISTINCT `usr`.`id`) AS `userIds`
@@ -209,9 +246,9 @@
       }
       $stm     = $pdo->query($sql);
       $userIds = $stm->fetchColumn();
-	  if (strlen($userIds) < 1) {
-		return array();
-	  }
+      if (strlen($userIds) < 1) {
+        return array();
+      }
       $sql   = "SELECT `usr`.`id`          AS `userId`,
                        `usr`.`username`    AS `username`,
                        `usr`.`joined`      AS `joined`,
@@ -232,6 +269,7 @@
       foreach ($rows as $row) {
         $users[$row->userId] = $row;
       }
+      $cach->store($key, $users);
       return $users;
     } // search
 
