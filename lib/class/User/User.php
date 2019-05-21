@@ -122,7 +122,7 @@
         $sql = "INSERT INTO `Library` (`ownerId`) VALUES (" . $this->id . ")";
         $pdo->query($sql);
       }
-      $cache->remove('users');
+      $cache->remove($key);
       return $this->id;
     } // save
 
