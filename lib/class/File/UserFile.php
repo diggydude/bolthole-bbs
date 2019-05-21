@@ -1,6 +1,7 @@
 <?php
 
   require_once(__DIR__ . '/../System/Config.php');
+  require_once(__DIR__ . '/../System/Cache.php');
   require_once(__DIR__ . '/../User/User.php');
   require_once(__DIR__ . '/Library.php');
   require_once(__DIR__ . '/../Markup/MessageParser.php');
@@ -60,26 +61,38 @@
 
     public function load($id)
     {
-      $cnf  = Config::instance();
-      $pdo  = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
-      $id   = intval($id);
-      $sql  = "SELECT"
-            . " `flb`.`id`          AS `id`,"
-            . " `flb`.`fileId`      AS `fileId`,"
-            . " `flb`.`filename`    AS `filename`,"
-            . " `fil`.`mimeType`    AS `mimeType`,"
-            . " `fil`.`size`        AS `size`,"
-            . " `fil`.`hash`        AS `hash`,"
-            . " `flb`.`uploadedAt`  AS `uploadedAt`,"
-            . " `flb`.`description` AS `description`,"
-            . " `flb`.`rendered`    AS `rendered`,"
-            . " `flb`.`libraryId`   AS `inLibrary`,"
-            . " `flb`.`downloads`   AS `downloads`"
-            . "      FROM `FileInLibrary` AS `flb`"
-            . " LEFT JOIN `File`          AS `fil` ON `fil`.`id` = `flb`.`fileId`"
-            . " WHERE `flb`.`id` = $id";
-      $stm  = $pdo->query($sql);
-      $row  = $stm->fetch(PDO::FETCH_ASSOC);
+      $cnf   = Config::instance();
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->profiles->cache->directory
+                 )
+               );
+      $key   = "file_" . $id;
+      if ($cache->exists($key)) {
+        $row = $cache->fetch($key);
+      }
+      else {
+        $pdo  = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
+        $id   = intval($id);
+        $sql  = "SELECT"
+              . " `flb`.`id`          AS `id`,"
+              . " `flb`.`fileId`      AS `fileId`,"
+              . " `flb`.`filename`    AS `filename`,"
+              . " `fil`.`mimeType`    AS `mimeType`,"
+              . " `fil`.`size`        AS `size`,"
+              . " `fil`.`hash`        AS `hash`,"
+              . " `flb`.`uploadedAt`  AS `uploadedAt`,"
+              . " `flb`.`description` AS `description`,"
+              . " `flb`.`rendered`    AS `rendered`,"
+              . " `flb`.`libraryId`   AS `inLibrary`,"
+              . " `flb`.`downloads`   AS `downloads`"
+              . "      FROM `FileInLibrary` AS `flb`"
+              . " LEFT JOIN `File`          AS `fil` ON `fil`.`id` = `flb`.`fileId`"
+              . " WHERE `flb`.`id` = $id";
+        $stm  = $pdo->query($sql);
+        $row  = $stm->fetch(PDO::FETCH_ASSOC);
+        $cache->store($key, $row);
+      }
       if ($row) {
         $this->id          = $row['id'];
         $this->fileId      = $row['fileId'];
@@ -98,6 +111,14 @@
     public function save()
     {
       $cnf            = Config::instance();
+      $cache          = new Cache(
+                          (object) array(
+                            'directory' => $cnf->profiles->cache->directory
+                          )
+                        );
+      $ownerId        = $this->getLibrary()->ownerId;
+      $key            = "files_" . $ownerId;
+      file_put_contents(__DIR__ . '/../../../dump.txt', $key);
       $pdo            = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $filename       = $pdo->quote($this->filename,    PDO::PARAM_STR);
       $uploadedAt     = $pdo->quote($this->uploadedAt,  PDO::PARAM_STR);
@@ -131,15 +152,26 @@
               `filename` = $filename, `description` = $description, `rendered` = $rendered, `id` = LAST_INSERT_ID(`id`)";
       $pdo->query($sql);
       $this->id = $pdo->lastInsertId();
+      $cache->remove($key);
       return $this->id;
     } // save
 
     public function delete()
     {
-      $cnf = Config::instance();
-      $pdo = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
-      $id  = intval($this->id);
-      $sql = "DELETE FROM `Comment` WHERE `id` IN (SELECT `id` FROM `Comment` WHERE `moduleTypeId` = 3 AND `moduleId` = $id)";
+      $cnf   = Config::instance();
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->profiles->cache->directory
+                 )
+               );
+      $key   = "file_" . $this->id;
+      $cache->remove($key);
+      $ownerId = $this->getLibrary()->ownerId;
+      $key     = "files_" . $ownerId;
+      $cache->remove($key);
+      $pdo   = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
+      $id    = intval($this->id);
+      $sql   = "DELETE FROM `Comment` WHERE `id` IN (SELECT `id` FROM `Comment` WHERE `moduleTypeId` = 3 AND `moduleId` = $id)";
       $pdo->query($sql);
       $sql = "DELETE FROM `FileInLibrary` WHERE `id` = $id";
       $pdo->query($sql);
@@ -157,12 +189,22 @@
 
     public function getLibrary()
     {
-      return new Library($this->libraryId);
+      return new Library($this->inLibrary);
     } // getLibrary
 
     public function download()
     {
-      $cnf = Config::instance();
+      $cnf   = Config::instance();
+      $cache = new Cache(
+                 (object) array(
+                   'directory' => $cnf->profiles->cache->directory
+                 )
+               );
+      $key   = "file_" . $this->id;
+      $cache->remove($key);
+      $ownerId = $this->getLibrary()->ownerId;
+      $key     = "files_" . $ownerId;
+      $cache->remove($key);
       $pdo = new PDO($cnf->db->dsn, $cnf->db->username, $cnf->db->password);
       $sql = "UPDATE `FileInLibrary` SET `downloads` = `downloads` + 1 WHERE `id` = " . intval($this->id);
       $pdo->query($sql);

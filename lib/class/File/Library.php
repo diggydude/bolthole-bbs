@@ -87,7 +87,7 @@
 
     public function listFiles()
     {
-	  return UserFile::listFiles($this->id);
+      return UserFile::listFiles($this->id);
     } // listFiles
 
     public function __get($prop)
