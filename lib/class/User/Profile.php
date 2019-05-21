@@ -284,7 +284,7 @@
       foreach ($rows as $row) {
         $users[$row->userId] = $row;
       }
-      $cach->store($key, $users);
+      $cache->store($key, $users);
       return $users;
     } // search
 
