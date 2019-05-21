@@ -124,6 +124,8 @@
                    WHERE `userId` = " . intval($this->userId);
       $pdo->query($sql);
       $cache->remove($key);
+      $key = "users";
+      $cache->remove($key);
       return $this->userId;
     } // save
 
@@ -176,6 +178,8 @@
       $this->website     = "";
       $this->about       = "";
       $this->rendered    = "";
+      $cache->remove($key);
+      $key = "users";
       $cache->remove($key);
     } // delete
 
