@@ -149,15 +149,17 @@
                       );
 
   $config->profiles = (object) array(
-                        'defaultAvatar'    => '266e735438b81e0f3ff90a023da668b3',
-                        'defaultBanner'    => '62ec503bec9e11b2d6ebe2dd2f23da75',
-                        'defaultTitle'     => 'Russian Bot',
-                        'defaultSignature' => '"No matter where you go, there you are." - Buckaroo Banzai',
-                        'defaultWebsite'   => $config->site->baseUri,
-                        'defaultAbout'     => 'Are you gonna fill this in or what?',
-                        'cache'            => (object) array(
-                                                'directory' => realpath(__DIR__ . '/../cache/profiles')
-                                              )
+                        'defaults' => (object) array(
+                                        'avatar'    => '266e735438b81e0f3ff90a023da668b3',
+                                        'banner'    => '62ec503bec9e11b2d6ebe2dd2f23da75',
+                                        'title'     => 'Russian Bot',
+                                        'signature' => '"No matter where you go, there you are." - Buckaroo Banzai',
+                                        'website'   => $config->site->baseUri,
+                                        'about'     => 'Are you gonna fill this in or what?'
+                                      ),
+                        'cache'    => (object) array(
+                                        'directory' => realpath(__DIR__ . '/../cache/profiles')
+                                      )
                       );
 
   $config->programs = (object) array(
@@ -196,5 +198,7 @@
       'accessLevel' => 4
     )
   );
+
+  echo "Installation completed.\n";
 
 ?>
