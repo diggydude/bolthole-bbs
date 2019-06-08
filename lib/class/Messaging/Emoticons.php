@@ -72,9 +72,17 @@
       return false;
     } // removeIcon
 
-    public function listIcons()
+    public function listIcons($trimKeys = false)
     {
-      return $this->items;
+      if (!$trimKeys) {
+        return $this->items;
+      }
+      $results = array();
+      foreach ($this->items as $k => $v) {
+        $key = trim($k, ':');
+        $results[$key] = $v;
+      }
+      return $results;
     } // listIcons
 
     public function getLastError()

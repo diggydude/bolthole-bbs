@@ -26,8 +26,8 @@
 
   $config->db       = (object) array(
                         'dsn'      => 'mysql:dbname=bolthole;host=127.0.0.1',
-                        'username' => 'mysql_username',
-                        'password' => 'mysql_password'
+                        'username' => 'webuser',
+                        'password' => 'password'
                       );
 
   $config->search    = (object) array(

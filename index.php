@@ -203,7 +203,7 @@
                 <div class="groupLabel">Automatic dark mode switching:</div>
                 <div class="tbl">
                   <div class="tr">
-                    <div class="label">Dark Mode On:</div>
+                    <div class="label">Switch On At:</div>
                     <div class="control">
                       <select id="settings-dark-mode-on">
                         <option value="0">Never</option>
@@ -221,7 +221,7 @@
                     </div>
                   </div>
                   <div class="tr">
-                    <div class="label">Dark Mode Off:</div>
+                    <div class="label">Switch Off At:</div>
                     <div class="control">
                       <select id="settings-dark-mode-off">
                         <option value="0">Never</option>

@@ -26,72 +26,76 @@
                      'about'       => $_POST['about']
                    );
         if ($_FILES) {
-		  // Avatar
-          $uploader = new Uploader($config->files->avatars);
-          if (($info = $uploader->uploadFile($_FILES['avatar'])) === false) {
-            $response->message = $uploader->getLastError();
-            break;
+          // Avatar
+          if (array_key_exists('avatar', $_FILES)) {
+            $uploader = new Uploader($config->files->avatars);
+            if (($info = $uploader->uploadFile($_FILES['avatar'])) === false) {
+              $response->message = $uploader->getLastError();
+              break;
+            }
+            $dimensions = getimagesize($info->path);
+            $maxWidth   = $config->files->avatars->maxWidth;
+            $maxHeight  = $config->files->avatars->maxHeight;
+            if (($dimensions[0] > $maxWidth) || ($dimensions[1] > $maxHeight)) {
+              $response->message = "Avatar dimensions cannot exceed $maxWidth by $maxHeight pixels.";
+              @unlink($info->path);
+              break;
+            }
+            $image = Image::fromFile($info->path);
+            if ($image->width > $image->height) {
+              $cropLeft   = floor(($image->width / 2) - ($image->height / 2));
+              $cropTop    = 0;
+              $cropWidth  = $image->height;
+              $cropHeight = $image->height;
+            }
+            else {
+              $cropLeft   = 0;
+              $cropTop    = floor(($image->height / 2) - ($image->width / 2));
+              $cropWidth  = $image->width;
+              $cropHeight = $image->width;
+            }
+            $image->crop($cropLeft, $cropTop, $cropWidth, $cropHeight);
+            $image->resize(125, 125);
+            $image->setMimeType('image/png');
+            $image->setFilename($config->files->avatars->directory . '/' . $info->hash . '_' . 'large.png');
+            $image->save();
+            $image = Image::fromFile($info->path);
+            $image->crop($cropLeft, $cropTop, $cropWidth, $cropHeight);
+            $image->resize(60, 60);
+            $image->setMimeType('image/png');
+            $image->setFilename($config->files->avatars->directory . '/' . $info->hash . '_' . 'medium.png');
+            $image->save();
+            $image = Image::fromFile($info->path);
+            $image->crop($cropLeft, $cropTop, $cropWidth, $cropHeight);
+            $image->resize(48, 48);
+            $image->setMimeType('image/png');
+            $image->setFilename($config->files->avatars->directory . '/' . $info->hash . '_' . 'small.png');
+            $image->save();
+            unlink($info->path);
+            $params->avatar = $info->hash;
           }
-          $dimensions = getimagesize($info->path);
-          $maxWidth   = $config->files->avatars->maxWidth;
-          $maxHeight  = $config->files->avatars->maxHeight;
-          if (($dimensions[0] > $maxWidth) || ($dimensions[1] > $maxHeight)) {
-            $response->message = "Avatar dimensions cannot exceed $maxWidth by $maxHeight pixels.";
-            @unlink($info->path);
-            break;
+          // Banner
+          if (array_key_exists('banner', $_FILES)) {
+            $uploader = new Uploader($config->files->banners);
+            if (($info = $uploader->uploadFile($_FILES['banner'])) === false) {
+              $response->message = $uploader->getLastError();
+              break;
+            }
+            $dimensions = getimagesize($info->path);
+            $maxWidth   = $config->files->banners->maxWidth;
+            $maxHeight  = $config->files->banners->maxHeight;
+            if (($dimensions[0] > $maxWidth) || ($dimensions[1] > $maxHeight)) {
+              $response->message = "Banner dimensions cannot exceed $maxWidth by $maxHeight pixels.";
+              @unlink($info->path);
+              break;
+            }
+            $image = Image::fromFile($info->path);
+            $image->setMimeType('image/png');
+            $image->setFilename($config->files->banners->directory . '/' . $info->hash . '.png');
+            $image->save();
+            unlink($info->path);
+            $params->banner = $info->hash;
           }
-          $image = Image::fromFile($info->path);
-          if ($image->width > $image->height) {
-            $cropLeft   = floor(($image->width / 2) - ($image->height / 2));
-            $cropTop    = 0;
-            $cropWidth  = $image->height;
-            $cropHeight = $image->height;
-          }
-          else {
-            $cropLeft   = 0;
-            $cropTop    = floor(($image->height / 2) - ($image->width / 2));
-            $cropWidth  = $image->width;
-            $cropHeight = $image->width;
-          }
-          $image->crop($cropLeft, $cropTop, $cropWidth, $cropHeight);
-          $image->resize(125, 125);
-          $image->setMimeType('image/png');
-          $image->setFilename($config->files->avatars->directory . '/' . $info->hash . '_' . 'large.png');
-          $image->save();
-          $image = Image::fromFile($info->path);
-          $image->crop($cropLeft, $cropTop, $cropWidth, $cropHeight);
-          $image->resize(60, 60);
-          $image->setMimeType('image/png');
-          $image->setFilename($config->files->avatars->directory . '/' . $info->hash . '_' . 'medium.png');
-          $image->save();
-          $image = Image::fromFile($info->path);
-          $image->crop($cropLeft, $cropTop, $cropWidth, $cropHeight);
-          $image->resize(48, 48);
-          $image->setMimeType('image/png');
-          $image->setFilename($config->files->avatars->directory . '/' . $info->hash . '_' . 'small.png');
-          $image->save();
-          unlink($info->path);
-          $params->avatar = $info->hash;
-		  // Banner
-          $uploader = new Uploader($config->files->banners);
-          if (($info = $uploader->uploadFile($_FILES['banner'])) === false) {
-            $response->message = $uploader->getLastError();
-            break;
-          }
-          $dimensions = getimagesize($info->path);
-          $maxWidth   = $config->files->banners->maxWidth;
-          $maxHeight  = $config->files->banners->maxHeight;
-          if (($dimensions[0] > $maxWidth) || ($dimensions[1] > $maxHeight)) {
-            $response->message = "Banner dimensions cannot exceed $maxWidth by $maxHeight pixels.";
-            @unlink($info->path);
-            break;
-          }
-          $image = Image::fromFile($info->path);
-          $image->setMimeType('image/png');
-          $image->setFilename($config->files->banners->directory . '/' . $info->hash . '.png');
-          $image->save();
-          unlink($info->path);
-          $params->banner = $info->hash;
         }
         $profile->update($params);
         $user = $profile->getUser();
