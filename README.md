@@ -19,11 +19,11 @@ It's a free hosting account, so you can't upload avatars or other files there. R
 
 The installer will create a configuration file, `conf/config.conf`. Delete `conf/install.php` or move it outside of your document root after you run it. As `conf/config.conf` will contain your database login credentials, it's highly recommended that you move it outside of your document root also, and edit `conf/init_http.php` to reflect its new location.
 
-The caching system will use memcached if available. Otherwise, it will fall back to PHP serrialized flatfiles. *In order to use memcached, one of the following must be true:*
+The caching system will use memcached if available. Otherwise, it will fall back to PHP serialized flatfiles. *In order to use memcached, one of the following must be true:*
 
-(1) Your Web hosting account includes memcached service, or you've purchased a memcached account from a third-party provider
+(1) Your Web hosting account includes memcached service, or you've purchased a memcached account from a third-party provider.
 
-(2) You're running your own server, have installed memcached and the php-memcached extension, and have enabled the extension in `php.ini`
+(2) You're running your own server, have installed memcached and the php-memcached extension, and have enabled the extension in `php.ini`.
 
 If you want to enable inline ANSI art in profiles and blog posts, you'll need to install ANSIFilter and set its path in the Bolthole installer script. A Windows binary and packages for select Linux distros are available. It builds easily on Debian using g++ and make.
 
