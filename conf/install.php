@@ -4,11 +4,12 @@
   require_once(__DIR__ . '/../lib/class/System/Config.php');
   require_once(__DIR__ . '/../lib/class/User/User.php');
   require_once(__DIR__ . '/../lib/func/getOptimumHashCost.php');
+  require_once(__DIR__ . '/../lib/func/randomString.php');
   $config = Config::instance(__DIR__ . '/config.conf');
 
   $config->site     = (object) array(
                         'name'         => "Pam's Confessional",
-                        'documentRoot' => "C:\xampp\www",
+                        'documentRoot' => "/var/www/html",
                         'baseUri'      => 'http://127.0.0.1',
                         'copyright'    => '2019 Diggy Dude. All wrongs deserved.',
                         'description'  => "Well, it's hard to explain, really.",
@@ -27,7 +28,7 @@
   $config->db       = (object) array(
                         'dsn'      => 'mysql:dbname=bolthole;host=127.0.0.1',
                         'username' => 'webuser',
-                        'password' => 'password'
+                        'password' => 'mysql_password'
                       );
 
   $config->search    = (object) array(
@@ -164,8 +165,15 @@
 
   $config->programs = (object) array(
                         'ansifilter' => (object) array(
-                                          'enabled' => true,
-                                          'path'    => 'C:/ansifilter/ansifilter.exe'
+                                          'enabled' => false,
+                                          'path'    => '/usr/bin/ansifilter'
+                                        ),
+                        'memcached'  => (object) array(
+                                          'enabled'      => false,
+                                          'persistentId' => 'bolthole',
+                                          'servers'      => array(
+                                                              array('127.0.0.1', 11211)
+                                                            )
                                         )
                       );
 
@@ -182,7 +190,7 @@
   User::create(
     (object) array(
       'username'    => 'System',
-      'password'    => password_hash('ch@n93m3', $config->security->algorithm, array('cost' => $config->security->optimumHashCost)),
+      'password'    => password_hash(randomString(32), $config->security->algorithm, array('cost' => $config->security->optimumHashCost)),
       'question'    => 'What is your username?',
       'answer'      => 'System',
       'accessLevel' => 4
