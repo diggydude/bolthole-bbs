@@ -41,7 +41,7 @@
               @unlink($info->path);
               break;
             }
-            $image = Image::fromFile($info->path);
+	    $image = Image::fromFile($info->path);
             if ($image->width > $image->height) {
               $cropLeft   = floor(($image->width / 2) - ($image->height / 2));
               $cropTop    = 0;
@@ -168,7 +168,8 @@
             'typeId'    => 4,
             'private'   => true,
             'recipient' => $_POST['profileId'],
-            'data'      => "<a href=\"#\" class=\"alert-profile-link\" data-userId=\"" . $commenter->id . "\">". $commenter->username . "</a>"                         . " commented on your profile."
+	    'data'      => "<a href=\"#\" class=\"alert-profile-link\" data-userId=\"" . $commenter->id . "\">". $commenter->username . "</a>"
+                         . " commented on your profile."
           )
         );
         break;

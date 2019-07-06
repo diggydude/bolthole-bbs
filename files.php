@@ -148,7 +148,8 @@
             'typeId'    => 4,
             'private'   => true,
             'recipient' => $owner->id,
-            'data'      => "<a href=\"#\" class=\"profile-link\" data-userId=\"" . $commenter->id . "\">". $commenter->username . "</a>"                         . " commented on <a href=\"#\" class=\"file-details-link\" data-fileId=\"" . $file->fileId . "\">" . $file->filename . "</a>."
+	    'data'      => "<a href=\"#\" class=\"profile-link\" data-userId=\"" . $commenter->id . "\">". $commenter->username . "</a>"
+                         . " commented on <a href=\"#\" class=\"file-details-link\" data-fileId=\"" . $file->fileId . "\">" . $file->filename . "</a>."
           )
         );
         break;

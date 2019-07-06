@@ -90,7 +90,7 @@
         <!-- a href="#" class="nav-link" id="show-stores-link">Stores</a> &nbsp;
         <a href="#" class="nav-link" id="show-channels-link">Channels</a> &nbsp;
         <a href="#" class="nav-link" id="show-tos-link">Terms of Service</a -->
-        <a href="#" class="nav-link" id="help-link">Help</a>
+        <a href="./help.php" target="_blank" class="nav-link">Help</a>
       </nav>
       <div class="main">
         <aside class="left">
