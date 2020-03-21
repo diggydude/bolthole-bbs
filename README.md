@@ -1,12 +1,6 @@
 # bolthole-bbs
 Everything fun about the Internet packed into a tiny website platform!
 
-A demo site is online here:
-
-http://pamsconfessional.x10host.com/
-
-It's a free hosting account, so you can't upload avatars or other files there. Rest assured everything works when hosted on a real server.
-
 **Installation:**
 
 (1) Upload the files to your document root (`htdocs`, `public_html`, `www`, or whatever).
@@ -123,7 +117,7 @@ The Preferences and Following modules operate completely on the client side. No 
 
 Similarly, alert filtering is done on the client side. No one can see what kinds of alerts you choose to receive.
 
-Private messages are stored in localStorage and marked as delivered in the database once they're sent to the client. A cron script may be used to delete delivered messages and alerts from the database. I'll add one as soon as I get access to a Linux box.
+Private messages are stored in localStorage and marked as delivered in the database once they're sent to the client. A cron script may be used to delete delivered messages and alerts from the database.
 
 As on Twitter, users may include emojis in their profiles, display names, custom titles, and signatures, but not in most other places. Neither Mister Obvious nor I are keen on seeing smiling piles of poo everywhere we look.
 
